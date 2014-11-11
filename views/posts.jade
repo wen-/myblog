@@ -21,13 +21,13 @@ if(posts && posts.length>0)
                     div.log_box_details
                         div.log_details_t
                             div.log_head_ico
-                                a(href="",title="#{post.name}")
-                                    -if(!!post.headIco){
-                                        img(src="#{post.headIco}")
+                                a(href="",title="#{user.name}")
+                                    -if(!!user.headIco){
+                                        img(src="#{user.headIco}")
                                     -}else{
                                         img(src="/images/head.gif")
                                     -}
-                                    p #{post.name}
+                                    p #{user.name}
                             h4
                                 a.uid(data-uid="#{post._id}") #{post.title}
                             p

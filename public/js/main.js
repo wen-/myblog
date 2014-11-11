@@ -443,6 +443,9 @@ $(function(){
             if(this.id == "fworkTime"){
                 var option = "minDate";
             }
+            if(this.id == "tworkTime"){
+                $(".currentWorkTime").prop("checked",false);
+            }
             //var option = this.id == "fworkTime" ? "minDate" : "maxDate",
             var instance = $( this ).data( "datepicker" ),
             date = $.datepicker.parseDate(

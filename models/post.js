@@ -25,6 +25,8 @@ var postSchema = new mongoose.Schema({
 var postModel = postDb.Db.model('post', postSchema);
 
 function post(opt) {
+    this.name = opt.name;
+    this.headico = opt.headico;
     this.email = opt.email;
     this.title = opt.title;
     this.sort = opt.sort;
@@ -39,6 +41,8 @@ function post(opt) {
 //保存文章
 post.prototype.save = function(callback) {
     var post = {
+        name : this.name,
+        headico : this.headico,
         email : this.email,
         title : this.title,
         sort : this.sort,

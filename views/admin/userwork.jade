@@ -16,6 +16,28 @@ block content
                                 input#fworkTime.workTime(type="text",name="fworkTime")
                                 |_&nbsp;&nbsp;
                                 input#tworkTime.workTime(type="text",name="tworkTime")
+                                input(style="vertical-align:middle;margin-top:0;width:auto;").currentWorkTime(type='checkbox')
+                                span(style="vertical-align:middle;") 至今
                             div.form_actions
                                 button#sendWorkData.btn(type="submit") 保&nbsp;存
     include ../footData
+    script.
+        $(".currentWorkTime").click(function(){
+            if($(this).prop("checked")){
+                $("#tworkTime").val("至今");
+            }else{
+                if($("#tworkTime").val() == "至今"){
+                    $("#tworkTime").val("");
+                }
+            }
+        });
+        $("#tworkTime").keyup(function(){
+            var v = $(this).val();
+            if(v != "至今"){
+                $(".currentWorkTime").prop("checked",false);
+            }
+        }).blur(function(){
+            if($(this).val() != "至今"){
+                $(".currentWorkTime").prop("checked",false);
+            }
+        });
