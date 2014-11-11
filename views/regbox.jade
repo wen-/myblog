@@ -1,0 +1,24 @@
+div.reg_box
+    h1.reg_box_title 注册新用户
+    form.reg_data(method="post")
+        ul.ui_ul_input
+            li
+                label.reg_mail(for="email") 电子邮箱：
+                input#email.reg_mail_txt(type="text",name="email")
+                div.msg_txt
+            li
+                label.reg_pass(for="password") 密码：
+                input#password.reg_pass_txt(type="password",name="password")
+                div.msg_txt
+            li
+                label.reg_again_pass(for="password-repeat") 确认密码：
+                input#password-repeat.reg_again_pass_txt(type="password",name="password-repeat")
+                div.msg_txt
+            li.reg_code
+                label(for="codeIMG") 验证码：
+                input#codeIMG.reg_codeIMG_txt(type="text",name="codeIMG")
+                img#regCodeUrl.CodeUrl(src="/code/textjpg?#{new Date().getTime()}",alt="",title="点击更换")
+        -if(locals.error)
+            div.alert.alert-error(style="margin: -10px 0 1em 107px;") #{error}
+        div.form_actions
+                button.btn.btn-primary(type="submit") 注册

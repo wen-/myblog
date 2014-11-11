@@ -1,0 +1,21 @@
+extends layout
+block content
+    div#userCenterBox.userCenter_box
+        h1.userCenter_title 工作信息
+        div#userCenterData.userCenter_data
+            dl.work_link
+                dd
+                    form(method="post",id="workData",name="workData",action="/users/userwork")
+                        input(type="hidden",name="email",id="email",value="#{user.email}")
+                        div.work_list.clearfix
+                            div.work_company.lfloat
+                                div.workCompany_t 工作单位：
+                                input#workCompany.workCompany_m(type="text",name="workCompany")
+                            div.work_time.lfloat
+                                div.workTime_t 工作时间：
+                                input#fworkTime.workTime(type="text",name="fworkTime")
+                                |_&nbsp;&nbsp;
+                                input#tworkTime.workTime(type="text",name="tworkTime")
+                            div.form_actions
+                                button#sendWorkData.btn(type="submit") 保&nbsp;存
+    include ../footData

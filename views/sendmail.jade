@@ -1,0 +1,13 @@
+//
+   Created by geong on 2014/5/27.
+extends layout
+block content
+    div.sendmail_msg
+        if(locals.err)
+            h1 #{err}
+            p 账户激活邮件发送失败，请检查网络！
+        else if(locals.success)
+            h1 #{success}
+            p 账户激活邮件已经发送到您填写的
+                a(href='http://#{mail}',target="_blank") #{mail}
+                |邮箱，请前往查看，不同邮箱安全机制不同，如收件箱没有，可到垃圾邮件文件夹查看！

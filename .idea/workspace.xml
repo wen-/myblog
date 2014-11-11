@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cb5d1324-4208-469a-8f06-af693f933df8" name="Default" comment="" />
+    <ignored path="myblog.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="myblog" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1425" max-vertical-offset="3500">
+              <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+              <folding>
+                <marker date="1415697592296" expanded="true" signature="2056:2846" placeholder="{&quot;dest&quot;: './uploads/'...}" />
+                <marker date="1415697592296" expanded="true" signature="2095:2327" placeholder="{...}" />
+                <marker date="1415697592296" expanded="true" signature="2383:2488" placeholder="{...}" />
+                <marker date="1415697592296" expanded="true" signature="2397:2485" placeholder="{...}" />
+                <marker date="1415697592296" expanded="true" signature="2572:2729" placeholder="{...}" />
+                <marker date="1415697592296" expanded="true" signature="2773:2844" placeholder="{...}" />
+                <marker date="1415697592296" expanded="true" signature="2900:3125" placeholder="{...}" />
+                <marker date="1415697592296" expanded="true" signature="3021:3128" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.jade" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/index.jade">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="775">
+              <caret line="0" column="13" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
+              <folding>
+                <marker date="1415697909343" expanded="true" signature="20:969" placeholder="..." />
+                <marker date="1415697909343" expanded="true" signature="36:969" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1025" max-vertical-offset="15850">
+              <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+              <folding>
+                <marker date="1415698992468" expanded="true" signature="966:1062" placeholder="{&quot;title&quot;: 'Express'...}" />
+                <marker date="1415698992468" expanded="true" signature="1396:4339" placeholder="{...}" />
+                <marker date="1415698992468" expanded="true" signature="1690:1887" placeholder="{...}" />
+                <marker date="1415698992468" expanded="true" signature="5199:7646" placeholder="{...}" />
+                <marker date="1415698992468" expanded="true" signature="7915:7986" placeholder="{...}" />
+                <marker date="1415698992468" expanded="true" signature="10345:17146" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="posts.jade" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/views/posts.jade">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-1.9616789" vertical-offset="2025" max-vertical-offset="2600">
+              <caret line="38" column="43" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/user.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="3000" max-vertical-offset="4425">
+              <caret line="120" column="14" selection-start-line="120" selection-start-column="14" selection-end-line="120" selection-end-column="14" />
+              <folding>
+                <marker date="1415593121562" expanded="true" signature="1440:1543" placeholder="{...}" />
+                <marker date="1415593121562" expanded="true" signature="2473:2687" placeholder="{...}" />
+                <marker date="1415593121562" expanded="true" signature="2592:2638" placeholder="{...}" />
+                <marker date="1415593121562" expanded="true" signature="2642:2684" placeholder="{...}" />
+                <marker date="1415593121562" expanded="true" signature="2819:2968" placeholder="{...}" />
+                <marker date="1415593121562" expanded="true" signature="2909:2954" placeholder="{...}" />
+                <marker date="1415593121562" expanded="true" signature="2958:2972" placeholder="{...}" />
+                <marker date="1415593121562" expanded="true" signature="3065:3232" placeholder="{...}" />
+                <marker date="1415593121562" expanded="true" signature="3137:3183" placeholder="{...}" />
+                <marker date="1415593121562" expanded="true" signature="3187:3229" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/js/main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="11200" max-vertical-offset="26250">
+              <caret line="448" column="10" selection-start-line="448" selection-start-column="10" selection-end-line="448" selection-end-column="10" />
+              <folding>
+                <marker date="1415677188421" expanded="true" signature="4374:4830" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="4921:5985" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="5075:5955" placeholder="{&quot;type&quot;: &quot;POST&quot;...}" />
+                <marker date="1415677188421" expanded="true" signature="5282:5896" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="5382:5670" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="5559:5638" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="5674:5879" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="5717:5823" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="5934:5938" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="6069:6082" placeholder="/*...*/" />
+                <marker date="1415677188421" expanded="true" signature="6209:6222" placeholder="/*...*/" />
+                <marker date="1415677188421" expanded="true" signature="6318:6320" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="6455:7671" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="6535:6884" placeholder="{&quot;position&quot;: &quot;absolute&quot;...}" />
+                <marker date="1415677188421" expanded="true" signature="6913:7279" placeholder="{&quot;position&quot;: &quot;absolute&quot;...}" />
+                <marker date="1415677188421" expanded="true" signature="7484:7585" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="7851:8086" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="7974:8076" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="8135:8381" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="8215:8268" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="8412:10320" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="8439:10323" placeholder="{&quot;type&quot;: &quot;POST&quot;...}" />
+                <marker date="1415677188421" expanded="true" signature="8666:10178" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="9046:9159" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="9163:9195" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="9261:9573" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="9420:9551" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="9617:10118" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="9636:9685" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="9997:10089" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="10202:10326" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="14530:17625" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="14547:17587" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="14608:17275" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="15217:17271" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="15273:16983" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="17330:17542" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="17404:17471" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="17730:17995" placeholder="/*...*/" />
+                <marker date="1415677188421" expanded="true" signature="18094:18106" placeholder="/*...*/" />
+                <marker date="1415677188421" expanded="true" signature="19092:19362" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="19542:19629" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="21448:21661" placeholder="{&quot;changeMonth&quot;: true...}" />
+                <marker date="1415677188421" expanded="true" signature="22077:22616" placeholder="{&quot;changeMonth&quot;: true...}" />
+                <marker date="1415677188421" expanded="true" signature="22457:22586" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="22626:23360" placeholder="/*...*/" />
+                <marker date="1415677188421" expanded="true" signature="23444:23458" placeholder="/*...*/" />
+                <marker date="1415677188421" expanded="true" signature="23493:24549" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="23539:23686" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="23755:24169" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="23745:23985" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="23796:23969" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="23989:24109" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="24034:24055" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="24231:24539" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="24379:24513" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="24715:24729" placeholder="/*...*/" />
+                <marker date="1415677188421" expanded="true" signature="24790:25908" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="24876:24927" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="25002:25584" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="24992:25317" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="25166:25248" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="25321:25532" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="25403:25525" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="25631:25893" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="25756:25873" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="26016:26030" placeholder="/*...*/" />
+                <marker date="1415677188421" expanded="true" signature="26112:27110" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="26259:26647" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="26261:26525" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="26382:26509" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="26529:26593" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="26740:27028" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="26878:26986" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="27164:27176" placeholder="/*...*/" />
+                <marker date="1415677188421" expanded="true" signature="27202:28319" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="27269:27418" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="27488:28035" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="27494:27755" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="27635:27718" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="27759:28015" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="27843:27954" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="28069:28297" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="28194:28290" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="28410:28422" placeholder="/*...*/" />
+                <marker date="1415677188421" expanded="true" signature="28507:29623" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="28618:29249" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="28652:28959" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="28778:28917" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="28963:29207" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="29101:29143" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="29350:29584" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="29421:29532" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="29760:29911" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="29781:29862" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="29922:29954" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="30056:30273" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="30094:30227" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="30314:30326" placeholder="/*...*/" />
+                <marker date="1415677188421" expanded="true" signature="30410:31956" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="30492:31743" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="30565:31194" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="30728:31004" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="30871:30902" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="31008:31114" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="31225:31510" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="33788:44814" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="33956:35229" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="35674:44479" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="35892:38639" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="36023:36136" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="36334:38435" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="36457:37406" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="36718:37354" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="36990:37297" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="37184:37275" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="37410:38404" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="37613:38371" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="37823:38232" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="37986:38199" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="38685:39905" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="38893:39692" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="39132:39662" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="39206:39584" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="40033:44117" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="40312:40384" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="40450:40556" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="40805:43706" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="41271:41707" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="41718:42607" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="42183:42610" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="42360:42590" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="42713:43635" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="42775:43616" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="43003:43247" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="43802:44115" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="43847:44117" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="43987:44053" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="44057:44116" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="44226:44372" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="44483:44735" placeholder="{...}" />
+                <marker date="1415677188421" expanded="true" signature="44652:44662" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../app_1/routes/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="8025" max-vertical-offset="27900">
+              <caret line="321" column="11" selection-start-line="321" selection-start-column="11" selection-end-line="321" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/views/posts.jade" />
+      </list>
+    </option>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myblog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myblog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myblog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myblog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myblog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myblog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myblog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myblog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myblog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="routes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myblog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myblog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="options.lastSelected" value="preferences.sourceCode" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../app_1" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="FullScreen" value="false" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\node\myblog\views" />
+      <recent name="D:\node\myblog\conf" />
+      <recent name="D:\node\myblog\routes" />
+      <recent name="D:\node\myblog\views\admin" />
+      <recent name="D:\node\myblog\models" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Node.js.bin\www">
+    <configuration default="false" name="Db.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="Db.js" working-dir="$PROJECT_DIR$/models">
+      <RunnerSettings RunnerId="Basic" />
+      <RunnerSettings RunnerId="debuggableProgram" />
+      <ConfigurationWrapper RunnerId="Basic" />
+      <ConfigurationWrapper RunnerId="debuggableProgram" />
+      <method />
+    </configuration>
+    <configuration default="false" name="User.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="User.js" working-dir="$PROJECT_DIR$/models">
+      <RunnerSettings RunnerId="Basic" />
+      <RunnerSettings RunnerId="debuggableProgram" />
+      <ConfigurationWrapper RunnerId="Basic" />
+      <ConfigurationWrapper RunnerId="debuggableProgram" />
+      <method />
+    </configuration>
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
+      <setting name="configLocationType" value="CONFIG_FILE" />
+      <setting name="settingsFile" value="" />
+      <setting name="serverType" value="INTERNAL" />
+      <setting name="preferredDebugBrowser" value="Chrome" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
+      <method />
+    </configuration>
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="Node.js.bin\www" />
+      <item index="1" class="java.lang.String" itemvalue="Node.js.Db.js" />
+      <item index="2" class="java.lang.String" itemvalue="Node.js.User.js" />
+    </list>
+    <recent_temporary>
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Node.js.User.js" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.Db.js" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cb5d1324-4208-469a-8f06-af693f933df8" name="Default" comment="" />
+      <created>1414054307125</created>
+      <option name="number" value="Default" />
+      <updated>1414054307125</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16282527" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328084" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/node_modules/body-parser/index.js</url>
+          <line>78</line>
+          <option name="timeStamp" value="186" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="194" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../app_1/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="8025" max-vertical-offset="27900">
+          <caret line="321" column="11" selection-start-line="321" selection-start-column="11" selection-end-line="321" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/posts.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.9616789" vertical-offset="2025" max-vertical-offset="2600">
+          <caret line="38" column="43" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

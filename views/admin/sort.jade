@@ -1,0 +1,96 @@
+extends layout
+block content
+	style.
+		th,td {
+			text-align:center;
+		}
+		.table a {
+			display:inline-block;
+			margin: 0 5px;
+		}
+	table.table
+		thead
+			tr
+				td(colspan="2",style="border-right:0;font-size:18px;font-weight:bold;text-align:left;padding-left:2em;")
+					|分类列表
+			tr
+				th(style="width:70%;") 分类名称
+				th 操作
+		tbody.sortList
+			-if(sorts){
+				each item in sorts
+					tr
+						td #{item.sorttxt}
+						td
+							a.sortDel(href='/admin/sort/del?id=#{item._id}') 删除
+			-}
+		tfoot
+			td(colspan="2",style="text-align:right;")
+				form.addNewSort(method="post",action="/admin/sort")
+					span.err_msg(style="color:red;display:none;")
+					input(type="text",name="sort")
+					button.addNewSortBtn.btn(type="submit",style="margin:0 2em 0 10px;") 新增分类
+	-if(total>10)
+		.pagebox
+			#pagebox.jPaginate
+	include ../footjs
+	script(src='/js/page/jquery.paginate.js')
+	script.
+		$(function(){
+			if(#{total}>10){
+				var pageurl = "/admin/sort";
+				//console.log(pageurl);
+				$("#pagebox").paginate({
+					count 		: Math.ceil(#{total}/10),
+					start 		: 1,
+					display     : 10,
+					border					: true,
+					border_color			: '#BEF8B8',
+					text_color  			: '#68BA64',
+					background_color    	: '#E3F2E1',
+					border_hover_color		: '#68BA64',
+					text_hover_color  		: 'black',
+					background_hover_color	: '#fff',
+					images					: false,
+					mouse					: 'press',
+					onChange     			: function(page){
+						$.ajax({
+							type: "GET",
+							url: pageurl,
+							data: {"page":page},
+							success: function (data) {
+								htm(data);
+							},
+							error: function (err) {
+								alert(err)
+							}
+						});
+					}
+				});
+			}
+			$(document).on("click",".sortDel",function(){
+				var d = window.confirm("确定删除？");
+				if(d){
+					return;
+				}else{
+					return false;
+				}
+			});
+			$(".addNewSortBtn").click(function(){
+				var $this = $(this);
+				var v = $.trim($this.prev("input[name='sort']").val());
+				if(!v){
+					$("span.err_msg").show().html("分类名称不能为空！");
+					return false;
+				}
+			});
+			function htm(data){
+				var txts = [];
+				$.each(data.posts,function(i,n){
+					var dtxt = '<a class="sortDel" href="/admin/sort/del?id='+n.id+'">删除</a>';
+					var t = '<tr><td>'+n.sorttxt+'</td><td>'+dtxt+'</td></tr>';
+					txts.push(t);
+				});
+				$(".sortList").html(txts.join(""));
+			}
+		});

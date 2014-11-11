@@ -1,0 +1,14 @@
+extends layout
+block content
+	include header
+	section.section
+		.lfloat.submenu_box
+			include menu
+		.submenu_content
+			iframe(name="iframe",src="/admin/bloglist")
+	#gotop TOP
+	include ../footjs
+	script.
+		$(function(){
+			$(".section").height($(window).height()-$(".header").outerHeight());
+		})

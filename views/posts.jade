@@ -1,0 +1,99 @@
+if(posts && posts.length>0)
+    -posts.forEach(function(post, index){
+        -var d = new Date()
+        -d.setTime(post.time)
+        -var y = d.getFullYear()
+        -var m = d.getMonth()+1
+        -var date = d.getDate()
+        -if(date < 10)
+            -date = "0"+date
+        -var time = y+'-'+m+'-'+date
+        -var digest = []
+        -if(post.digest.indexOf("__||__")>-1)
+            -digest = post.digest.split("__||__")
+        div.log_box
+            div.log_time
+                span #{m} - #{date}
+            div.log_time_ico
+                div.ico_arrow
+            div.log_box_module
+                div.log_box_body
+                    div.log_box_details
+                        div.log_details_t
+                            div.log_head_ico
+                                a(href="",title="#{post.name}")
+                                    -if(!!post.headIco){
+                                        img(src="#{post.headIco}")
+                                    -}else{
+                                        img(src="/images/head.gif")
+                                    -}
+                                    p #{post.name}
+                            h4
+                                a.uid(data-uid="#{post._id}") #{post.title}
+                            p
+                                small #{time}
+                        div.log_details_m #{digest[0]}
+                            -if(digest[1])
+                                img(src="#{digest[1]}",alt="")
+                        div.log_comment_box(id="commentBox#{post._id}")
+                            div.comment_box_title
+                                h3 评论：
+                            div.comment_box_m
+
+                            div.comment_box_b
+                                form.log_comment_data(method="post")
+                                    ul.ui_ul_input
+                                        if(locals.user)
+                                            li
+                                                label 姓名：
+                                                input(type="text",name="name",value="#{locals.user.name}")
+                                            li
+                                                label 邮箱：
+                                                input(type="text",name="email",value="#{locals.user.email}")
+                                        else
+                                            li
+                                                label 姓名：
+                                                input(type="text",name="name")
+                                            li
+                                                label 邮箱：
+                                                input(type="text",name="email")
+                                        li
+                                            label.lfloat 评论：
+                                            textarea(name="content")
+                                        li
+                                            label 验证码：
+                                            input.codeIMG_txt(type="text",name="codeIMG")
+                                            img.commentCodeUrl.CodeUrl(src="/images/demoCode.png",alt="",title="点击获取验证码")
+                                    div.comment_msg(id="msg#{post._id}") 数据发送中
+                                        img(style="vertical-align: middle;height:3px",src="/images/ajax-loader.gif",alt="")
+                                    div.form_actions
+                                        button.btn.send_comment(id="comment#{post._id}",type="submit",data-url="/comments/#{post._id}") 评论
+                        div.log_details_b.clearfix
+                            p.info.lfloat
+                                | 阅读：<span class="read_num">#{post.pv}</span>
+                                |&nbsp;|&nbsp;
+                                |评论：
+                                if(!!post.comments)
+                                    |<span class="comments_num">#{post.comments}</span>
+                                else
+                                    |<span class="comments_num">0</span>
+                                div.rfloat
+                                    -if(!posts[index].all){
+                                        a.show_all(data-url="/new_version/u/#{post._id}") 查看全文
+                                    -}else if(!!post.comments){
+                                        a.comments_all(data-url="/getComments/#{post._id}") 查看评论
+                                    -}else{
+                                        a.write_comment 发表评论
+                                    -}
+                div.log_box_arrow
+                    div.log_box_arrow1
+
+    -})
+script#comment-template(type="text/html")
+    div.comment_list
+        div.comments_details_t
+            a.head_ico(href="#")
+                img(src="/images/head.gif")
+            a.head_name(href="#")
+            span.info 回复于 <span></span>
+        div.comments_details_m

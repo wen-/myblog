@@ -1,0 +1,14 @@
+//
+   Created by geong on 2014/5/27.
+
+extends layout
+block content
+    div.activation_msg
+        if(locals.err)
+            p #{err}
+        else if(locals.success)
+            p #{success}
+                span 5
+                |秒后跳转到首页。
+                |如果没有自动跳转，请点击&nbsp;
+                a(href="/") 首页

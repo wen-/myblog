@@ -1,0 +1,218 @@
+extends layout
+block content
+	style.
+		th,td {
+			text-align:center;
+		}
+		.table a {
+			display:inline-block;
+			margin: 0 5px;
+		}
+	table.table
+		thead
+			tr
+				td(colspan="2",style="border-right:0;font-size:18px;font-weight:bold;text-align:left;padding-left:2em;")
+					-if(_t == "recycle"){
+						|文章列表
+					-}else{
+						|回收站列表
+					-}
+				td(colspan="2",style="border-left:0;text-align:right;")
+					div.search_box
+						input(type="text",name="keyword",placeholder='请输入搜索关键字')
+						button.blogsearch.btn(type="button") 搜索
+			tr
+				th(style="width:40%;") 文章标题
+				th 发表时间
+				th 所属分类
+				th 操作
+		tbody.blogList
+			-if(posts){
+				each item in posts
+					-var d = new Date()
+					-d.setTime(item.time)
+					-var y = d.getFullYear()
+					-var m = d.getMonth()+1
+					-var date = d.getDate()
+					-if(date < 10){
+						-date = "0"+date
+					-}
+					-var time = y+'-'+m+'-'+date
+					-var id = item.id
+					tr
+						td #{item.title}
+						td #{time}
+						td #{item.sort}
+						td
+							-if(_t == "recycle"){
+								a.blogEdit(href='/admin/blog/edit?id=#{id}') 编辑
+								a.blogRecycle(href='/admin/blog/recycle?id=#{id}') 删除
+							-}else{
+								a.blogRestore(href='/admin/blog/restore?id=#{id}') 还原
+								a.blogDel(href='/admin/blog/del?id=#{id}') 彻底删除
+							-}
+			-}
+		-if(total>1)
+			tfoot
+				td(colspan="3") &nbsp;
+				td
+					-if(_t == "recycle"){
+						a.blogRecycleAll(href='/admin/blog/recycle') 全部删除
+					-}else{
+						a.blogRestoreAll(href='/admin/blog/restore') 全部还原
+						a.blogDelAll(href='/admin/blog/del') 全部删除
+					-}
+	-if(total>10)
+		.pagebox
+			#pagebox.jPaginate
+	include ../footjs
+	script(src='/js/page/jquery.paginate.js')
+	script.
+		$(function(){
+			if(#{total}>10){
+				var pageurl = "#{_t}"=="recycle"?"/admin/bloglist":"/admin/bloglist?recycle=1";
+				//console.log(pageurl);
+				$("#pagebox").paginate({
+					count 		: Math.ceil(#{total}/10),
+					start 		: 1,
+					display     : 10,
+					border					: true,
+					border_color			: '#BEF8B8',
+					text_color  			: '#68BA64',
+					background_color    	: '#E3F2E1',
+					border_hover_color		: '#68BA64',
+					text_hover_color  		: 'black',
+					background_hover_color	: '#fff',
+					images					: false,
+					mouse					: 'press',
+					onChange     			: function(page){
+						$.ajax({
+							type: "GET",
+							url: pageurl,
+							data: {"page":page},
+							success: function (data) {
+								htm(data);
+							},
+							error: function (err) {
+								alert(err)
+							}
+						});
+					}
+				});
+			}
+			$(document).on("click",".blogDel,.blogRecycle",function(){
+				var d = window.confirm("确定删除？");
+				if(d){
+					return;
+				}else{
+					return false;
+				}
+			});
+			var searchurl = "#{_t}" == "recycle" ? "/admin/blog/search" : "/admin/blog/search?recycle=1";
+			$(".blogsearch").click(function(){
+				var currentPage = 1, showPage = true;
+				var keyword = $.trim($("input[name='keyword']").val());
+				function search(){
+					$.ajax({
+						type: "GET",
+						url: searchurl,
+						data: {"keyword": keyword,"page":currentPage},
+						success: function (data) {
+							if(data.total > 10){
+								if(showPage){
+									$("#pagebox").show();
+									$("#pagebox").paginate({
+										count 		: Math.ceil(data.total/10),
+										start 		: 1,
+										display     : 10,
+										border					: true,
+										border_color			: '#BEF8B8',
+										text_color  			: '#68BA64',
+										background_color    	: '#E3F2E1',
+										border_hover_color		: '#68BA64',
+										text_hover_color  		: 'black',
+										background_hover_color	: '#fff',
+										images					: false,
+										mouse					: 'press',
+										onChange     			: function(page){
+											currentPage = page;
+											search(keyword);
+										}
+									});
+									showPage = false;
+								}
+							}else{
+								$("#pagebox").hide();
+							}
+							htm(data);
+						},
+						error: function (err) {
+							alert(err);
+						}
+					});
+				}
+				search();
+			});
+			function htm(data){
+				var txts = [],ed="",de="",re="";
+				if(data.total>1){
+					$("tfoot").show();
+				}else{
+					$("tfoot").hide();
+				}
+				if($("a.blogRecycleAll").length > 0){
+					ed = '<a class="blogEdit" href="/admin/blog/edit?id=';
+					de = '<a class="blogRecycle" href="/admin/blog/recycle?id=';
+				}else{
+					de = '<a class="blogDel" href="/admin/blog/del?id=';
+					re = '<a class="blogRestore" href="/admin/blog/restore?id=';
+				}
+				$.each(data.posts,function(i,n){
+					var date = new Date();
+					date.setTime(n.time);
+					var y = date.getFullYear();
+					var m = date.getMonth()+1;
+					var d = date.getDate()<10?"0"+date.getDate():date.getDate();
+					var time = y+'-'+m+'-'+d;
+					var dtxt = ed + n._id + '">编辑</a>' + de + n._id + '">删除</a>';
+					if(re){
+						dtxt = re + n._id + '">还原</a>' + de + n._id + '">彻底删除</a>';
+					}
+					var t = '<tr><td>'+n.title+'</td><td>'+time+'</td><td>'+n.sort+'</td><td>'+dtxt+'</td></tr>';
+					txts.push(t);
+				});
+				$(".blogList").html(txts.join(""));
+			}
+			$(".blogDelAll,.blogRecycleAll,.blogRestoreAll").click(function(){
+				var $this = $(this),DEL='';
+				if($this.hasClass("blogDelAll")){
+					var d = window.confirm("确定删除？");
+					if(!d){
+						return false;
+					}
+					DEL = ".blogDel";
+				}else if($this.hasClass("blogRecycleAll")){
+					var d = window.confirm("全部删除？");
+					if(!d){
+						return false;
+					}
+					DEL = ".blogRecycle";
+				}else{
+					var d = window.confirm("全部还原？");
+					if(!d){
+						return false;
+					}
+					DEL = ".blogRestore";
+				}
+				var $del = $this.parents(".table").find(DEL);
+				var _ids = [];
+				$.each($del,function(i,n){
+					var url = $(this).attr("href");
+					var _id = url.substring(url.indexOf("=")+1);
+					_ids.push(_id);
+				})
+				$this.attr("href",$this.attr("href")+"?id="+_ids.join("|"));
+				//console.log($this.attr("href"));
+				//return false;
+			});
+		});

@@ -1,0 +1,66 @@
+extends layout
+block content
+	table.table
+		tr
+			th(colspan="2",style="border-right:0;font-size:18px;font-weight:bold;text-align:left;padding-left:2em;") 验证码设置
+		tr
+			th 长度
+			td
+				-if(codeconf)
+					input(type="text",maxlength="1",name="codelength",value="#{codeconf.length}")
+				-else
+					input(type="text",maxlength="1",name="codelength")
+	.save_code(style="text-align:center;")
+		input(type="hidden",value="#{user.email}",name="email")
+		div.err_msg(style="visibility:hidden;")
+			span 出错信息
+		button.btn(type="button") 保存
+
+
+	include ../footjs
+	script.
+		$(function(){
+			$(".save_code button").click(function(){
+				var $this = $(this);
+				$this.prop("disabled",true);
+				if($("input[name='codelength']").val() == ""){
+					$("div.err_msg").css({"visibility":"visible"});
+					$("div.err_msg span").html("长度不能为空！");
+					window.setTimeout(function(){
+						$this.prop("disabled",false);
+						$("div.err_msg").css({"visibility":"hidden"});
+					},2000)
+					return false;
+				}
+				$.ajax({
+					type: "POST",
+					url: window.location.pathname,
+					data: {"codelength":$("input[name='codelength']").val()},
+					success: function (data) {
+						if(data.success){
+							$("div.err_msg").css({"visibility":"visible"});
+							$("div.err_msg span").html("保存成功！");
+							window.setTimeout(function(){
+								$this.prop("disabled",false);
+								$("div.err_msg").css({"visibility":"hidden"});
+							},1000);
+						}else{
+							$("div.err_msg").css({"visibility":"visible"});
+							$("div.err_msg span").html("保存失败！");
+							window.setTimeout(function(){
+								$this.prop("disabled",false);
+								$("div.err_msg").css({"visibility":"hidden"});
+							},1000);
+						}
+					},
+					error: function (err) {
+						$("div.err_msg").css({"visibility":"visible"});
+						$("div.err_msg span").html("保存失败！");
+						window.setTimeout(function(){
+							$this.prop("disabled",false);
+							$("div.err_msg").css({"visibility":"hidden"});
+						},1000);
+					}
+				});
+			});
+		});

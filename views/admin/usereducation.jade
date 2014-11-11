@@ -1,0 +1,36 @@
+extends layout
+block content
+    div#userCenterBox.userCenter_box
+        h1.userCenter_title 教育背景
+        div#userCenterData.userCenter_data
+            dl.education_link
+                dd
+                    form(method="post",id="educationData",name="educationData",action="/users/usereducation")
+                        input(type="hidden",name="email",id="email",value="#{user.email}")
+                        div.education_list.clearfix
+                            div.school_sort.lfloat
+                                div.schoolSort_t 学校类型
+                                select#schoolSort.schoolSort_m.select(name="schoolSort")
+                                    option 请选择
+                                    option 博士
+                                    option 硕士
+                                    option 大学
+                                    option 高中
+                                    option 初中
+                                    option 小学
+                                    option 其他
+                            div.school_name.lfloat
+                                div.schoolName_t 学校名称
+                                input#schoolName.schoolName_m(type="text",name="schoolName")
+                            div.school_year.lfloat
+                                div.schoolYear_t 入学年份
+                                select#schoolYear.schoolYear_m.select(name="schoolYear")
+                                    option 请选择
+                                    -var currentY = new Date().getFullYear();
+                                    -var Y = currentY - 130;
+                                    -for(;Y <= currentY;currentY--){
+                                        option #{currentY}
+                                    -}
+                            div.form_actions
+                                button#sendEducationData.btn(type="submit") 保&nbsp;存
+    include ../footData

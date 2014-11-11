@@ -1,0 +1,113 @@
+body{
+    padding:0;
+}
+/****表格样式1********/
+table,th,td{
+    border-collapse: collapse;
+    background:#fff;
+}
+.table{
+    width:100%;
+}
+.table,.table td{
+    border:solid 1px #ccc;
+}
+.table th{
+    border:solid 1px #ccc;
+    width:100px;
+}
+.table thead tr td{
+    background: #eee;
+    color:#333;
+}
+th,td{
+    padding:8px 8px;
+}
+.header{
+    height:50px;
+    background-color: #fafafa;
+    background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));
+    background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
+    background-image: -o-linear-gradient(top, #ffffff, #f2f2f2);
+    background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
+    background-repeat: repeat-x;
+    border-bottom: 5px solid #d4d4d4;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);
+    *zoom: 1;
+}
+.logo{
+    padding-left: 2em;
+    line-height: 50px;
+}
+.headnav{
+    margin-right: 2em;
+}
+.headnav li{
+    display:inline-block;
+    *display:inline;
+    zoom:1;
+    margin:20px 1em 0;
+}
+.submenu_box{
+    width: 200px;
+    height: 100%;
+    border-right: solid 1px #ccc;
+    padding-top:1000px;
+    margin-top:-1000px;
+}
+.submenu_box dt{
+    font-size: 14px;
+    font-weight: bold;
+    padding:.5em 2em;
+    background-color: #ccc;
+}
+.submenu_box dd a{
+    color: #555;
+    display: block;
+    padding:.5em 2em .5em 4em;
+}
+.submenu_box dd a:hover{
+    background-color: #efefef;
+    text-decoration: none;
+}
+.submenu_box dd a.current{
+    background-color: #efefef;
+}
+.submenu_content{
+    padding-left: 201px;
+    height: 100%;
+}
+.submenu_content iframe{
+    height:100%;
+    width:100%;
+    border:0;
+}
+.send_blog{
+    margin-top:2em;
+    text-align: center;
+}
+.digestAccessory{
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    height: 33px;
+    width: 80px;
+    margin-left: 1em;
+    *display:inline;
+    zoom:1;
+}
+.err_msg{
+    padding:5px 0;
+}
+.pagebox {
+    margin: 20px 0;
+    overflow: hidden;
+    text-align: center;
+}
+.jPaginate {
+    display: inline-block;
+    zoom: 1;
+    width: auto;
+    padding: 0 90px 0 77px;
+}

@@ -1,0 +1,52 @@
+include footjs
+script(src='/js/main.js')
+- var addressHome =[]
+- var addressReside =[]
+-if(!!user && !!user.basicData && !!user.basicData.addressHome)
+    -addressHome = user.basicData.addressHome.split("_")
+-if(!!user && !!user.basicData && !!user.basicData.addressReside)
+    -addressReside = user.basicData.addressReside.split("_")
+-if(!!user && !!user.educationData)
+    script.
+        $(function(){
+            $("#schoolSort").val('#{user.educationData.schoolSort}');
+            $("#schoolName").val('#{user.educationData.schoolName}');
+            $("#schoolYear").val('#{user.educationData.schoolYear}');
+        })
+-if(!!user && !!user.workData)
+    script.
+        $(function(){
+            $("#workCompany").val('#{user.workData.workCompany}');
+            $("#fworkTime").val('#{user.workData.fworkTime}');
+            $("#tworkTime").val('#{user.workData.tworkTime}');
+        })
+
+script.
+    $(function(){
+        $("#hometown").wen_plug_cityLinkage({
+            prov:'#{addressHome[0]}',
+            city:'#{addressHome[1]}',
+            dist:'#{addressHome[2]}',
+            fun:function(elem){
+                var v = [];
+                var $s = elem.parents(".citysele").find("select");
+                $s.each(function(i,n){
+                    v.push($(this).val());
+                });
+                $("#addressHome").val(v.join("_"));
+            }
+        });
+        $("#reside").wen_plug_cityLinkage({
+            prov:'#{addressReside[0]}',
+            city:'#{addressReside[1]}',
+            dist:'#{addressReside[2]}',
+            fun:function(elem){
+                var v = [];
+                var $s = elem.parents(".citysele").find("select");
+                $s.each(function(i,n){
+                    v.push($(this).val());
+                });
+                $("#addressReside").val(v.join("_"));
+            }
+        });
+    })

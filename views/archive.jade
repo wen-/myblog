@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    include say
+    div.content
+        div#archive_box.archive_box
+            if(!!uu & (posts.length > 0))
+                p 我发布过的文章
+            else if (!!uu & (posts.length < 1))
+                p 无文章发布！
+            -var lastYear = 0,lastMon = 0
+            -posts.forEach(function(post,index){
+                -var t = index+1;
+                if(lastYear != post.time.year || lastMon != post.time.month)
+                    -var month_ = (post.time.month).slice((post.time.month).lastIndexOf("-")+1)
+                    |<div class="archive_list"><h3>#{post.time.year}<span>年&nbsp;#{month_}月</span></h3><ul>
+                    -lastYear = post.time.year
+                    -lastMon = post.time.month
+                li
+                    a(href="/new_version/article/#{post._id}",title="#{post.title}",target="_blank") #{post.title}
+                    span #{post.time.minute}
+                if(!!posts[t])
+                    if(lastYear != (posts[t].time.year) || lastMon != (posts[t].time.month))
+                        |</ul></div>
+            -})

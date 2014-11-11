@@ -1,0 +1,104 @@
+extends layout
+block content
+    div#userCenterBox.userCenter_box
+        h1.userCenter_title 基本资料
+        div#userCenterData.userCenter_data
+            dl.basic_link
+                dd(style="display:block;")
+                    form(method="post",id="basicData",name="basicData",action="/users/userbasic")
+                        if(!!user && !!user.basicData)
+                            input(type="hidden",name="email",id="email",value="#{user.email}")
+                            input(type="hidden",name="addressHome",id="addressHome",value="#{user.basicData.addressHome}")
+                            input(type="hidden",name="addressReside",id="addressReside",value="#{user.basicData.addressReside}")
+                            ul.ui_ul_input
+                                li.user_name
+                                    label 用户昵称：
+                                    input(type="text",value="#{user.basicData.name}",name="username",style="width:13.5em;")
+                                li.user_sex
+                                    label 性别：
+                                    label.sex_man_txt
+                                        if(!!user.basicData.sex && user.basicData.sex == '男')
+                                            input(type="radio",name="sex",value="男",checked="checked")
+                                        else
+                                            input(type="radio",name="sex",value="男")
+
+                                        |男
+                                    label.sex_man_txt
+                                        if(!!user.basicData.sex && user.basicData.sex == "女")
+                                            input(type="radio",name="sex",value="女",checked="checked")
+                                        else
+                                            input(type="radio",name="sex",value="女")
+
+                                        |女
+                                    div.msg_txt
+                                li.user_birthday
+                                    label 生日：
+                                    if(!!user.basicData.birthday)
+                                        input#birthday.birthday(type="text",name="birthday",value="#{user.basicData.birthday}")
+                                    else
+                                        input#birthday.birthday(type="text",name="birthday")
+                                    div.msg_txt
+                                li.hometown
+                                    label 出生地：
+                                    div#hometown.citysele
+                                        select.hometownCity_txt.select.prov
+                                    div.msg_txtreside
+                                li.reside
+                                    label 居住地：
+                                    div#reside.citysele
+                                        select.resideCity_txt.select.prov
+                                    div.msg_txt
+                                li.user_intro.clearfix
+                                    label.lfloat 个人简介：
+                                    if(!!user.basicData.intro)
+                                        textarea#userIntro.userIntro_txt(name="intro") #{user.basicData.intro}
+                                    else
+                                        textarea#userIntro.userIntro_txt(name="intro")
+                                    div.msg_txt
+                            div.send_msg 数据保存中
+                                img(style="vertical-align: middle;height:3px",src="/images/ajax-loader.gif",alt="")
+                            div.form_actions
+                                button#sendBasicData.btn(type="submit") 保&nbsp;存
+                        else
+                            input(type="hidden",name="email",id="email",value="#{user.email}")
+                            input(type="hidden",name="addressHome",id="addressHome")
+                            input(type="hidden",name="addressReside",id="addressReside")
+                            ul.ui_ul_input
+                                li.user_name
+                                    label 用户昵称：
+                                    input(type="text",value="#{user.email}",name="username",style="width:13.5em;")
+                                li.user_sex
+                                    label 性别：
+                                    label.sex_man_txt
+                                        input(type="radio",name="sex",value="男")
+                                        |男
+                                    label.sex_man_txt
+                                        input(type="radio",name="sex",value="女")
+                                        |女
+                                    div.msg_txt
+                                li.user_birthday
+                                    label 生日：
+                                    input#birthday.birthday(type="text",name="birthday")
+                                li.hometown
+                                    label 出生地：
+                                    div#hometown.citysele
+                                        select.hometownCity_txt.select.prov
+                                        select.hometownOpt1_txt.select
+                                            option 请选择
+                                    div.msg_txtreside
+                                li.reside
+                                    label 居住地：
+                                    div#reside.citysele
+                                        select.resideCity_txt.select.prov
+                                        select.resideOpt1_txt.select
+                                            option 请选择
+                                    div.msg_txt
+                                li.user_intro.clearfix
+                                    label.lfloat 个人简介：
+                                    textarea#userIntro.userIntro_txt(name="intro")
+                                    div.msg_txt
+                            div.send_msg 数据保存中
+                                img(style="vertical-align: middle;height:3px",src="/images/ajax-loader.gif",alt="")
+                            div.form_actions
+                                button#sendBasicData.btn(type="submit") 保&nbsp;存
+    include ../footData

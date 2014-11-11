@@ -1,0 +1,56 @@
+extends layout
+block content
+    div#userCenterBox.userCenter_box
+        h1.userCenter_title 头像设置
+        div#userCenterData.userCenter_data
+            dl.head_link
+                dd
+                    form(method="post",id="headData",name="headData",action="/users/headico",enctype="multipart/form-data")
+                        input(type="hidden",name="email",id="email",value="#{user.email}")
+                        input(type="hidden",name="x1",id="x1")
+                        input(type="hidden",name="y1",id="y1")
+                        input(type="hidden",name="x2",id="x2")
+                        input(type="hidden",name="y2",id="y2")
+                        input(type="hidden",name="w",id="w")
+                        input(type="hidden",name="h",id="h")
+                        div.clearfix
+                            div.current_head.lfloat
+                                p 当前头像
+                                div.currentHead_ico
+                                    div.currentHeadIco_show
+                                        -if(!!user && !!user.headIco){
+                                            img(src="#{user.headIco}")
+                                        -}else{
+                                            img(src="/images/head.gif")
+                                        -}
+                                div.new_head
+                                    p 新头像预览
+                                    div#newHeadIco.newHead_ico
+                                        div#newHeadIcoShow.newHeadIco_show
+                                            -if(!!user && !!user.headIco){
+                                                img#newHeadImg(src="#{user.headIco}")
+                                            -}else{
+                                                img#newHeadImg(src="/images/head.gif")
+                                            -}
+
+                                    div#newHeadMsg
+                                        |实际宽：
+                                        span.newHeadMsg_w
+                                        |高：
+                                        span.newHeadMsg_h
+                            div.set_head
+                                p 设置新头像
+                                p.setHead_tip 支持jpg、gif、png&nbsp;或&nbsp;bmp格式,可以在大照片中剪裁满意的部分
+                                div.setHead_box
+                                    div.file_btn
+                                        button.btn.selectImg 选择图片
+                                        input#setHeadIco.imitate(name="upfile",type="file")
+                                    div.show_head
+                                        -if(!!user && !!user.headIco){
+                                            img(id="clipHead",src="#{user.headIco}")
+                                        -}else{
+                                            img(id="clipHead",src="/images/head.gif")
+                                        -}
+                                    div.update
+                                        button#sendImg.btn(type="submit") 保存头像
+    include ../footData

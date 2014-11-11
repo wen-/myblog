@@ -1,0 +1,137 @@
+extends layout
+block content
+	style.
+		th,td {
+			text-align:center;
+		}
+	table.table
+		thead
+			tr
+				td(colspan="2",style="border-right:0;font-size:18px;font-weight:bold;text-align:left;padding-left:2em;") 文章列表
+				td(colspan="2",style="border-left:0;text-align:right;")
+					div.search_box
+						input(type="text",name="keyword",placeholder='请输入搜索关键字')
+						button.blogsearch.btn(type="button") 搜索
+			tr
+				th 文章标题
+				th 发表时间
+				th 所属分类
+				th 操作
+		tbody.blogList
+			-if(posts){
+				each item in posts
+					-var d = new Date()
+					-d.setTime(item.time)
+					-var y = d.getFullYear()
+					-var m = d.getMonth()+1
+					-var date = d.getDate()
+					-var time = y+'-'+m+'-'+date
+					-var id = item.id
+					tr
+						td #{item.title}
+						td #{time}
+						td #{item.sort}
+						td
+							a.blogDel(href='/admin/blog/del?id=#{id}') 删除
+			-}
+	-if(total>10)
+		.pagebox
+			#pagebox.jPaginate
+	include ../footjs
+	script(src='/js/page/jquery.paginate.js')
+	script.
+		$(function(){
+			$("#pagebox").paginate({
+				count 		: Math.ceil(#{total}/10),
+				start 		: 1,
+				display     : 10,
+				border					: true,
+				border_color			: '#BEF8B8',
+				text_color  			: '#68BA64',
+				background_color    	: '#E3F2E1',
+				border_hover_color		: '#68BA64',
+				text_hover_color  		: 'black',
+				background_hover_color	: '#fff',
+				images					: false,
+				mouse					: 'press',
+				onChange     			: function(page){
+					$.ajax({
+						type: "GET",
+						url: "/admin/bloglist",
+						data: {"page":page},
+						success: function (data) {
+							htm(data);
+						},
+						error: function (err) {
+							alert(err)
+						}
+					});
+				}
+			});
+			$(document).on("click",".blogDel",function(){
+				var d = window.confirm("确定删除该文章？");
+				if(d){
+					return;
+				}else{
+					return false;
+				}
+			});
+			$(".blogsearch").click(function(){
+				var keyword = $.trim($("input[name='keyword']").val());
+				var currentPage = 1,showPage = true;
+				function search(){
+					$.ajax({
+						type: "GET",
+						url: "/admin/blog/search",
+						data: {"keyword": keyword,"page":currentPage},
+						success: function (data) {
+							if(showPage){
+								if(data.total > 10){
+									$("#pagebox").paginate({
+										count 		: Math.ceil(data.total/10),
+										start 		: 1,
+										display     : 10,
+										border					: true,
+										border_color			: '#BEF8B8',
+										text_color  			: '#68BA64',
+										background_color    	: '#E3F2E1',
+										border_hover_color		: '#68BA64',
+										text_hover_color  		: 'black',
+										background_hover_color	: '#fff',
+										images					: false,
+										mouse					: 'press',
+										onChange     			: function(page){
+											currentPage = page;
+											search(keyword);
+										}
+									});
+								}else{
+									$("#pagebox").hide();
+								}
+								showPage = false;
+							}
+							htm(data);
+						},
+						error: function (err) {
+							alert(err);
+						}
+					});
+				}
+				search();
+			});
+
+			function htm(data){
+				var txts = [];
+				$.each(data.posts,function(i,n){
+					var date = new Date();
+					date.setTime(n.time);
+					var y = date.getFullYear();
+					var m = date.getMonth()+1;
+					var d = date.getDate();
+					var time = y+'-'+m+'-'+d;
+					var t = '<tr><td>'+n.title+'</td><td>'+time+'</td><td>'+n.sort+'</td><td><a class="blogDel" href="/admin/blog/del?id='+n._id+'">删除</a></td></tr>';
+					txts.push(t);
+				});
+				$(".blogList").html(txts.join(""));
+			}
+		});

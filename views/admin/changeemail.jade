@@ -1,0 +1,21 @@
+extends layout
+block content
+    div#userCenterBox.userCenter_box
+        h1.userCenter_title 修改邮箱
+        div#userCenterData.userCenter_data
+            dl.basic_link
+                dd
+                    form(method="post",id="emailData",name="emailData",action="/new_version/change/email")
+                        input(type="hidden",name="name",id="name",value="#{user.name}")
+                        ul.ui_ul_input
+                            li.old_email
+                                label 当前邮箱：
+                                span #{user.email}
+                            li.new_email
+                                label 新邮箱：
+                                input#newEmail.newEmail(type="text",name="newEmail")
+                        div.send_msg 数据保存中
+                            img(style="vertical-align: middle;height:3px",src="/images/ajax-loader.gif",alt="")
+                        div.form_actions
+                            button#sendEmailData.btn(type="submit") 保&nbsp;存
+    include ../footjs

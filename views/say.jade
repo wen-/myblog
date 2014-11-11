@@ -1,0 +1,33 @@
+div.content.say_content(style="display:none;")
+    div.say_box
+        h1.say_box_title 说点什么吧
+        form#say_data.say_data(method="post",action="/post")
+            ul.ui_ul_input
+                li.say_title
+                    label(for="say_t") 标题：
+                    input#say_t(name="say_t",type="text")
+                    div.msg_txt
+                li.say_sort
+                    label(for="sort") 所属分类：
+                    select#sort.select(name="sort")
+                        option HTML
+                        option CSS
+                        option JavaScript
+                        option jQuery
+                        option node.js
+                        option phoneGap
+                        option 其它
+                    div.msg_txt
+                li.say_key
+                    label 关键字：
+                    input(name="tag1",type="text")
+                    input(name="tag2",type="text")
+                    input(name="tag3",type="text")
+                li.say_content.clearfix
+                    label.say_content_label(for="post") 内容：
+                    textarea(name="post")
+            div.send_msg 数据发送中
+                img(style="vertical-align: middle;height:3px",src="/images/ajax-loader.gif",alt="")
+            div.form_actions
+                button#send_say.btn(type="submit") 发表
+                button#backhome.btn(type="button",style="margin-left:.5em;") 返回

@@ -1,0 +1,24 @@
+extends layout
+block content
+    div#userCenterBox.userCenter_box
+        h1.userCenter_title 修改密码
+        div#userCenterData.userCenter_data
+            dl.password_link
+                dd
+                    form(method="post",id="passData",name="passData",action="/users/changepass")
+                        input(type="hidden",name="email",id="email",value="#{user.email}")
+                        ul.ui_ul_input
+                            li.old_password
+                                label 旧密码：
+                                input#oldPassword.oldPassword(type="password",name="oldPassword")
+                            li.new_password
+                                label 新密码：
+                                input#newPassword.newPassword(type="password",name="newPassword")
+                            li.new_password
+                                label 确认新密码：
+                                input#newPassword1.newPassword1(type="password",name="newPassword1")
+                        div.send_msg 数据保存中
+                            img(style="vertical-align: middle;height:3px",src="/images/ajax-loader.gif",alt="")
+                        div.form_actions
+                            button#sendPassData.btn(type="submit") 保&nbsp;存
+    include ../footData

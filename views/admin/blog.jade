@@ -1,0 +1,213 @@
+extends layout
+block content
+	table.table
+		tr
+			th(colspan="2",style="border-right:0;font-size:18px;font-weight:bold;text-align:left;padding-left:2em;")
+				-if(edit)
+					|编辑文章
+				-else
+					|写文章
+		tr
+			th 标题
+			td
+				-if(posts)
+					input(type="text",maxlength="50",name="title",value="#{posts.title}")
+				-else
+					input(type="text",maxlength="50",name="title")
+		tr
+			th 分类
+			td
+				select.select(name="sort",style="width:168px;")
+					-if(sorts)
+						each item in sorts
+							option #{item.sorttxt}
+		tr
+			th 阅读
+			td
+				-if(posts)
+					input(type="text",maxlength="50",name="pv",value="#{posts.pv}")
+				-else
+					input(type="text",maxlength="50",name="pv")
+		tr
+			th 摘要
+			td
+				-if(posts)
+					-if(posts.digest.indexOf("__||__")>-1)
+						-var digests = posts.digest.split("__||__");
+						input(type="text",maxlength="50",name="digest",style="width:300px;",value="#{digests[0]}")
+						.digestAccessory(style="display:none;")
+							.uppic.accessory
+								form(id="digestPic",action="/upload/blog",method="post",enctype="multipart/form-data")
+									input.uploadP(type="file",name="upfile")
+									button.upload_show(type="button") 附加图片
+						span.digestPicShow(style="vertical-align: middle; padding-left: 1em;")
+							img(style="height:33px;vertical-align: middle;",alt="",src="#{digests[1]}")
+							span.delDigestPic(style="cursor: pointer;font-size:18px;vertical-align: middle;padding-left:5px;",title="删除") ×
+					-else
+						input(type="text",maxlength="50",name="digest",style="width:300px;",value="#{posts.digest}")
+						.digestAccessory
+							.uppic.accessory
+								form(id="digestPic",action="/upload/blog",method="post",enctype="multipart/form-data")
+									input.uploadP(type="file",name="upfile")
+									button.upload_show(type="button") 附加图片
+						span.digestPicShow(style="vertical-align: middle; padding-left: 1em;display:none;")
+							img(style="height:33px;vertical-align: middle;",alt="",src="")
+							span.delDigestPic(style="cursor: pointer;font-size:18px;vertical-align: middle;padding-left:5px;",title="删除") ×
+
+				-else
+					input(type="text",maxlength="50",name="digest",style="width:300px;")
+					.digestAccessory
+						.uppic.accessory
+							form(id="digestPic",action="/upload/blog",method="post",enctype="multipart/form-data")
+								input.uploadP(type="file",name="upfile")
+								button.upload_show(type="button") 附加图片
+					span.digestPicShow(style="vertical-align: middle; padding-left: 1em;display:none;")
+						img(style="height:33px;vertical-align: middle;",alt="",src="")
+						span.delDigestPic(style="cursor: pointer;font-size:18px;vertical-align: middle;padding-left:5px;",title="删除") ×
+		tr
+			td(colspan="2")
+				// 加载编辑器的容器
+				-if(posts)
+					script(id="container",name="content",type="text/plain",style="width:100%;height:300px;")
+						!=posts.post
+				-else
+					script(id="container",name="content",type="text/plain",style="width:100%;height:300px;")
+						|插入图片大小不能超过2M
+	.send_blog
+		input(type="hidden",value="#{user.email}",name="email")
+		-if(posts)
+			input(type="hidden",value="#{posts._id}",name="uid")
+		div.err_msg(style="visibility:hidden;")
+			span 出错信息
+		-if(edit)
+			button.btn(type="button") 保存
+		-else
+			button.btn(type="button") 发表
+
+
+	include ../footjs
+	-if(posts)
+		script.
+			$(function(){
+				$("select[name='sort']").val('#{posts.sort}');
+			});
+	script(src='/umeditor/umeditor.config.js')
+	script(src='/umeditor/umeditor.js')
+	script(type="text/javascript").
+		window.um = UM.getEditor('container');
+	script(type="text/javascript").
+		function check_img(elem) {
+			if (!elem.value) {
+				return false;
+			}
+			var allowSuffix = "jpg,bmp,gif,png,jpeg";
+			var suffix = elem.value.substring(elem.value.lastIndexOf(".") + 1).toLowerCase();
+			var browserVersion = window.navigator.userAgent.toUpperCase();
+			if (allowSuffix.indexOf(suffix) > -1) {
+				return true;
+			} else {// 如果不是图片文件
+				alert("仅支持" + allowSuffix + "为后缀名的文件!");
+				elem.value = "";
+				if (browserVersion.indexOf("MSIE 7.0") > -1
+						|| browserVersion.indexOf("MSIE 8.0") > -1) {
+					elem.select();
+					document.selection.clear();
+				}
+				elem.outerHTML = elem.outerHTML;
+				return false;
+			}
+		}
+		$(function(){
+			$("input[name='upfile']").change(function(){
+				var $this = $(this);
+				if(check_img($this[0])){
+					$("#digestPic").ajaxSubmit({
+						beforeSubmit:function(formData, jqForm, options){
+							jqForm.find(".upload_show").html('上传中<img src="/images/ajax-loader.gif" height="3" alt="" />');
+						},
+						success:function(json, statusText, xhr, $form){
+							//iframe提交时返回的只能是字符串，将字符串转json
+							if(typeof json == "string"){
+								json = eval('('+json+')');
+							}
+							if(json.state == "SUCCESS"){
+								//$this.parents(".digestAccessory").after('<span class="digestPicShow" style="display:none; vertical-align: middle;padding-left:1em;"><img style="height:33px;vertical-align: middle;" alt="" /><span class="delDigestPic" style="cursor: pointer;font-size:18px;vertical-align: middle;padding-left:5px;" title="删除">×</span></span> ');
+								$(".digestPicShow img").attr("src",json.url).load(function(){
+									$(this).parent().show().prev(".digestAccessory").hide();
+								});
+							}else{
+								$form.find(".upload_show").html("上传失败！");
+								window.setTimeout(function(){
+									$form.find(".upload_show").html("附加图片");
+								},3000);
+							}
+						},
+						error:function(){
+							$(".upload_show").html("上传失败！");
+							window.setTimeout(function(){
+								$(".upload_show").html("附加图片");
+							},3000);
+						}
+					});
+				}
+			});
+			$(document).on("click",".delDigestPic",function(){
+				$(this).parent().prev(".digestAccessory").show();
+				$(".upload_show").html("附加图片");
+				$(this).prev("img").attr("src","");
+				$(this).parent().hide();
+			});
+			$(".send_blog button").click(function(){
+				var $this = $(this);
+				var t = $this.text();
+				var uid = $("input[name='uid']").val();
+				var email = $("input[name='email']").val();
+				var title = $.trim($("input[name='title']").val());
+				var sort = $("select[name='sort']").val();
+				var pv = $.trim($("input[name='pv']").val());
+				var digestPicSrc = $(".digestPicShow img").attr("src");
+				digestPicSrc = digestPicSrc?("__||__"+digestPicSrc):"";
+				var digestVal = $.trim($("input[name='digest']").val()) + digestPicSrc;
+				var post = um.getContent();
+				if(title == "" || digestVal == "" || post == ""){
+					$(".err_msg").css({"visibility":"visible"}).find("span").text('标题/摘要/内容 不能为空！');
+					window.setTimeout(function(){
+						$(".err_msg").css({"visibility":"hidden"});
+					},1000);
+					return false;
+				}
+				var data = {
+					"id":uid,
+					"email" : email,
+					"title" : title,
+					"sort" : sort,
+					"digest" : digestVal,
+					"pv" : pv,
+					"post" : post
+				};
+				$this.css({"disabled":"disabled"}).html('数据提交中<img src="/images/ajax-loader.gif" height="3" alt="" />');
+				$.ajax({
+					type: "POST",
+					url: window.location.pathname,
+					data: data,
+					success: function (data) {
+						if(data.success){
+							$this.html(t+'成功！');
+							$("input[name='title'],input[name='pv'],input[name='digest']").val("");
+							$(".digestPicShow").remove();
+							$(".digestAccessory").show().find(".upload_show").html("附加图片");
+							um.setContent("");
+							window.setTimeout(function(){
+								$this.html(t).removeAttr("disabled");
+							},1000);
+						}
+					},
+					error: function (err) {
+						$this.html('数据提交失败！');
+						window.setTimeout(function(){
+							$this.html(t).removeAttr("disabled");
+						},1000);
+					}
+				});
+			});
+		});
