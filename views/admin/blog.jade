@@ -43,6 +43,12 @@ block content
 						span.digestPicShow(style="vertical-align: middle; padding-left: 1em;")
 							img(style="height:33px;vertical-align: middle;",alt="",src="#{digests[1]}")
 							span.delDigestPic(style="cursor: pointer;font-size:18px;vertical-align: middle;padding-left:5px;",title="删除") ×
+						span.digestNetWorkPic(style="vertical-align: middle; padding-left: 1em;display:none;")
+						span.addBtn 添加网络图片
+							span.netWorkPicBox(style="display:none;")
+								input(type="text",style="width:120px;")
+								button.btn.success(style="margin:0 5px;",type="button") 确定
+								button.btn.cancel(type="button") 取消
 					-else
 						input(type="text",maxlength="50",name="digest",style="width:300px;",value="#{posts.digest}")
 						.digestAccessory
@@ -53,6 +59,12 @@ block content
 						span.digestPicShow(style="vertical-align: middle; padding-left: 1em;display:none;")
 							img(style="height:33px;vertical-align: middle;",alt="",src="")
 							span.delDigestPic(style="cursor: pointer;font-size:18px;vertical-align: middle;padding-left:5px;",title="删除") ×
+						span.digestNetWorkPic(style="vertical-align: middle; padding-left: 1em;")
+							span.addBtn 添加网络图片
+							span.netWorkPicBox(style="display:none;")
+								input(type="text",style="width:120px;")
+								button.btn.success(style="margin:0 5px;",type="button") 确定
+								button.btn.cancel(type="button") 取消
 
 				-else
 					input(type="text",maxlength="50",name="digest",style="width:300px;")
@@ -64,6 +76,12 @@ block content
 					span.digestPicShow(style="vertical-align: middle; padding-left: 1em;display:none;")
 						img(style="height:33px;vertical-align: middle;",alt="",src="")
 						span.delDigestPic(style="cursor: pointer;font-size:18px;vertical-align: middle;padding-left:5px;",title="删除") ×
+					span.digestNetWorkPic(style="vertical-align: middle; padding-left: 1em;")
+						span.addBtn 添加网络图片
+						span.netWorkPicBox(style="display:none;")
+							input(type="text",style="width:120px;")
+							button.btn.success(style="margin:0 5px;",type="button") 确定
+							button.btn.cancel(type="button") 取消
 		tr
 			td(colspan="2")
 				// 加载编辑器的容器
@@ -131,9 +149,10 @@ block content
 								json = eval('('+json+')');
 							}
 							if(json.state == "SUCCESS"){
-								//$this.parents(".digestAccessory").after('<span class="digestPicShow" style="display:none; vertical-align: middle;padding-left:1em;"><img style="height:33px;vertical-align: middle;" alt="" /><span class="delDigestPic" style="cursor: pointer;font-size:18px;vertical-align: middle;padding-left:5px;" title="删除">×</span></span> ');
+
 								$(".digestPicShow img").attr("src",json.url).load(function(){
 									$(this).parent().show().prev(".digestAccessory").hide();
+									$(".digestNetWorkPic").hide();
 								});
 							}else{
 								$form.find(".upload_show").html("上传失败！");
@@ -153,9 +172,12 @@ block content
 			});
 			$(document).on("click",".delDigestPic",function(){
 				$(this).parent().prev(".digestAccessory").show();
+				$(".digestNetWorkPic").show();
 				$(".upload_show").html("附加图片");
 				$(this).prev("img").attr("src","");
 				$(this).parent().hide();
+				$(".netWorkPicBox").hide();
+				$(".netWorkPicBox input").val("");
 			});
 			$(".send_blog button").click(function(){
 				var $this = $(this);
@@ -208,6 +230,43 @@ block content
 							$this.html(t).removeAttr("disabled");
 						},1000);
 					}
+				});
+			});
+			$(".digestNetWorkPic .addBtn").click(function(){
+				var $this = $(this);
+				$(".digestAccessory").hide();
+				$this.next(".netWorkPicBox").show();
+			});
+			$(".netWorkPicBox .cancel").click(function(){
+				var $this = $(this);
+				$this.parent().hide();
+				$(".digestAccessory").show();
+				$(".netWorkPicBox input").val("");
+			});
+			$(".netWorkPicBox .success").click(function(){
+				var $this = $(this);
+				var netReg = /^https?.*/;
+				$this.prop("disabled",true);
+				var v = $this.prev("input").val();
+				if(v == ""){
+					$this.html("图片地址不能为空");
+					window.setTimeout(function(){
+						$this.html("确定").prop("disabled",false);
+					},1000);
+					return false;
+				}
+				if(!netReg.test(v)){
+					$this.html("地址格式错误");
+					window.setTimeout(function(){
+						$this.html("确定").prop("disabled",false);
+					},1000);
+					return false;
+				}
+				v = v.replace(/\?|#|=|<|>|&|\*/g,"");
+				$(".digestPicShow img").attr("src",v).load(function(){
+					$this.html("确定").prop("disabled",false);
+					$(".digestPicShow").show();
+					$(".digestNetWorkPic").hide();
 				});
 			});
 		});

@@ -90,7 +90,12 @@ app.use(session({
         ,port: settings.port
         ,user: settings.user
         ,pass: settings.pass
-    })
+    }),
+    cookie:{
+        //secure: true//加密，将导致每个请都生成一个新的session,在做验证码是不适用
+        maxAge:1800000
+        //等同于上面,expires:new Date(Date.now() + 1800000)
+    }
 }));
 
 app.use('/', routes);

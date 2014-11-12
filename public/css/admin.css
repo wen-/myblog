@@ -111,3 +111,6 @@ th,td{
     width: auto;
     padding: 0 90px 0 77px;
 }
+.digestNetWorkPic .addBtn{
+    cursor: pointer;
+}

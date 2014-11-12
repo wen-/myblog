@@ -201,6 +201,7 @@ router.post("/login",function(req,res){
         return res.json({"success":false,"error":"验证码已失效！"});
     }
     if(req.session.codeUrl != codetxt){
+        req.session.codeUrl = null;
         return res.json({"success":false,"error":"验证码错误！"});
     }
     user.get(email,function(err,user){

@@ -23,6 +23,7 @@ function codeTxt(s,n,img) {
     t = t.join('');
     this.t = t;
     s.codeUrl = t;
+    //s.cookie.maxAge = 30000;
     //var w;
     /*
     clearTimeout(w);
