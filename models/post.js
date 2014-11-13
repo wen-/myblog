@@ -250,13 +250,35 @@ post.search = function(opt,callback){
     })
 };
 
+//获取评论
+post.getComment = function(id,callback){
+    var query = {};
+    if(id){
+        query._id = id;
+    }
+    postModel.find(query,"comments",{sort:{time:-1}},function(err,docs) {
+        if (err) {
+            callback(err, null);//失败返回null
+        }
+        //postModel.update({"_id": {"$in": look}}, {$inc: {"pv": 1}}, {"multi": true});
+        callback(null, docs);//成功返回结果
+    })
+};
+
 //保存评论
 post.commentSave = function(id,opt,callback) {
     var query = {};
     if(id){
         query._id = id;
     }
-
+    postModel.find(query,"comments",{sort:{time:-1}},function(err,docs) {
+        var opts = opt;
+        var doc = docs[0].comments;
+        postModel.populate(doc, opts, function (err, comments) {
+            console.log(comments);
+            callback(comments);
+        })
+    })
 };
 
 //更新邮箱

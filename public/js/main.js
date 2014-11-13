@@ -261,7 +261,7 @@ $(function(){
     /*--评论--*/
     $(document).on("click","button.send_comment",function(){
         //var uid = $(this).parents(".log_box_details").find("a.uid").data("uid");
-        var get_url = $(this).data("url");
+        var get_url = $(this).attr("data-url");
         var commentData = $(this).parents("form.log_comment_data").serialize();
         //var msg = '#msg'+uid;
         //$(msg).css("visibility","visible").html('数据发送中<img style="vertical-align: middle;height:3px" src="/images/ajax-loader.gif" alt="" />');
@@ -280,7 +280,7 @@ $(function(){
                 //var msg = '#msg'+_id;
                 //var comment = '#comment'+_id;
                 var comment_txt = "";
-                if(!!json.error){
+                if(!json.state){
                     elem.parent().prev(".comment_msg").html("评论失败！ "+json.errorMsg);
                     elem.prop("disabled",false);
                 }else{
@@ -321,7 +321,7 @@ $(function(){
     /*--查看评论--*/
     $(document).on("click","a.comments_all",function() {
         //var uid = $(this).data("uid");
-        var get_url = $(this).data("url");
+        var get_url = $(this).attr("data-url");
         var $this = $(this);
         $(this).parents(".log_box_details").find("div.log_comment_box").show().css({"height":"10em"});
         $(this).hide().after('<div class="loading_data">数据获取中<img src="/images/ajax-loader.gif" height="3" alt="" /></div>');
@@ -334,7 +334,7 @@ $(function(){
             success: function (json) {
                 //var commentBox = "#commentBox" + _id;
                 var comment_txt = "",comment_array = [];
-                if(json.error){
+                if(!json.state){
                     //$(commentBox).append('<p class="error" style="padding:4em 0;text-align: center">数据获取失败，请稍后重试！</p>');
                     //$(commentBox).next("log_details_b").find("a.comments_all").show();
                     elem.next(".loading_data").html("数据获取失败，请稍后重试！ "+json.error);

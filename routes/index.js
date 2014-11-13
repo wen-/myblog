@@ -62,10 +62,42 @@ router.get('/u/:_id',function(req,res){
 });
 
 //查看评论
-router.get('/getcomment/:_id',function(req,res){
+router.get('/getcomments/:_id',function(req,res){
     var _id = req.params._id;
+
     if(_id){
-        post.getOne(_id,function(err,docs){
+        post.getComment(_id,function(err,docs){
+            if(err){
+                res.json({
+                    'state':false,
+                    'msg':"获取数据失败！"
+                });
+            }else{
+                if(req.xhr){
+                    res.json({
+                        'state':"SUCCESS",
+                        'comments':docs
+                    });
+                }else{
+                    res.redirect('/');
+                }
+            }
+        });
+    }else{
+        res.redirect('/');
+    }
+});
+router.post('/getcomments/:_id',function(req,res){
+    var _id = req.params._id;
+    var opt = {
+        name : req.body.name,
+        email : req.body.email,
+        content : req.body.content,
+        headico : "",
+        time : Date.now()
+    };
+    if(_id){
+        post.commentSave(_id,opt,function(err,docs){
             if(err){
                 res.json({
                     'state':false,

@@ -215,7 +215,7 @@ block content
 					success: function (data) {
 						if(data.success){
 							$this.html(t+'成功！');
-							if(#{edit}){
+							if(!!(#{edit}+"")){
 								window.location.href="/admin/bloglist";
 							}
 							$("input[name='title'],input[name='pv'],input[name='digest']").val("");
