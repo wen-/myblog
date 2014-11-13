@@ -35,6 +35,59 @@ router.get('/', function(req, res) {
     });
 });
 
+//查看全文
+router.get('/u/:_id',function(req,res){
+    var _id = req.params._id;
+    if(_id){
+        post.getOne(_id,function(err,docs){
+            if(err){
+                res.json({
+                    'state':false,
+                    'msg':"获取数据失败！"
+                });
+            }else{
+                if(req.xhr){
+                    res.json({
+                        'state':"SUCCESS",
+                        'posts':docs
+                    });
+                }else{
+                    res.redirect('/');
+                }
+            }
+        });
+    }else{
+        res.redirect('/');
+    }
+});
+
+//查看评论
+router.get('/getcomment/:_id',function(req,res){
+    var _id = req.params._id;
+    if(_id){
+        post.getOne(_id,function(err,docs){
+            if(err){
+                res.json({
+                    'state':false,
+                    'msg':"获取数据失败！"
+                });
+            }else{
+                if(req.xhr){
+                    res.json({
+                        'state':"SUCCESS",
+                        'posts':docs
+                    });
+                }else{
+                    res.redirect('/');
+                }
+            }
+        });
+    }else{
+        res.redirect('/');
+    }
+});
+
+
 //注册页
 router.get('/reg',checkNotLogin);
 router.get('/reg', function(req, res) {

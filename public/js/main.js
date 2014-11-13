@@ -152,7 +152,7 @@ $(function(){
     /*--查看全文--*/
     $(document).on("click",".show_all",function(){
         $(this).hide().after('<div class="loading_data">数据获取中<img src="/images/ajax-loader.gif" height="3" alt="" /></div>');
-        var get_url = $(this).data("url");
+        var get_url = $(this).attr("data-url");
         var $this = $(this);
         ajaxData_getOne(get_url,$this);
         return false;
@@ -161,7 +161,7 @@ $(function(){
         $.ajax({
             url: url,
             success: function (json) {
-                if(json.key){
+                if(json.state){
                     elem.parents(".log_box_details").find("div.log_details_m").html(json.posts.post);
                     //elem.parent().remove();
                     if(json.posts.comments){
@@ -172,8 +172,8 @@ $(function(){
                         elem.after('<a class="write_comment">发表评论</a>');
                     }
                 }else{
-                    if(json.error){
-                        elem.next().html(json.error);
+                    if(json.msg){
+                        elem.next().html(json.msg);
                         window.setTimeout(function(){
                             elem.show().next().remove();
                         },2000);

@@ -7,6 +7,14 @@ var postDb = require('./Db');
     //Db.js用的是exports.Db而不是module.exports = Db所以调用是userDb.Db.on而不是userDb.on
 //});
 
+var commentSchema = new mongoose.Schema({
+    name : String,
+    email : String,
+    content : String,
+    headico : String,
+    time : String
+});
+
 var postSchema = new mongoose.Schema({
     email : String,
     title : String,
@@ -15,7 +23,7 @@ var postSchema = new mongoose.Schema({
     post : String,
     digest : String,
     pv : String,
-    comments : [],
+    comments : [commentSchema],
     recycle : 0
 }, {
     collection: 'posts'
@@ -240,6 +248,15 @@ post.search = function(opt,callback){
             callback(null, docs, total);//成功返回结果
         })
     })
+};
+
+//保存评论
+post.commentSave = function(id,opt,callback) {
+    var query = {};
+    if(id){
+        query._id = id;
+    }
+
 };
 
 //更新邮箱

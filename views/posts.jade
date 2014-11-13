@@ -79,7 +79,7 @@ if(posts && posts.length>0)
                                     |<span class="comments_num">0</span>
                                 div.rfloat
                                     -if(!posts[index].all){
-                                        a.show_all(data-url="/new_version/u/#{post._id}") 查看全文
+                                        a.show_all(data-url="/u/#{post._id}") 查看全文
                                     -}else if(!!post.comments){
                                         a.comments_all(data-url="/getComments/#{post._id}") 查看评论
                                     -}else{
