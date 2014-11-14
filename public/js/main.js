@@ -33,7 +33,7 @@ $(function(){
 
     function ajaxData(){
         $.ajax({
-            url:"/data?p="+(page+1),
+            url:"?page="+(page+1),
             dataType:"json",
             success: function(json){
                 var html_txt = [];
@@ -51,26 +51,35 @@ $(function(){
             }
         })
     }
-    function data_txt(n){
-        var txt = "",tag = "",showall = "";
-        var head_url = !!n.head? n.head:"/images/head.gif";
-        var comment_l = n.comments?n.comments:0;
-        var pv_l = n.pv?n.pv:0;
-        if(!!n.tags){
-            $.each(n.tags,function(j,m){
-                tag += '<a>'+ m.tag +'</a>';
-            })
+    function data_txt(n) {
+        var txt = "", tag = "", showall = "";
+        var head_url = !!n.headico ? n.headico : "/images/head.gif";
+        var comment_l = n.commentstotal? n.commentstotal : 0;
+        var pv_l = n.pv ? n.pv : 0;
+        var showall = '<div class="rfloat"><a class="show_all" data-url="/u/' + n._id + '">查看全文</a></div>';
+        var d = new Date();
+        d.setTime(n.time);
+        var y = d.getFullYear();
+        var m = d.getMonth() + 1;
+        var date = d.getDate();
+        if (date < 10) {
+            date = "0" + date;
         }
-        if(!n.all){
-            showall = '<div class="rfloat"><a class="show_all" data-url="/new_version/u/'+n._id+'">查看全文</a></div>';
-        }else if(!!comment_l){
-            showall = '<div class="rfloat"><a class="comments_all" data-url="/getComments/'+n._id+'">查看评论</a></div>';
+        var time = y + '-' + m + '-' + date;
+        var digest = [];
+        if (n.digest.indexOf("__||__") > -1){
+            digest = n.digest.split("__||__");
         }else{
-            showall = '<div class="rfloat"><a class="write_comment">发表评论</a></div>';
-        };
+            digest[0] = n.digest;
+        }
+        if(digest[1]){
+            digest[1] = '<img src="'+digest[1]+'" alt="" />';
+        }else{
+            digest[1] = '';
+        }
         txt = '<div class="log_box">\
                     <div class="log_time">\
-                        <span>'+n.time.day+'</span>\
+                        <span>'+m+'-'+date+'</span>\
                     </div>\
                     <div class="log_time_ico">\
                         <div class="ico_arrow"></div>\
@@ -80,20 +89,19 @@ $(function(){
                             <div class="log_box_details">\
                                 <div class="log_details_t">\
                                     <div class="log_head_ico">\
-                                        <a href="/u/'+ n.name +'" title="'+ n.name +'">\
+                                        <a href="'+ n.name +'" title="'+ n.name +'">\
                                             <img src="'+ head_url +'" alt="头像" />\
                                             <p>'+n.name+'</p>\
                                         </a>\
                                     </div>\
                                     <h4>\
-                                        <a href="/u/'+n.name+'/'+n.time.m_time+'/'+n.title+'">'+n.title+'</a>\
+                                        <a href="'+n.name+'/'+n.time.m_time+'/'+n.title+'">'+n.title+'</a>\
                                     </h4>\
                                     <p>\
-                                        <small>'+n.time.minute+'</small>\
+                                        <small>'+time+'</small>\
                                     </p>\
-                                    <p class="key_word">'+tag+'\
                                 </div>\
-                                <div class="log_details_m">'+n.post+'</div>\
+                                <div class="log_details_m">'+digest[0]+digest[1]+'</div>\
                                 <div id="commentBox'+ n._id+'" class="log_comment_box">\
                                     <div class="comment_box_title">\
                                         <h3>评论：</h3>\
@@ -105,10 +113,11 @@ $(function(){
                                                 <li><label>姓名：</label><input type="text" name="name" value="" /></li>\
                                                 <li><label>邮箱：</label><input type="text" name="email" value="" /></li>\
                                                 <li><label class="lfloat">评论：</label><textarea name="content"></textarea></li>\
+                                                <li><label>验证码：</label><input class="codeIMG_txt" type="text" name="codeIMG" /><img class="commentCodeUrl CodeUrl" src="/images/demoCode.png" alt="" title="点击获取验证码" /></li>\
                                             </ul>\
                                             <div id="msg'+ n._id+'" class="comment_msg">数据发送中<img style="vertical-align: middle;height:3px" src="/images/ajax-loader.gif" alt="" /></div>\
                                             <div class="form_actions">\
-                                                <button id="comment'+ n._id+'" type="submit" data-url="/comments/'+ n._id+'" class="btn send_comment">评论</button>\
+                                                <button id="comment'+ n._id+'" type="submit" data-url="/getcomments/'+ n._id+'" class="btn send_comment">评论</button>\
                                             </div>\
                                         </form>\
                                     </div>\
@@ -261,13 +270,19 @@ $(function(){
     /*--评论--*/
     $(document).on("click","button.send_comment",function(){
         //var uid = $(this).parents(".log_box_details").find("a.uid").data("uid");
+        var $this = $(this);
         var get_url = $(this).attr("data-url");
         var commentData = $(this).parents("form.log_comment_data").serialize();
+        if(commentData.name == "" || commentData.email == "" || commentData.content == "" || commentData.codeIMG == ""){
+            $this.parent().prev(".comment_msg").css("visibility","visible").html('用户名/邮箱/评论内容/验证码 不能为空！');
+            window.setTimeout(function(){
+                $this.parent().prev(".comment_msg").css("visibility","hidden");
+            },2000);
+        }
         //var msg = '#msg'+uid;
         //$(msg).css("visibility","visible").html('数据发送中<img style="vertical-align: middle;height:3px" src="/images/ajax-loader.gif" alt="" />');
         $(this).parent().prev(".comment_msg").css("visibility","visible").html('数据发送中<img style="vertical-align: middle;height:3px" src="/images/ajax-loader.gif" alt="" />');
         $(this).prop("disabled",true);
-        var $this = $(this);
         ajaxData_comments(get_url,$this,commentData);
         return false;
     });
@@ -296,7 +311,7 @@ $(function(){
                                        </div>';
                     elem.parents(".log_box_details").find("div.comment_box_m").append(comment_txt);
                     elem.parent().prev(".comment_msg").html("评论成功！");
-                    elem.parents(".log_box_details").find("span.comments_num").text(json.commentLength);
+                    elem.parents(".log_box_details").find("span.comments_num").text(1+parseInt(elem.parents(".log_box_details").find("span.comments_num").text()));
                     elem.hide().prop("disabled",false).after('<button id="againComment'+json._id+'" type="button" class="btn">再次评论</button>');
                     var againID = "#againComment"+json._id;
                     $(againID).click(function(){
@@ -342,7 +357,7 @@ $(function(){
                         elem.show().next(".loading_data").remove();
                     },2000);
                 }else{
-                    $.each(json.comments,function(i,n){
+                    $.each(json.comments.comments,function(i,n){
                         comment_txt = '<div class="comment_list">\
                                             <div class="comments_details_t">\
                                                 <a class="head_ico" href="#">\
@@ -386,17 +401,26 @@ $(function(){
     });
     function ajaxData_getSort(sort){
         $.ajax({
-            url: "/new_version/sort/"+sort,
+            url: "/sort/"+sort,
             success: function (json) {
                 $(".sort_box .loading_data").remove();
                 var t = "", h = [], ssort = $(".sort_box h3").text(), l=0;
                 $.each(json.posts,function(i,n){
-                    if(ssort != n.ssort){
-                        h.push('<li><h4>'+n.ssort+'</h4></li>');
-                        ssort = n.ssort;
+                    var d = new Date();
+                    d.setTime(n.time);
+                    var y = d.getFullYear();
+                    var m = d.getMonth() + 1;
+                    var date = d.getDate();
+                    if (date < 10) {
+                        date = "0" + date;
+                    }
+                    var time = y + '-' + m + '-' + date;
+                    if(ssort != n.sort){
+                        h.push('<li><h4>'+n.sort+'</h4></li>');
+                        ssort = n.sort;
                         l++;
                     }
-                    t = '<li><a target="_blank" href="/new_version/article/'+n._id+'" title="'+n.title+'">'+n.title+'</a><span>'+n.time.minute+'</span></li>';
+                    t = '<li><a target="_blank" href="/article/'+n._id+'" title="'+n.title+'">'+n.title+'</a><span>'+time+'</span></li>';
                     h.push(t);
                 });
                 $(".sort_box h3").append("<span style='font-size: 12px;'>("+ (h.length-l)+")</span>");

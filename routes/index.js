@@ -21,17 +21,30 @@ router.get('/', function(req, res) {
         if (err) {
             posts = [];
         }
-        res.render('index', {
-            _t:'0',
-            title:"时间去哪了",
-            posts: posts,
-            page:page,
-            user: req.session.user,
-            isFirstPage:(page-1)==0,
-            isLastPage:((page-1)*10+posts.length)==total,
-            success: req.flash('success').toString(),
-            error: req.flash('error').toString()
-        });
+        if(req.xhr){
+            res.json({
+                posts: posts,
+                page:page,
+                user: req.session.user,
+                isFirstPage:(page-1)==0,
+                isLastPage:((page-1)*10+posts.length)==total,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            })
+        }else{
+            res.render('index', {
+                _t:'0',
+                title:"时间去哪了",
+                posts: posts,
+                page:page,
+                user: req.session.user,
+                isFirstPage:(page-1)==0,
+                isLastPage:((page-1)*10+posts.length)==total,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
+        }
+
     });
 });
 
@@ -76,7 +89,7 @@ router.get('/getcomments/:_id',function(req,res){
                 if(req.xhr){
                     res.json({
                         'state':"SUCCESS",
-                        'comments':docs
+                        'comments':docs[0]
                     });
                 }else{
                     res.redirect('/');
@@ -89,10 +102,20 @@ router.get('/getcomments/:_id',function(req,res){
 });
 router.post('/getcomments/:_id',function(req,res){
     var _id = req.params._id;
+    var name = req.body.name,
+        email = req.body.email,
+        content = req.body.content,
+        codeIMG = req.body.codeIMG;
+    if(name == "" || email == "" || content == "" || codeIMG == ""){
+        res.json({
+            'state':false,
+            'msg':"用户名/邮箱/评论内容/验证码 不能为空！"
+        });
+    }
     var opt = {
-        name : req.body.name,
-        email : req.body.email,
-        content : req.body.content,
+        name : name,
+        email : email,
+        content : content,
         headico : "",
         time : Date.now()
     };
@@ -107,7 +130,7 @@ router.post('/getcomments/:_id',function(req,res){
                 if(req.xhr){
                     res.json({
                         'state':"SUCCESS",
-                        'posts':docs
+                        'comment':opt
                     });
                 }else{
                     res.redirect('/');
@@ -694,6 +717,72 @@ router.post('/forgetpass/activation', function(req, res) {
         }
     });
 });
+
+//文章分类
+router.get('/sort', function(req, res) {
+    sort.get(function(err,sorts){
+        res.render('sort', {
+            title: "文章分类",
+            user: req.session.user,
+            sorts:sorts
+        });
+    });
+});
+//获取指定分类文章
+router.get('/sort/:_sort', function(req, res) {
+    var txt = req.params._sort;
+    if(txt == "all"){
+        txt = "";
+    }
+    post.getsort(txt,function(err,docs){
+        if(err){
+            return res.json({
+                "state":false,
+                "msg":"获取列表失败！"
+            });
+        }
+        res.json({
+            "state":"SUCCESS",
+            posts:docs
+        });
+    });
+});
+
+//获取全部文章
+router.get('/archive', function(req, res) {
+    post.getArchive(function(err, posts){
+        if(err){
+            req.flash('error',err);
+            return res.redirect('/archive',{error:err});
+        }
+        res.render('archive',{
+            title: '所有文章列表',
+            posts: posts,
+            user: req.session.user,
+            success: req.flash('success').toString(),
+            error: req.flash('error').toString()
+        });
+    });
+});
+
+//获取指定文章
+router.get('/article/:_id', function(req, res) {
+    post.getOne(req.params._id, function(err, post){
+        if(err){
+            req.flash('error',err);
+            return res.render('article',{
+                title:"文章详情",
+                error:err
+            });
+        }
+        res.render('article',{
+            title:"文章详情",
+            user: req.session.user,
+            "post": post
+        });
+    },true);
+});
+
 
 
 function checkLogin(req, res, next){

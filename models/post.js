@@ -82,13 +82,8 @@ post.getTen = function(opt,callback){//opt:email,page,pagelimit
     postModel.count(query,function(err,total){
         postModel.find(query,"-digest -email -pv -comments -post",{skip:(opt.page-1)*opt.limit,limit:opt.limit,sort:{time:-1}},function(err,docs) {
             if (err) {
-                callback(err, null);//失败返回null
+                return callback(err, null);//失败返回null
             }
-            docs.forEach(function (doc) {
-                if (doc.comments) {
-                    doc.comments = doc.comments.length;
-                }
-            });
             //postModel.update({"_id": {"$in": look}}, {$inc: {"pv": 1}}, {"multi": true});
             callback(null, docs, total);//成功返回结果
         })
@@ -104,11 +99,16 @@ post.getTenHome = function(opt,callback){//opt:email,page,pagelimit
     postModel.count(query,function(err,total){
         postModel.find(query,"-post",{skip:(opt.page-1)*opt.limit,limit:opt.limit,sort:{time:-1}},function(err,docs) {
             if (err) {
-                callback(err, null);//失败返回null
+                return callback(err, null);//失败返回null
             }
-            docs.forEach(function (doc) {
-                if (doc.comments) {
-                    doc.comments = doc.comments.length;
+            docs.forEach(function(doc){
+                if(doc.comments){
+                    doc._doc.commentstotal = doc.comments.length;
+                    //doc.comments = doc.comments.slice(0,10);
+                    doc.comments = [];
+                }else{
+                    doc.comments = 0;
+                    doc._doc.commentstotal = 0;
                 }
             });
             //postModel.update({"_id": {"$in": look}}, {$inc: {"pv": 1}}, {"multi": true});
@@ -125,7 +125,7 @@ post.getOne = function(id,callback){
     }
     postModel.findOne(query,function(err,docs) {
         if (err) {
-            callback(err, null);//失败返回null
+            return callback(err, null);//失败返回null
         }
         callback(null, docs);//成功返回结果
     })
@@ -149,7 +149,7 @@ post.recycle = function(id,email,callback){
     }
     postModel.update(query,{"recycle":1},{multi:true},function(err,docs) {
         if (err) {
-            callback(err, null);//失败返回null
+            return callback(err, null);//失败返回null
         }
         callback(null, docs);//成功返回结果
     })
@@ -172,7 +172,7 @@ post.restore = function(id,email,callback){
     }
     postModel.update(query,{"recycle":0},{multi:true},function(err,docs) {
         if (err) {
-            callback(err, null);//失败返回null
+            return callback(err, null);//失败返回null
         }
         callback(null, docs);//成功返回结果
     })
@@ -196,7 +196,7 @@ post.del = function(id,email,callback){
     }
     postModel.remove(query,function(err,docs) {
         if (err) {
-            callback(err, null);//失败返回null
+            return callback(err, null);//失败返回null
         }
         callback(null, docs);//成功返回结果
     })
@@ -219,7 +219,7 @@ post.edit = function(id,opt,callback){
 
     postModel.update(query,posts,function(err,docs) {
         if (err) {
-            callback(err, null);//失败返回null
+            return callback(err, null);//失败返回null
         }
         callback(null, docs);//成功返回结果
     })
@@ -237,13 +237,8 @@ post.search = function(opt,callback){
     postModel.count(query,function(err,total){
         postModel.find(query,"-digest -email -pv -comments -post",{skip:(opt.page-1)*opt.pagelimit,limit:opt.pagelimit,sort:{time:-1}},function(err,docs) {
             if (err) {
-                callback(err, null);//失败返回null
+                return callback(err, null);//失败返回null
             }
-            docs.forEach(function (doc) {
-                if (doc.comments) {
-                    doc.comments = doc.comments.length;
-                }
-            });
             //postModel.update({"_id": {"$in": look}}, {$inc: {"pv": 1}}, {"multi": true});
             callback(null, docs, total);//成功返回结果
         })
@@ -258,7 +253,7 @@ post.getComment = function(id,callback){
     }
     postModel.find(query,"comments",{sort:{time:-1}},function(err,docs) {
         if (err) {
-            callback(err, null);//失败返回null
+            return callback(err, null);//失败返回null
         }
         //postModel.update({"_id": {"$in": look}}, {$inc: {"pv": 1}}, {"multi": true});
         callback(null, docs);//成功返回结果
@@ -271,12 +266,45 @@ post.commentSave = function(id,opt,callback) {
     if(id){
         query._id = id;
     }
-    postModel.find(query,"comments",{sort:{time:-1}},function(err,docs) {
-        var opts = opt;
-        var doc = docs[0].comments;
-        postModel.populate(doc, opts, function (err, comments) {
-            console.log(comments);
-            callback(comments);
+    postModel.update(query,{'$push':{"comments":opt}},function(err,docs) {
+        if(err){
+            return callback(err,null);
+        }else{
+            callback(null,docs);
+        }
+
+    })
+};
+
+//获取分类文章
+post.getsort = function(txt,callback){
+    var query = {};
+    if(txt){
+        query.sort = txt;
+    }
+    query.recycle = {$ne:1};
+    postModel.count(query,function(err,total){
+        postModel.find(query,"-digest -email -pv -comments -post",{sort:{sort:1,time:-1}},function(err,docs) {
+            if (err) {
+                return callback(err, null);//失败返回null
+            }
+            //postModel.update({"_id": {"$in": look}}, {$inc: {"pv": 1}}, {"multi": true});
+            callback(null, docs, total);//成功返回结果
+        })
+    })
+};
+
+//获取全部文章
+post.getArchive = function(callback){
+    var query = {};
+    query.recycle = {$ne:1};
+    postModel.count(query,function(err,total){
+        postModel.find(query,"-digest -email -pv -comments -post",{sort:{time:-1}},function(err,docs) {
+            if (err) {
+                return callback(err, null);//失败返回null
+            }
+            //postModel.update({"_id": {"$in": look}}, {$inc: {"pv": 1}}, {"multi": true});
+            callback(null, docs, total);//成功返回结果
         })
     })
 };
@@ -287,7 +315,7 @@ post.udemail = function(email,newemail,callback){
     query.email = email;
     postModel.update(query,{"email":newemail},{multi:true},function(err,docs) {
         if (err) {
-            callback(err, null);//失败返回null
+            return callback(err, null);//失败返回null
         }
         callback(null, docs);//成功返回结果
     });

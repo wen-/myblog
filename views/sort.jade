@@ -1,17 +1,12 @@
 extends layout
 block content
-    include say
     div.content(style="padding:3em 0;")
-        div.sort_t 查看:
+        div.sort_t 查看：
             select#select_sort.select
                 option 请选择分类
-                option(value="CSS") CSS
-                option(value="HTML") HTML
-                option(value="JavaScript") JavaScript
-                option(value="jQuery") jQuery
-                option(value="node.js") node.js
-                option(value="phoneGap") phoneGap
-                option(value="其它") 其它
+                -if(sorts)
+                    each item in sorts
+                        option(value="#{item.sorttxt}") #{item.sorttxt}
                 option(value="all") 全部
         div#sort_box.sort_box.archive_list
 

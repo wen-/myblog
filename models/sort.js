@@ -38,7 +38,7 @@ sort.prototype.save = function(callback) {
 
 //获取分类
 sort.get = function(callback) {
-    sortModel.find(function (err, sort) {
+    sortModel.find(null,null,{sort:{sorttxt:1}},function (err, sort) {
         if (err) {
             return callback(err);
         }

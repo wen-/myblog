@@ -75,8 +75,8 @@ if(posts && posts.length>0)
                                 | 阅读：<span class="read_num">#{post.pv}</span>
                                 |&nbsp;|&nbsp;
                                 |评论：
-                                if(!!post.comments)
-                                    |<span class="comments_num">#{post.comments}</span>
+                                if(!!post.commentstotal)
+                                    |<span class="comments_num">#{post.commentstotal}</span>
                                 else
                                     |<span class="comments_num">0</span>
                                 div.rfloat

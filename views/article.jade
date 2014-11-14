@@ -3,88 +3,98 @@ extends layout
 block content
     div.content.articleOne
         div.log_box_details
-            div.log_details_t
-                div.log_head_ico(style="display:block;position:static;")
-                    a(href="/u/#{post.name}",title="#{post.name}")
-                        -if(!!post.head){
-                            img(src="#{post.head}")
-                        -}else{
-                            img(src="/images/head.gif")
-                        -}
-                        p #{post.name}
-                h4
-                    a.uid(data-uid="#{post._id}") #{post.title}
-                p
-                    small #{post.time.minute}
-                p.key_word
-                    -if(!!post.tags){
-                        -post.tags.forEach(function(tag,index){
-                            -if(tag.tag){
-                                //-a(href="/tags/#{tag.tag}") #{tag.tag}
-                                a #{tag.tag}
-                            -}
-                        -})
-                    -}
-            div.log_details_m !{post.post}
-            div.log_comment_box(id="commentBox#{post._id}",style="display:block;background:none;")
-                div.comment_box_title
-                    h3 评论：
-                div.comment_box_m(style="display:block;")
-                    if(!!post.comments & !!post.comments.length)
-                        -post.comments.forEach(function(comment,index){
-                            div.comment_list
-                                div.comments_details_t
-                                    if(!!comment.head)
-                                        a.head_ico(href="#{comment.website}")
-                                            img(src="#{comment.head}")
-                                        a.head_name(href="#{comment.website}") #{comment.name}
-                                    else
-                                        a.head_ico(href="#{comment.website}")
-                                            img(src="/images/head.gif")
-                                        a.head_name(href="#{comment.website}") #{comment.name}
-                                    span.info 回复于 <span>#{comment.time}</span>
-                                div.comments_details_m !{comment.content}
-                        -})
-                div.comment_box_b(style="display:block;")
-                    form.log_comment_data(method="post")
-                        ul.ui_ul_input
-                            if(locals.user)
+            -if(locals.error)
+                h3(style="text-align:center;") 数据加载失败！
+            -else
+                -var d = new Date()
+                -d.setTime(post.time)
+                -var y = d.getFullYear()
+                -var m = d.getMonth()+1
+                -var date = d.getDate()
+                -if(date < 10)
+                -date = "0"+date
+                -var time = y+'-'+m+'-'+date
+                div.log_details_t
+                    div.log_head_ico(style="display:block;position:static;")
+                        -if(post.name)
+                            a(href="/u/#{post.name}",title="#{post.name}")
+                                -if(!!post.headico){
+                                    img(src="#{post.headico}")
+                                -}else{
+                                    img(src="/images/head.gif")
+                                -}
+                                p #{post.name}
+                        -else
+                            a(href="/u/#{post.email}",title="#{post.email}")
+                                -if(!!post.headico){
+                                    img(src="#{post.headico}")
+                                -}else{
+                                    img(src="/images/head.gif")
+                                -}
+                                p #{post.email}
+                    h4
+                        a.uid(data-uid="#{post._id}") #{post.title}
+                    p
+                        small #{time}
+                div.log_details_m
+                    !{post.post}
+                div.log_comment_box(id="commentBox#{post._id}",style="display:block;background:none;")
+                    div.comment_box_title
+                        h3 评论：
+                    div.comment_box_m(style="display:block;")
+                        if(!!post.comments & !!post.comments.length)
+                            -post.comments.forEach(function(comment,index){
+                                -var d1 = new Date()
+                                -d1.setTime(comment.time)
+                                -var y1 = d1.getFullYear()
+                                -var m1 = d1.getMonth()+1
+                                -var date1 = d1.getDate()
+                                -if(date1 < 10)
+                                -date1 = "0"+date1
+                                -var time1 = y1+'-'+m1+'-'+date1
+                                div.comment_list
+                                    div.comments_details_t
+                                        if(!!comment.headico)
+                                            a.head_ico(href="")
+                                                img(src="#{comment.headico}")
+                                            a.head_name(href="") #{comment.name}
+                                        span.info 回复于 <span>#{comment.time1}</span>
+                                    div.comments_details_m !{comment.content}
+                            -})
+                    div.comment_box_b(style="display:block;")
+                        form.log_comment_data(method="post")
+                            ul.ui_ul_input
+                                if(locals.user)
+                                    li
+                                        label 姓名：
+                                        input(type="text",name="name",value="#{locals.user.name}")
+                                    li
+                                        label 邮箱：
+                                        input(type="text",name="email",value="#{locals.user.email}")
+                                else
+                                    li
+                                        label 姓名：
+                                        input(type="text",name="name")
+                                    li
+                                        label 邮箱：
+                                        input(type="text",name="email")
                                 li
-                                    label 姓名：
-                                    input(type="text",name="name",value="#{locals.user.name}")
+                                    label.lfloat 评论：
+                                    textarea(name="content")
                                 li
-                                    label 邮箱：
-                                    input(type="text",name="email",value="#{locals.user.email}")
-                                //-li
-                                    label 网址：
-                                    input(type="text",name="website",value="#{locals.user.name}")
-                            else
-                                li
-                                    label 姓名：
-                                    input(type="text",name="name")
-                                li
-                                    label 邮箱：
-                                    input(type="text",name="email")
-                                //-li
-                                    label.control-label 网址：
-                                    input(type="text",name="website",value="http://")
-                            li
-                                label.lfloat 评论：
-                                textarea(name="content")
-                            li
-                                label 验证码：
-                                input.codeIMG_txt(type="text",name="codeIMG")
-                                img#loginCodeUrl.CodeUrl(src="/images/demoCode.png",alt="",title="点击获取验证码")
-                        div.comment_msg(id="msg#{post._id}") 数据发送中
-                            img(style="vertical-align: middle;height:3px",src="/images/ajax-loader.gif",alt="")
-                        div.form_actions
-                            button.btn.send_comment(id="comment#{post._id}",type="submit",data-url="/comments/#{post._id}") 评论
-            div.log_details_b.clearfix
-                p.info.lfloat
-                    | 阅读：<span class="read_num">#{post.pv}</span>
-                    |&nbsp;|&nbsp;
-                    |评论：
-                    if(!!post.comments)
-                        |<span class="comments_num">#{post.comments.length}</span>
-                    else
-                        |<span class="comments_num">0</span>
+                                    label 验证码：
+                                    input.codeIMG_txt(type="text",name="codeIMG")
+                                    img#loginCodeUrl.CodeUrl(src="/images/demoCode.png",alt="",title="点击获取验证码")
+                            div.comment_msg(id="msg#{post._id}") 数据发送中
+                                img(style="vertical-align: middle;height:3px",src="/images/ajax-loader.gif",alt="")
+                            div.form_actions
+                                button.btn.send_comment(id="comment#{post._id}",type="submit",data-url="/getcomments/#{post._id}") 评论
+                div.log_details_b.clearfix
+                    p.info.lfloat
+                        | 阅读：<span class="read_num">#{post.pv}</span>
+                        |&nbsp;|&nbsp;
+                        |评论：
+                        if(!!post.comments)
+                            |<span class="comments_num">#{post.comments.length}</span>
+                        else
+                            |<span class="comments_num">0</span>
