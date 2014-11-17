@@ -3,19 +3,21 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <script src="js/jquery-1.9.0.min.js"></script>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/json2.js"></script>
     <script src="js/socket.io.js"></script>
     <script>
-        /*
-        var socket = io.connect('http://localhost:3000',{transports:['jsonp-polling']});
+    /*
+        var socket = io.connect('http://localhost:3000/door');
         socket.on('connect', function() {
-            console.log('Connect success.');
+            console.log('连接成功！');
+            //socket.emit('my other event', { my: 'data' });
         });
         socket.on('news', function (data) {
             console.log('返回的数据：'+data);
             socket.emit('my other event', { my: 'data' });
         });
-        */
+    */
     </script>
 </head>
 <body>
@@ -41,6 +43,7 @@
 
 
 <script type="text/javascript">
+
 $(function() {
     var FADE_TIME = 150; // ms
     var TYPING_TIMER_LENGTH = 400; // ms
@@ -66,7 +69,7 @@ $(function() {
     var typing = false;
     var lastTypingTime;
     var $currentInput = $usernameInput.focus();
-    var socket = io();
+    var socket = io.connect('http://localhost:3000/chat');
 
 
     socket.on('connect', function () {
@@ -78,15 +81,6 @@ $(function() {
     socket.on('reconnecting', function () {
         $("h4").html("与服务器通讯失败。");
     });
-
-    /*
-    if(!!(parseInt((navigator.userAgent).slice(navigator.userAgent.indexOf("MSIE")+5,navigator.userAgent.indexOf("MSIE")+9)) < 8)){
-        socket = io.connect('127.0.0.1:3000',{transports:['jsonp-polling']});
-    }else{
-        socket = io();
-    }
-    */
-
 
     function addParticipantsMessage (data) {
         var message = '';
@@ -307,6 +301,11 @@ $(function() {
         addParticipantsMessage(data);
     });
 
+    //更新在线人数
+    socket.on('refresh online', function (data) {
+        addParticipantsMessage(data);
+    });
+
     // Whenever the server emits 'new message', update the chat body
     socket.on('new message', function (data) {
         addChatMessage(data);
@@ -314,13 +313,13 @@ $(function() {
 
     // Whenever the server emits 'user joined', log it in the chat body
     socket.on('user joined', function (data) {
-        log(data.username + ' 上线了');
+        log(data.userData + ' 上线了');
         addParticipantsMessage(data);
     });
 
     // Whenever the server emits 'user left', log it in the chat body
     socket.on('user left', function (data) {
-        log(data.username + ' 下线了');
+        log(data.userData + ' 下线了');
         addParticipantsMessage(data);
         removeChatTyping(data);
     });
@@ -335,6 +334,7 @@ $(function() {
         removeChatTyping(data);
     });
 });
+
 </script>
 </body>
 </html>

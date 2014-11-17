@@ -1,33 +1,178 @@
-div.content.say_content(style="display:none;")
-    div.say_box
-        h1.say_box_title 说点什么吧
-        form#say_data.say_data(method="post",action="/post")
-            ul.ui_ul_input
-                li.say_title
-                    label(for="say_t") 标题：
-                    input#say_t(name="say_t",type="text")
-                    div.msg_txt
-                li.say_sort
-                    label(for="sort") 所属分类：
-                    select#sort.select(name="sort")
-                        option HTML
-                        option CSS
-                        option JavaScript
-                        option jQuery
-                        option node.js
-                        option phoneGap
-                        option 其它
-                    div.msg_txt
-                li.say_key
-                    label 关键字：
-                    input(name="tag1",type="text")
-                    input(name="tag2",type="text")
-                    input(name="tag3",type="text")
-                li.say_content.clearfix
-                    label.say_content_label(for="post") 内容：
-                    textarea(name="post")
-            div.send_msg 数据发送中
-                img(style="vertical-align: middle;height:3px",src="/images/ajax-loader.gif",alt="")
-            div.form_actions
-                button#send_say.btn(type="submit") 发表
-                button#backhome.btn(type="button",style="margin-left:.5em;") 返回
+extends layout
+block content
+    div.content.socket_content()
+        style.
+            .socket_content{
+                padding-top:46px;
+                height:500px;
+            }
+            .socketBox_page{
+                height:100%;
+                width:60%;
+                position: relative;
+                box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+                background-color:#ececec;
+            }
+            .online_list{
+                width:30%;
+                height:100%;
+            }
+            .socketBox_msgT, .socketBox_msgB {
+                height:40px;
+                line-height: 40px;
+                width:100%;
+                z-index: 102;
+                position:absolute;
+                background-color: #fff;
+            }
+            .socketBox_msgT{
+                top:0;
+                text-align: center;
+                border-bottom: solid 1px #999;
+            }
+            .socketBox_msgB{
+                bottom:0;
+                text-align: right;
+                border-top:solid 1px #999;
+            }
+            .socketBox_msgB input{
+                width: 60%;
+                border: solid 1px #ccc;
+                box-shadow: inset 1px 1px 3px #333;
+                padding: 3px;
+            }
+            .socketBox_msgB button{
+                width: 20%;
+                background-color: #efefef;
+                border: solid 1px #999;
+                padding: 3px 0;
+            }
+            .socketBox_msgB button:active{
+                background-color: #ccc;
+            }
+            .socketBox_msgM{
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                padding:45px 0 45px;
+                height: 100%;
+                overflow-y: auto;
+            }
+            .msgList{
+                margin-bottom: 1em;
+            }
+            .msgListYour_ico,.msgListMe_ico{
+                width: 40px;
+                height:40px;
+                margin:0 15px;
+            }
+            .msgListYour_ico img,.msgListMe_ico img{
+                width: 100%;
+                height:100%;
+                border:solid 1px #333;
+                border-radius: 4px;
+            }
+            .msgListYour_txt,.msgListMe_txt{
+                margin:0 70px;
+            }
+            .txt_module{
+                background-color: #fff;
+                display: inline-block;
+                border-radius: 10px;
+                padding: 10px;
+                position: relative;
+            }
+            .txt_module:before{
+                content: "";
+                height: 11px;
+                width: 11px;
+                color: #fff;
+                position: absolute;
+                left: -10px;
+                top: 7px;
+                background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAASRJREFUeNq01LFKA0EQxvE1yEmMMRgLbSIqAUEU7LSzEBsrtbIRwbxEWkEI5BkE0UZrn8PCysonSBWxEEQc/wOzcEou3pnJBz8Cl+VbLtnZICLB2YWMofRULJ6lbUlFHzRHLKzjVn5Fv+jgyhYUKUzQQk8GRBcs4g193OMI5SGFu7jMKoyZ0MWkjU74mWe84wkrqGENMyFHYnGCR2wGp5Ts8wPHePUu1rzgbBzFmgd0XZozjtG1jJisIzWHO3x5F5ewhBt8ehbH8lV0bYAKJZ7jYX+uDscJWljWs19kQP4qn8c+zrGdZ/ryFMdMYwOHOEATFY9izaTdGVvYw45tUEc5PRdFi9MbVNGwt1i3DRYwi6n/FqeT2M9UtdKaV/HAa+JbgAEALlYXH2MTJmMAAAAASUVORK5CYII=") no-repeat;
+                background-size: 100%;
+            }
+            .msgListMe_txt{
+                text-align: right;
+            }
+            .msgListMe_txt .txt_module {
+                background-color: #36f;
+            }
+            .msgListMe_txt .txt_module{
+                text-align: left;
+            }
+            .msgListMe_txt .txt_module:before{
+                background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAUlJREFUeNq0lL1KA0EURmfjIghWPoM2VkJ8iJR2VlaKik8gFgZsBEGwEhQLUdQHsLAICIqFRcDSP0REIkpAUIJECbueK7cIMpud2Ww+OAyEu2cnd+5OUJyNY2PMCpRNjinougxTvRBL9mCxF2LJqr5gqEvvcMHyo7TkBqah31MoG9qRZwM9vKTUYRsq1S1zZisYnzMDLCWY1LUPRtLE7WnALXzAI4yBSEf/1S1JS0OPvzkIxZSaa1i3HV43+YIJ+MlbvAB3SeOWNQew32mOs6QC8xDlKT7XuW+kfXmukd0dwwy82QrCDNJv2NWxuk8q8hHLh/QMG3AEr52KQ0ehzOgpbMKFraeu4lj7KIIqHMKJ9jNKk3Kv/ImjNlkLPuEBLnWUrvQyavkchIjXoAnvUIMneNHLpumywyRxWR+OskpsCWLnW9MvvwIMANROU6D1D/OoAAAAAElFTkSuQmCC") no-repeat;
+                background-size: 100%;
+                right: -10px;
+                left:auto;
+            }
+            .onling_n{
+                padding:.5em;
+                text-align: center;
+            }
+            .sayname{
+                margin-bottom: 5px;
+                color:#555;
+                text-shadow: none;
+            }
+            .saytime{
+                margin-left: 20px;
+            }
+        div.socket_box.clearfix.
+            <div class="socketBox_page left">
+                <div class="socketBox_msgT clearfix">
+                    <span class="dname_show">消息对象昵称</span>
+                </div>
+                <div class="socketBox_msgM">
+                    <div class="msgList msgList_your clearfix">
+                        <div class="msgListYour_ico lfloat">
+                            <img src="img/head.gif" alt="" />
+                        </div>
+                        <div class="msgListYour_txt">
+                            <div class="txt_module">说点什么吧！</div>
+                        </div>
+                    </div>
+                    <div class="msgList msgList_me clearfix">
+                        <div class="msgListMe_ico rfloat">
+                            <img src="img/head.gif" alt="" />
+                        </div>
+                        <div class="msgListMe_txt">
+                            <div class="txt_module">说点什么好呢？</div>
+                        </div>
+                    </div>
+                    <div class="msgList msgList_your clearfix">
+                        <div class="msgListYour_ico lfloat">
+                            <img src="img/head.gif" alt="" />
+                        </div>
+                        <div class="msgListYour_txt">
+                            <div class="txt_module">说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧！</div>
+                        </div>
+                    </div>
+                    <div class="msgList msgList_me clearfix">
+                        <div class="msgListMe_ico rfloat">
+                            <img src="img/head.gif" alt="" />
+                        </div>
+                        <div class="msgListMe_txt">
+                            <div class="txt_module">说点什么好呢？</div>
+                        </div>
+                    </div>
+                    <div class="msgList msgList_me clearfix">
+                        <div class="msgListMe_ico rfloat">
+                            <img src="img/head.gif" alt="" />
+                        </div>
+                        <div class="msgListMe_txt">
+                            <div class="txt_module">说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么好呢？</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="socketBox_msgB">
+                    <input type="text" id="inputMsg" data-role="none" />
+                    <button type="button" id="sendBtn" data-role="none">发送</button>
+                </div>
+            </div>
+            <div class="online_list rfloat">
+                <ul>
+                    <li></li>
+                </ul>
+            </div>

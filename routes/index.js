@@ -7,6 +7,12 @@ var crypto = require('crypto'),
     sendmail = require('../models/sendMail.js');
 
 /* GET home page. */
+router.get('/socket', function(req, res) {
+    res.render('say', {
+
+    });
+});
+
 router.get('/', function(req, res) {
     var page = req.query.page?parseInt(req.query.page):1;
     var recycle = req.query.recycle?parseInt(req.query.recycle):{$ne:1};
