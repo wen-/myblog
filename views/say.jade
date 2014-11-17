@@ -3,7 +3,6 @@ block content
     div.content.socket_content()
         style.
             .socket_content{
-                padding-top:46px;
                 height:500px;
             }
             .socketBox_page{
@@ -16,7 +15,21 @@ block content
             .online_list{
                 width:30%;
                 height:100%;
+				border:solid 1px #ececec;
             }
+			.online_ico{
+				width:40px;
+				height:40px;
+				border:solid 1px #ccc;
+				-webkit-border-radius:4px;
+				-moz-border-radius:4px;
+				-o-border-radius:4px;
+				-ms-border-radius:4px;
+				border-radius:4px;
+			}
+			.online_name{
+				padding-left:50px;
+			}
             .socketBox_msgT, .socketBox_msgB {
                 height:40px;
                 line-height: 40px;
@@ -121,9 +134,9 @@ block content
             }
         div.socket_box.clearfix.
             <div class="socketBox_page left">
-                <div class="socketBox_msgT clearfix">
+                <!--<div class="socketBox_msgT clearfix">
                     <span class="dname_show">消息对象昵称</span>
-                </div>
+                </div>-->
                 <div class="socketBox_msgM">
                     <div class="msgList msgList_your clearfix">
                         <div class="msgListYour_ico lfloat">
@@ -173,6 +186,9 @@ block content
             </div>
             <div class="online_list rfloat">
                 <ul>
-                    <li></li>
+                    <li>
+						<img src="" alt=" class="online_ico lfloat" />
+						<div class="online_name">名字</div>
+					</li>
                 </ul>
             </div>
