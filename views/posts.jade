@@ -32,6 +32,7 @@ if(posts && posts.length>0)
                                     p #{post.name}
                             h4
                                 a.uid(data-uid="#{post._id}") #{post.title}
+                            p(style="color:#ccc;") #{post.sort}
                             p
                                 small #{time}
                         div.log_details_m #{digest[0]}
@@ -75,8 +76,8 @@ if(posts && posts.length>0)
                                 | 阅读：<span class="read_num">#{post.pv}</span>
                                 |&nbsp;|&nbsp;
                                 |评论：
-                                if(!!post.commentstotal)
-                                    |<span class="comments_num">#{post.commentstotal}</span>
+                                if(!!post._doc.commentstotal)
+                                    |<span class="comments_num">#{post._doc.commentstotal}</span>
                                 else
                                     |<span class="comments_num">0</span>
                                 div.rfloat

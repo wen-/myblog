@@ -48,13 +48,45 @@ router.get('/', function(req, res) {
     });
 });
 
+//首页查找文章
+router.get('/search',function(req,res){
+    var email;
+    //email = req.session.user.email;
+    var page = req.query.page?parseInt(req.query.page):1;
+    var keyword = req.query.keyword;
+    var recycle = req.query.recycle?parseInt(req.query.recycle):{$ne:1};
+    var opt = {
+        "keyword":keyword,
+        "page":page,
+        "pagelimit":10,
+        "recycle":recycle
+    };
+    if(!!email){
+        opt.email = email;
+    }
+    post.search(opt,function(err,docs,total){
+        if(err){
+            res.render('search',{
+                "success":false,
+                "msg":"搜索失败！"
+            });
+        }else{
+            res.render('search',{
+                "success":true,
+                "posts":docs,
+                "total":total
+            });
+        }
+    });
+});
+
 //查看全文
 router.get('/u/:_id',function(req,res){
     var _id = req.params._id;
     if(_id){
         post.getOne(_id,function(err,docs){
             if(err){
-                res.json({
+                return res.json({
                     'state':false,
                     'msg':"获取数据失败！"
                 });
@@ -100,6 +132,7 @@ router.get('/getcomments/:_id',function(req,res){
         res.redirect('/');
     }
 });
+//提交评论
 router.post('/getcomments/:_id',function(req,res){
     var _id = req.params._id;
     var name = req.body.name,
@@ -107,7 +140,7 @@ router.post('/getcomments/:_id',function(req,res){
         content = req.body.content,
         codeIMG = req.body.codeIMG;
     if(name == "" || email == "" || content == "" || codeIMG == ""){
-        res.json({
+        return res.json({
             'state':false,
             'msg':"用户名/邮箱/评论内容/验证码 不能为空！"
         });
@@ -442,10 +475,12 @@ router.get('/admin/blog/search',function(req,res){
     var opt = {
         "keyword":keyword,
         "page":page,
-        "email":email,
         "pagelimit":10,
         "recycle":recycle
     };
+    if(email){
+        opt.email = email;
+    }
     post.search(opt,function(err,docs,total){
         if(err){
             res.json({

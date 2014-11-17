@@ -19,7 +19,7 @@ block content
                     -var m = d.getMonth()+1
                     -var date = d.getDate()
                     -if(date < 10)
-                    -date = "0"+date
+                        -date = "0"+date
                     -var time = y+'-'+m+'-'+date
 
                     -if(lastYear != y || lastMon != m)
@@ -36,7 +36,7 @@ block content
                         -var mnext = dnext.getMonth()+1
                         -var datenext = dnext.getDate()
                         -if(datenext < 10)
-                        -datenext = "0"+datenext
+                            -datenext = "0"+datenext
                         -var timenext = ynext+'-'+mnext+'-'+datenext
                         -if(lastYear != ynext || lastMon != mnext)
                             |</ul></div>

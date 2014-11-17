@@ -821,6 +821,9 @@ p.key_word a:hover{
     width: 80px;
     vertical-align: middle;
 }
+.log_details_b{
+    padding-top:20px;
+}
 /*--3d样式（如果支持）--*/
 
 .csstransforms3d .details_3d_view{

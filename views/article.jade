@@ -12,7 +12,7 @@ block content
                 -var m = d.getMonth()+1
                 -var date = d.getDate()
                 -if(date < 10)
-                -date = "0"+date
+                    -date = "0"+date
                 -var time = y+'-'+m+'-'+date
                 div.log_details_t
                     div.log_head_ico(style="display:block;position:static;")
@@ -36,8 +36,7 @@ block content
                         a.uid(data-uid="#{post._id}") #{post.title}
                     p
                         small #{time}
-                div.log_details_m
-                    !{post.post}
+                div.log_details_m !{post.post}
                 div.log_comment_box(id="commentBox#{post._id}",style="display:block;background:none;")
                     div.comment_box_title
                         h3 评论：
@@ -50,15 +49,18 @@ block content
                                 -var m1 = d1.getMonth()+1
                                 -var date1 = d1.getDate()
                                 -if(date1 < 10)
-                                -date1 = "0"+date1
+                                    -date1 = "0"+date1
                                 -var time1 = y1+'-'+m1+'-'+date1
                                 div.comment_list
                                     div.comments_details_t
-                                        if(!!comment.headico)
+                                        -if(!!comment.headico)
                                             a.head_ico(href="")
                                                 img(src="#{comment.headico}")
-                                            a.head_name(href="") #{comment.name}
-                                        span.info 回复于 <span>#{comment.time1}</span>
+                                        -else
+                                            a.head_ico(href="")
+                                                img(src="/images/head.gif")
+                                        a.head_name(href="") #{comment.name}
+                                        span.info 回复于 <span>#{time1}</span>
                                     div.comments_details_m !{comment.content}
                             -})
                     div.comment_box_b(style="display:block;")

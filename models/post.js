@@ -16,13 +16,15 @@ var commentSchema = new mongoose.Schema({
 });
 
 var postSchema = new mongoose.Schema({
+    name : String,
+    headico : String,
     email : String,
     title : String,
     sort : String,
     time : String,
     post : String,
     digest : String,
-    pv : String,
+    pv : Number,
     comments : [commentSchema],
     recycle : 0
 }, {
@@ -127,7 +129,11 @@ post.getOne = function(id,callback){
         if (err) {
             return callback(err, null);//失败返回null
         }
-        callback(null, docs);//成功返回结果
+        docs.pv = docs.pv+1;
+        docs.save(function(err,docs){
+            callback(null, docs);//成功返回结果
+        });
+
     })
 };
 
@@ -232,8 +238,11 @@ post.search = function(opt,callback){
     if(opt.keyword){
         query.title = pattern;
     }
+    if(opt.email){
+        query.email = opt.email;
+    }
+
     query.recycle = opt.recycle;
-    query.email = opt.email;
     postModel.count(query,function(err,total){
         postModel.find(query,"-digest -email -pv -comments -post",{skip:(opt.page-1)*opt.pagelimit,limit:opt.pagelimit,sort:{time:-1}},function(err,docs) {
             if (err) {

@@ -1,0 +1,36 @@
+extends layout
+
+block content
+    div.content(style="padding-top:5em;")
+        ul.unstyled
+            -var lastYear = 0
+            -posts.forEach(function(post,index){
+                -var t = index+1;
+                -var d = new Date()
+                -d.setTime(post.time)
+                -var y = d.getFullYear()
+                -var m = d.getMonth()+1
+                -var date = d.getDate()
+                -if(date < 10)
+                    -date = "0"+date
+                -var time = y+'-'+m+'-'+date
+
+                -if(lastYear != y || lastMon != m)
+                    |<div class="archive_list"><h3>#{y}<span>年&nbsp;#{m}月</span></h3><ul>
+                    -lastYear = y
+                    -lastMon = m
+                li
+                    a(href="/article/#{post._id}",title="#{post.title}",target="_blank") #{post.title}
+                    span #{time}
+                -if(!!posts[t])
+                    -var dnext = new Date()
+                    -dnext.setTime(posts[t].time)
+                    -var ynext = dnext.getFullYear()
+                    -var mnext = dnext.getMonth()+1
+                    -var datenext = dnext.getDate()
+                    -if(datenext < 10)
+                        -datenext = "0"+datenext
+                    -var timenext = ynext+'-'+mnext+'-'+datenext
+                    -if(lastYear != ynext || lastMon != mnext)
+                        |</ul></div>
+            -})
