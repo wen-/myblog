@@ -1,7 +1,7 @@
 extends layout
 block content
-    div.content.socket_content()
-        style.
+    div.content.socket_content().
+        <style>
             .socket_content{
                 height:500px;
             }
@@ -15,7 +15,7 @@ block content
             .online_list{
                 width:30%;
                 height:100%;
-				border:solid 1px #ececec;
+                border:solid 1px #ececec;
             }
 			.online_ico{
 				width:40px;
@@ -132,11 +132,12 @@ block content
             .saytime{
                 margin-left: 20px;
             }
-        div.socket_box.clearfix.
+        </style>
+        <div class="socket_box clearfix">
             <div class="socketBox_page left">
-                <!--<div class="socketBox_msgT clearfix">
+                <div class="socketBox_msgT clearfix">
                     <span class="dname_show">消息对象昵称</span>
-                </div>-->
+                </div>
                 <div class="socketBox_msgM">
                     <div class="msgList msgList_your clearfix">
                         <div class="msgListYour_ico lfloat">
@@ -192,3 +193,4 @@ block content
 					</li>
                 </ul>
             </div>
+        </div>
