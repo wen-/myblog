@@ -244,8 +244,8 @@ $(function(){
             data:$("form.login_data").serialize(),
             success: function (json) {
                 if(!json.success){
-                    $("form.login_data .login_msg").html(json.msg).css("visibility","visible");
-                    $("#codeUrl").trigger('click');
+                    $("form.login_data .login_msg").html(json.error).css("visibility","visible");
+                    $(".codeUrl").trigger('click');
                 }else{
                     location.href = "/admin";
                 }
