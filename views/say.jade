@@ -188,6 +188,7 @@ block content
             -moz-box-flex: 1;
             -webkit-box-flex: 1;
             box-flex: 1;
+            flex: 1;
         }
         .face img {
             margin-left: 10px;
@@ -202,6 +203,7 @@ block content
             -moz-box-flex: 4;
             -webkit-box-flex: 4;
             box-flex: 4;
+            flex: 4;
         }
         .socketBox_msgB #sendBtn{
             display: block;
@@ -216,6 +218,7 @@ block content
             box-shadow: 1px 1px 0 #000;
             outline: none;
             border:solid 1px #fff;
+            flex: 1;
         }
         .face_ico,.file_ico{
             display: none;
@@ -252,6 +255,7 @@ block content
             -moz-box-flex: 1;
             -webkit-box-flex: 1;
             box-flex: 1;
+            flex: 1;
             overflow-y: auto;
         }
         .msgList{
@@ -265,7 +269,7 @@ block content
         .msgListYour_ico img,.msgListMe_ico img{
             width: 100%;
             height:100%;
-            border:solid 1px #333;
+            border:solid 1px #ccc;
             border-radius: 4px;
         }
         .msgListYour_txt,.msgListMe_txt{
@@ -311,7 +315,6 @@ block content
         .sayname{
             margin-bottom: 5px;
             color:#555;
-            text-shadow: none;
         }
         .saytime{
             margin-left: 20px;
@@ -398,6 +401,14 @@ block content
                 $(".online_name[data-uid='"+data.userData.uid+"']").parent(".online_pt").remove();
                 $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
             });
+            socket.on('postmsg', function (data) {
+                console.log(data);
+                var time = new Date();
+                time.setTime(data.time);
+                var timetxt = (time.getMonth()+1)+'-'+ time.getDate()+' '+ time.getHours()+':'+ time.getMinutes();
+                $(".socketBox_msgM .msgBody").append('<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">'+data.userData.nickname+'<span class="saytime">'+timetxt+'</span></div><div class="txt_module">'+data.message+'</div></div></div>');
+                $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
+            });
 
             var l = randomname.length+1;
             var n = Math.floor(Math.random()*l);
@@ -407,7 +418,7 @@ block content
             $(".sendNickName").click(function(){
                 var nicknamev = $.trim($("input.nicknamev").val()) || $(".randomNickName").text();
                 if(nicknamev != ''){
-                    socket.emit('goin',{"nickname":nicknamev});
+                    socket.emit('goin', {"nickname": nicknamev});
                 }
             });
             $(".nicknamediy").change(function () {
@@ -419,4 +430,25 @@ block content
                     $("input.nicknamev").css("background-color","#efefef");
                 }
             });
+            $("#sendBtn").click(function(){
+                var $this = $(this);
+                var msg = $("#inputMsg").val();
+                var tt = new Date().getTime();
+                if(!!msg){
+                    $(".socketBox_msgM .msgBody").append('<div class="msgList msgList_me clearfix"><div class="msgListMe_ico rfloat"><img src="images/head.gif" alt=""></div><div class="msgListMe_txt"><div class="txt_module" id="msg'+tt+'">'+msg+'</div></div></div>');
+                    $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
+                    socket.emit('postmsg',{"msg":msg},function(success){
+                        if(!success){
+                            $("#msg"+tt).text('发送失败！');
+                        }
+                    });
+                }else{
+                    $this.porp("disabled",true);
+                    $this.text('内容不能为空');
+                    window.setTimeout(function(){
+                        $this.porp("disabled",false);
+                        $this.text('发送');
+                    },1000)
+                }
+            })
         });

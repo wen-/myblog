@@ -45,39 +45,40 @@ module.exports = function(io){
         .of('/chat')
         .on('connection', function (socket) {
             var addedUser1 = false;
-            socket.on('new message', function (data) {
+            socket.on('postmsg', function (data) {
                 // we tell the client to execute 'new message'
-                chat.emit('new message', {
+                socket.broadcast.emit('postmsg', {
                     userData: socket.userData,
-                    message: data
+                    message: data.msg,
+                    time: new Date().getTime()
                 });
             });
 
             // when the client emits 'add user', this listens and executes
             socket.on('goin', function (userData) {
-                if(userData){
+                if(userData.nickname){
                     userData.uid = prefix + prefix_n;
                     userList[userData.uid] = userData;
                     prefix_n++;
                     userN++;
+
+                    // we store the username in the socket session for this client
+                    socket.userData = userData;
+                    // add the client's username to the global list
+                    //userDatas_chat[userData] = userData;
+                    //++numUsers_chat;
+                    addedUser1 = true;
+
+                    socket.emit('login', {
+                        num: userN,
+                        userData:userData
+                    });
+                    // echo globally (all clients) that a person has connected
+
+                    chat.emit('refreshOnline',userList);
+
+                    socket.broadcast.emit('userJoined',userData);
                 }
-
-                // we store the username in the socket session for this client
-                socket.userData = userData;
-                // add the client's username to the global list
-                userDatas_chat[userData] = userData;
-                ++numUsers_chat;
-                addedUser1 = true;
-
-                socket.emit('login', {
-                    num: userN,
-                    userData:userData
-                });
-                // echo globally (all clients) that a person has connected
-
-                chat.emit('refreshOnline',userList);
-
-                socket.broadcast.emit('userJoined',userData);
             });
 
             // when the client emits 'typing', we broadcast it to others
@@ -91,8 +92,8 @@ module.exports = function(io){
             socket.on('disconnect', function () {
                 // remove the username from global usernames list
                 if (addedUser1) {
-                    delete userDatas_chat[socket.userData.id];
-                    --numUsers_chat;
+                    //delete userDatas_chat[socket.userData.id];
+                    //--numUsers_chat;
 
                     delete userList[socket.userData.uid];
                     --userN;
