@@ -1,4 +1,23 @@
 include footjs
+script(src='/js/snowfall.jquery.min.js')
+script.
+    $(function(){
+        $(".home_content").snowfall({
+            flakeCount : 60,
+            flakeColor : '#ffffff',
+            flakePosition: 'absolute',
+            flakeIndex: 999999,
+            minSize : 10,
+            maxSize : 20,
+            minSpeed : 1,
+            maxSpeed : 3,
+            round : false,
+            shadow : false,
+            collection : false,
+            collectionHeight : 40,
+            deviceorientation : false
+        });
+    });
 script(src='/js/main.js')
 - var addressHome =[]
 - var addressReside =[]

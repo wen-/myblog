@@ -5,6 +5,11 @@ var usernames = {};
 var numUsers = 0;
 var userDatas_chat = {};
 var numUsers_chat = 0;
+
+var userList = {};
+var userN = 0;
+var prefix = "sk";
+var prefix_n = 1;
 module.exports = function(io){
     /*
     io.on('connection', function (socket) {
@@ -49,7 +54,14 @@ module.exports = function(io){
             });
 
             // when the client emits 'add user', this listens and executes
-            socket.on('add user', function (userData) {
+            socket.on('goin', function (userData) {
+                if(userData){
+                    userData.uid = prefix + prefix_n;
+                    userList[userData.uid] = userData;
+                    prefix_n++;
+                    userN++;
+                }
+
                 // we store the username in the socket session for this client
                 socket.userData = userData;
                 // add the client's username to the global list
@@ -58,19 +70,14 @@ module.exports = function(io){
                 addedUser1 = true;
 
                 socket.emit('login', {
-                    numUsers: numUsers_chat
+                    num: userN,
+                    userData:userData
                 });
                 // echo globally (all clients) that a person has connected
 
-                chat.emit('refresh online',{
-                    userData: userDatas_chat,
-                    numUsers: numUsers_chat
-                });
+                chat.emit('refreshOnline',userList);
 
-                socket.broadcast.emit('user joined', {
-                    userData: socket.userData,
-                    numUsers: numUsers_chat
-                });
+                socket.broadcast.emit('userJoined',userData);
             });
 
             // when the client emits 'typing', we broadcast it to others
@@ -87,10 +94,12 @@ module.exports = function(io){
                     delete userDatas_chat[socket.userData.id];
                     --numUsers_chat;
 
+                    delete userList[socket.userData.uid];
+                    --userN;
                     // echo globally that this client has left
-                    chat.emit('user left', {
+                    chat.emit('left', {
                         userData: socket.userData,
-                        numUsers: numUsers_chat
+                        num: userN
                     });
                 }
             });

@@ -6,31 +6,32 @@ block content
                 .socketBox_msgT.clearfix
                     span.dname_show 吹水区
                 .socketBox_msgM
-                    .msgList.msgList_your.clearfix
-                        .msgListYour_ico.lfloat
-                            img(src="images/head.gif",alt="")
-                        .msgListYour_txt
-                            .txt_module 说点什么吧
-                    .msgList.msgList_me.clearfix
-                        .msgListMe_ico.rfloat
-                            img(src="images/head.gif",alt="")
-                        .msgListMe_txt
-                            .txt_module 说点什么好呢？
-                    .msgList.msgList_your.clearfix
-                        .msgListYour_ico.lfloat
-                            img(src="images/head.gif",alt="")
-                        .msgListYour_txt
-                            .txt_module 说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧！
-                    .msgList.msgList_me.clearfix
-                        .msgListMe_ico.rfloat
-                            img(src="images/head.gif",alt="")
-                        .msgListMe_txt
-                            .txt_module 说点什么好呢？
-                    .msgList.msgList_me.clearfix
-                        .msgListMe_ico.rfloat
-                            img(src="images/head.gif",alt="")
-                        .msgListMe_txt
-                            .txt_module 说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么好呢？
+                    .msgBody
+                        .msgList.msgList_your.clearfix
+                            .msgListYour_ico.lfloat
+                                img(src="images/head.gif",alt="")
+                            .msgListYour_txt
+                                .txt_module 说点什么吧
+                        .msgList.msgList_me.clearfix
+                            .msgListMe_ico.rfloat
+                                img(src="images/head.gif",alt="")
+                            .msgListMe_txt
+                                .txt_module 说点什么好呢？
+                        .msgList.msgList_your.clearfix
+                            .msgListYour_ico.lfloat
+                                img(src="images/head.gif",alt="")
+                            .msgListYour_txt
+                                .txt_module 说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧！
+                        .msgList.msgList_me.clearfix
+                            .msgListMe_ico.rfloat
+                                img(src="images/head.gif",alt="")
+                            .msgListMe_txt
+                                .txt_module 说点什么好呢？
+                        .msgList.msgList_me.clearfix
+                            .msgListMe_ico.rfloat
+                                img(src="images/head.gif",alt="")
+                            .msgListMe_txt
+                                .txt_module 说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么好呢？
                 .socketBox_msgB
                     .sendBoxBtn
                         .face
@@ -60,16 +61,89 @@ block content
                                     |录音中
                                     img(src="images/ajax-loader.gif",style="height: 6px;vertical-align: middle",alt="")
 
-            div.online_list
-                div.online_pt.clearfix
-                    img.online_ico.lfloat(alt="")
-                    div.online_name 名字
+            .online_body
+                .online_t
+                    img.online_ico(src="images/head.gif",alt="")
+                    div.online_name(data-uid="sk1") 名字
+                .online_list
+                    div.online_pt.clearfix
+                        img.online_ico.lfloat(alt="")
+                        div.online_name(data-uid="sk1") 名字
+                    div.online_pt.clearfix
+                        img.online_ico.lfloat(alt="")
+                        div.online_name(data-uid="sk2") 名字
+                    div.online_pt.clearfix
+                        img.online_ico.lfloat(alt="")
+                        div.online_name(data-uid="sk3") 名字
+                    div.online_pt.clearfix
+                        img.online_ico.lfloat(alt="")
+                        div.online_name(data-uid="sk4") 名字
+    .skloginBoxBG
+    .skloginBox
+        .skloginbody
+            h1 Hi,已为您随机选择了昵称：
+                span.randomNickName
+            .nickname
+                input.nicknamediy(type="checkbox")
+                |自己来：
+                input.nicknamev(type="text")
+            .skloginBtn
+                button.sendNickName.btn(type="button") 确定
+                button.changeNickName.btn(type="button") 换个昵称
     style.
+        .skloginBoxBG{
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            z-index: 100;
+            top:0;
+            left:0;
+            background-color: rgba(0,0,0,.5);
+        }
+        .skloginBox{
+            position: absolute;
+            z-index: 101;
+            width: 300px;
+            height:200px;
+            left:50%;
+            margin-left: -150px;
+            top:50%;
+            margin-top:-120px;
+            padding:8px;
+            border:solid 1px #efefef;
+            background-color: rgba(0,0,0,.3);
+            border-radius: 6px;
+        }
+        .skloginbody{
+            height: 100%;
+            background-color: #fff;
+        }
+        .skloginbody h1{
+            font-size: 14px;
+            padding:2em 1em 1em;
+        }
+        .nickname{
+            padding:1em;
+            color: #ccc;
+        }
+        .nicknamediy{
+            vertical-align: middle;
+        }
+        input.nicknamev{
+            background-color: #efefef;
+        }
+        .skloginBtn{
+            padding:1em;
+            text-align: center;
+        }
+        .skloginBtn button{
+            margin:0 .5em;
+        }
         .socket_content{
             position: relative;
         }
         .socketBox_page{
-            border: solid 1px #ccc;
+            border: solid 1px #333;
             height:500px;
             width:60%;
             position: relative;
@@ -242,18 +316,37 @@ block content
         .saytime{
             margin-left: 20px;
         }
-        .online_list {
+        .online_body {
             width: 300px;
             height: 500px;
             position: absolute;
             right: 0;
-            top:0;
+            top: 0;
+            margin-top: 2em;
             border: solid 1px #ececec;
-            margin-top:2em;
+        }
+        .online_t {
+            height: 149px;
+            text-align: center;
+            border-bottom: solid 1px #ececec;
+        }
+        .online_t .online_ico {
+            width:100px;
+            height:100px;
+            margin: .5em 0;
+        }
+        .online_t .online_name {
+            font-size: 18px;
+            padding:0;
+            margin:0;
+        }
+        .online_list {
+            width: 300px;
+            height: 350px;
+            overflow-y: auto;
         }
         .online_pt{
             padding:1em;
-
         }
         .online_ico {
             width: 40px;
@@ -268,3 +361,62 @@ block content
         .online_name{
             margin-top:1em;
         }
+    script(src='/js/username.js')
+    script(src='/js/socket.io.js')
+    script.
+        $(function(){
+            var socket = io.connect('http://localhost:3000/chat');
+            socket.on('connect', function() {
+                    console.log('连接成功！');
+                    //socket.emit('my other event', { my: 'data' });
+            });
+            socket.on('connect_failed', function () {
+                alert("与服务器通讯失败。");
+            });
+            socket.on('login', function (data) {
+                console.log(data);
+                $(".skloginBoxBG,.skloginBox").remove();
+                $(".online_t .online_name").text(data.userData.nickname).attr("data-uid",data.userData.uid);
+            });
+            socket.on('refreshOnline', function (data) {
+                console.log(data);
+                var txts = [],txt = '';
+                $.each(data,function(i,n){
+                    txt = '<div class="online_pt clearfix"><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name" data-uid="'+n.uid+'">'+n.nickname+'</div></div>';
+                    txts.push(txt);
+                });
+                $(".online_list").html(txts.join(""));
+            });
+            socket.on('userJoined', function (data) {
+                console.log(data);
+                $(".socketBox_msgM .msgBody").append('<div style="text-align:center;">' + data.nickname + ' 进来了。</div>');
+                $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
+            });
+            socket.on('left', function (data) {
+                console.log(data);
+                $(".socketBox_msgM .msgBody").append('<div style="text-align:center;">' + data.userData.nickname + ' 离开了。</div>');
+                $(".online_name[data-uid='"+data.userData.uid+"']").parent(".online_pt").remove();
+                $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
+            });
+
+            var l = randomname.length+1;
+            var n = Math.floor(Math.random()*l);
+            var randomNickName = randomname[n];
+            $(".randomNickName").text(randomNickName).attr("data-uid","sk"+n);
+
+            $(".sendNickName").click(function(){
+                var nicknamev = $.trim($("input.nicknamev").val()) || $(".randomNickName").text();
+                if(nicknamev != ''){
+                    socket.emit('goin',{"nickname":nicknamev});
+                }
+            });
+            $(".nicknamediy").change(function () {
+                if($(this).prop("checked")){
+                    $(".nickname").css("color","#000");
+                    $("input.nicknamev").css("background-color","#fff");
+                }else{
+                    $(".nickname").css("color","#ccc");
+                    $("input.nicknamev").css("background-color","#efefef");
+                }
+            });
+        });
