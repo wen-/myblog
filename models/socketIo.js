@@ -47,17 +47,34 @@ module.exports = function(io){
             var addedUser1 = false;
             socket.on('postmsg', function (data) {
                 // we tell the client to execute 'new message'
-                socket.broadcast.emit('postmsg', {
-                    userData: socket.userData,
-                    message: data.msg,
-                    time: new Date().getTime()
-                });
+                if(data.type) {
+
+                }else{
+                    if(data.from){
+                        //socket.join("abc");
+                        socket.broadcast.to(data.to.id).emit(data.to.uid, {
+                            userData: socket.userData,
+                            from: socket.userData,
+                            to:userList[data.to.uid],
+                            message: data.msg,
+                            time: new Date().getTime()
+                        });
+                    }else{
+                        socket.broadcast.emit('postmsg', {
+                            userData: socket.userData,
+                            message: data.msg,
+                            time: new Date().getTime()
+                        });
+                    }
+                }
+
             });
 
             // when the client emits 'add user', this listens and executes
             socket.on('goin', function (userData) {
                 if(userData.nickname){
                     userData.uid = prefix + prefix_n;
+                    userData.id = socket.id;
                     userList[userData.uid] = userData;
                     prefix_n++;
                     userN++;
