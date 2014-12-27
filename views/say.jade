@@ -84,11 +84,11 @@ block content
                     div.online_pt.clearfix
                         img.online_ico.lfloat(alt="")
                         div.online_name(data-uid="sk4") 名字
-                .group_list
+                .group_list(style="display:none;")
                     .group
-                        .groupT 讨论组1
-                        .groupM
-                            div.online_pt.clearfix
+                        //.groupT 讨论组1
+                        //.groupM
+                            .online_pt.clearfix
                                 img.online_ico.lfloat(alt="")
                                 div.online_name(data-uid="sk1") 名字
     .skloginBoxBG
@@ -107,13 +107,14 @@ block content
     .popupBox
         .popupBoxBody
             .popupBoxT
-                h1 创建讨论组
+                |讨论组名称：
+                input.groupTitle(type="text")
                 .closePopup ×
             .popupBoxM
-                .online_list
+                .onlineList
                     .onlineList_t
                         h2 在线列表
-                    .onlineList_m
+                    .online_list
                         div.online_pt.clearfix
                             img.online_ico.lfloat(alt="")
                             div.online_name(data-userdata="sk1") 名字
@@ -121,7 +122,7 @@ block content
                     .selectAddList_t
                         h2 已选择联系人
                     .selectAddList_m
-                        div.online_pt.clearfix
+                        //div.online_pt.clearfix
                             img.online_ico.lfloat(alt="")
                             div.online_name(data-userdata="sk1") 名字
             .popupBoxB
@@ -145,16 +146,22 @@ block content
             left:50%;
             margin-left: -150px;
             top:50%;
-            margin-top:-140px;
+            margin-top:-120px;
             padding:8px;
             border:solid 1px #efefef;
             background-color: rgba(0,0,0,.3);
             border-radius: 6px;
         }
+        .popupBoxBG{
+            display:none;
+        }
         .popupBox{
+            display:none;
             width: 500px;
             height:400px;
             z-index: 102;
+            margin-left: -250px;
+            margin-top: -140px;
         }
         .skloginbody,.popupBoxBody{
             height: 100%;
@@ -212,7 +219,7 @@ block content
             display: -moz-box;
             display: flex;
             display: -webkit-box;
-            height: 300px;
+            height: 280px;
         }
         .popupBoxM .online_pt{
             margin:.5em 1em;
@@ -224,7 +231,7 @@ block content
         .popupBoxM .online_name {
             margin-top:.5em;
         }
-        .popupBoxM .online_list{
+        .popupBoxM .onlineList{
             display: block;
             width:200px;
             overflow: hidden;
@@ -248,13 +255,13 @@ block content
         .onlineList_t,.selectAddList_t{
             padding:.5em 0 .5em 1em;
         }
-        .onlineList_m,.selectAddList_m{
+        .online_list,.selectAddList_m{
             -moz-box-flex: 1;
             -webkit-box-flex: 1;
             box-flex: 1;
             flex: 1;
         }
-        .popupBoxM .online_list, .popupBoxM .selectAdd_list {
+        .popupBoxM .onlineList, .popupBoxM .selectAdd_list {
             display: -moz-box;
             display: flex;
             display: -webkit-box;
@@ -493,7 +500,6 @@ block content
             width: 300px;
             height: 350px;
             overflow-y: auto;
-            display: none;
         }
         .online_pt{
             padding:1em;
@@ -562,8 +568,8 @@ block content
                 console.log(data);
                 var txts = [],txt = '',txts1 = ['<option value="">所有人</option>'],txt1 = '';
                 $.each(data,function(i,n){
-                    var userData = JSON.stringify(n);
-                    txt = '<div class="online_pt clearfix relative"><div class="privateChat" data-to="'+n.uid+'">发送消息</div><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name" data-userdata="'+userData+'">'+n.nickname+'</div></div>';
+                    var userData = "data-userdata='"+JSON.stringify(n)+"'";
+                    txt = '<div class="online_pt clearfix relative" data-uid="'+n.uid+'"><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name" '+userData+'>'+n.nickname+'</div></div>';
                     txts.push(txt);
                     txt1 = '<option value=\''+userData+'\'>'+n.nickname+'</option>';
                     txts1.push(txt1);
@@ -646,12 +652,82 @@ block content
                     },1000)
                 }
             })
-            //私信
-            $(document).on("click",".privateChat",function(){
-                //var $this = $(this);
-                //var fromuid = $(".online_t .online_name").attr("data-uid");
-                //var touid = $this.attr("data-to");
-                //frommsg = touid;
 
+            //创建讨论组
+            $(".groupAdd").click(function(){
+                $(".popupBoxBG").show();
+                $(".popupBox").show();
             });
+
+            //新建群组列表点击
+            $(document).on("click",".popupBoxM .online_list .online_pt",function(){
+                var uid = $(this).attr("data-uid"),hover = "";
+                $(".popupBoxM .selectAddList_m .online_pt").each(function(i,n){
+                    var suid = $(this).attr("data-uid");
+                    if (suid == uid) {
+                        hover = true;
+                        return false;
+                    }
+                })
+                if(hover){
+                    alert("联系人已存在");
+                    return false;
+                }
+                var copy = $(this).clone();
+                $(".selectAddList_m").append(copy);
+            });
+            $(document).on("click",".popupBoxM .selectAddList_m .online_pt",function(){
+                $(this).remove();
+            });
+
+            //关闭弹出窗
+            $(document).on("click",".closePopup,.groupcancel",function(){
+                $(this).parents(".popupBox").hide();
+                $(".popupBoxBG").hide();
+                $(".selectAddList_m").empty();
+            })
+
+            //创建群组确定
+            $(".groupSend").click(function(){
+                var t = $(".groupTitle").val();
+                if(!t){
+                    alert("讨论组名称不能为空！");
+                    return false;
+                }
+                var groupn = $(".selectAddList_m").html();
+                var txt = '<div class="group"><div class="groupT">'+t+'</div><div class="groupM">'+groupn+'</div></div>';
+                var member = [];
+                $(".selectAddList_m .online_name").each(function(i,n){
+                    var userdata = $(this).attr("data-userdata");
+                    member.push(userdata);
+                });
+                var data = {
+                    title = t,
+                    member = nember
+                };
+                socket.emit('newgroup',data,function(){
+
+                })
+                $(".group_list").append(txt);
+                $(".groupTitle").val("");
+                $(".selectAddList_m").empty();
+                $(this).parents(".popupBox").hide();
+                $(".popupBoxBG").hide();
+            })
+
+            //点击讨论组
+            $(".groupBtn").click(function(){
+                var txt = $(this).text();
+                var $p = $(this).parents(".online_body");
+                if(txt == "讨论组"){
+                    $(this).text("在线列表");
+                    $p.find(".online_list").hide();
+                    $p.find(".group_list").show();
+                }else{
+                    $(this).text("讨论组");
+                    $p.find(".online_list").show();
+                    $p.find(".group_list").hide();
+                }
+            })
+
         });

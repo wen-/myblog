@@ -10,6 +10,7 @@ var userList = {};
 var userN = 0;
 var prefix = "sk";
 var prefix_n = 1;
+var group = "";
 module.exports = function(io){
     /*
     io.on('connection', function (socket) {
@@ -103,6 +104,12 @@ module.exports = function(io){
                 socket.broadcast.emit('typing', {
                     userData: socket.userData
                 });
+            });
+
+            //新建讨论组
+            socket.on('newgroup',function(data){
+                //socket.join("abc");
+
             });
 
             // when the user disconnects.. perform this
