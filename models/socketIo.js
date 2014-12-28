@@ -46,10 +46,16 @@ module.exports = function(io){
         .of('/chat')
         .on('connection', function (socket) {
             var addedUser1 = false;
-            socket.on('postmsg', function (data) {
+            socket.on('postmsg', function (data,fn) {
                 // we tell the client to execute 'new message'
-                if(data.type) {
-
+                if(data.gid) {
+                    socket.broadcast.to(data.gid).emit('postmsg', {
+                        userData: socket.userData,
+                        message: data.msg,
+                        gid:data.gid,
+                        title:data.title,
+                        time: new Date().getTime()
+                    });
                 }else{
                     if(data.from){
                         //socket.join("abc");
@@ -68,7 +74,7 @@ module.exports = function(io){
                         });
                     }
                 }
-
+                fn();
             });
 
             // when the client emits 'add user', this listens and executes
@@ -107,9 +113,27 @@ module.exports = function(io){
             });
 
             //新建讨论组
-            socket.on('newgroup',function(data){
+            socket.on('newgroup',function(data,fn){
                 //socket.join("abc");
-
+                var groupname = 'group'+new Date().getTime();
+                var l=data.member.length;
+                for(var i=0;i<l;i++){
+                    var id = data.member[i].id;
+                    chat.connected[id].join(groupname);
+                }
+                socket.broadcast.to(groupname).emit('newgroup', {
+                    master:socket.userData,
+                    title: data.title,
+                    member: data.member,
+                    gid:groupname,
+                    time: new Date().getTime()
+                });
+                fn({
+                    title: data.title,
+                    member: data.member,
+                    gid:groupname,
+                    time: new Date().getTime()
+                });
             });
 
             // when the user disconnects.. perform this
