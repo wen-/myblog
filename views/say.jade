@@ -333,7 +333,7 @@ block content
             -webkit-box-flex: 4;
             box-flex: 4;
             flex: 4;
-            height:26px;
+            height:24px;
         }
         .socketBox_msgB #sendBtn{
             display: block;
@@ -496,6 +496,14 @@ block content
         .online_pt{
             padding:1em;
         }
+        .popupBoxM .online_pt:hover{
+            background-color:#efefef;
+            cursor: pointer;
+        }
+        .popupBoxM .selectAddList_m .online_pt:first-child:hover {
+            background-color: transparent;
+            cursor: default;
+        }
         .online_ico {
             width: 40px;
             height: 40px;
@@ -536,7 +544,7 @@ block content
     script(src='/js/socket.io.js')
     script.
         $(function(){
-            var socket = io.connect('http://192.168.0.103:3000/chat');
+            var socket = io.connect('http://127.0.0.1:3000/chat');
             //var frommsg = 'frommsg';
             socket.on('connect', function() {
                     console.log('连接成功！');
@@ -553,6 +561,8 @@ block content
                 var userData = JSON.stringify(data.userData);
                 $(".skloginBoxBG,.skloginBox").remove();
                 $(".online_t .online_name").text(data.userData.nickname).attr("data-userdata",userData);
+                $(".selectAddList_m").html('<div style="cursor:default;" class="online_pt clearfix relative" data-uid="'+data.userData.uid+'"><img class="online_ico lfloat" src="images/head.gif" alt=""><div class="online_name">'+data.userData.nickname+'</div></div>');
+                $(".selectAddList_m .online_pt:first .online_name").attr("data-userdata",userData);
                 socket.on(data.userData.uid, function (data) {
                     console.log(data);
                     var time = new Date();
@@ -706,7 +716,7 @@ block content
                 var copy = $(this).clone();
                 $(".selectAddList_m").append(copy);
             });
-            $(document).on("click",".popupBoxM .selectAddList_m .online_pt",function(){
+            $(document).on("click",".popupBoxM .selectAddList_m .online_pt:not(:first)",function(){
                 $(this).remove();
             });
 
