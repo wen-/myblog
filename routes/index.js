@@ -12,6 +12,11 @@ router.get('/socket', function(req, res) {
 
     });
 });
+router.get('/socketall', function(req, res) {
+    res.render('say1', {
+
+    });
+});
 
 router.get('/', function(req, res) {
     var page = req.query.page?parseInt(req.query.page):1;

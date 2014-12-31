@@ -22,6 +22,8 @@
     "connect-flash": "*",
     "gm":"*",
     "nodemailer":"*",
-    "socket.io":"*"
+    "socket.io":"*",
+    "socket.io-redis":"*",
+    "socket.io-emitter":"*"
   }
 }

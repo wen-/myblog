@@ -1,6 +1,7 @@
 /**
  * Created by Administrator on 2014/7/7.
  */
+//var emt = require('socket.io-emitter')({ host: '127.0.0.1', port: 6379 });
 var usernames = {};
 var numUsers = 0;
 var userDatas_chat = {};
@@ -25,18 +26,112 @@ module.exports = function(io){
     var door = io
         .of('/door')
         .on('connection', function (socket) {
-            //socket.emit() 1对1;socket.broadcast.emit() 频道广播（自己收不到）;door.emit() 频道广播（自己也可以收到）
-            socket.emit("news","hello !");
+            var addedUser1 = false;
+            socket.on('postmsg', function (data,fn) {
+                // we tell the client to execute 'new message'
+                if(data.gid) {
+                    socket.broadcast.to(data.gid).emit('postmsg', {
+                        userData: socket.userData,
+                        message: data.msg,
+                        gid:data.gid,
+                        title:data.title,
+                        time: new Date().getTime()
+                    });
+                }else{
+                    if(data.from){
+                        //socket.join("abc");
+                        socket.broadcast.to(data.to.id).emit(data.to.uid, {
+                            userData: socket.userData,
+                            from: socket.userData,
+                            to:userList[data.to.uid],
+                            message: data.msg,
+                            time: new Date().getTime()
+                        });
+                    }else{
+                        socket.broadcast.emit('postmsg', {
+                            userData: socket.userData,
+                            message: data.msg,
+                            time: new Date().getTime()
+                        });
+                    }
+                }
+                fn();
+            });
 
-            socket.on('my other event', function (data) {
-                console.log(data);
+            // when the client emits 'add user', this listens and executes
+            socket.on('goin', function (userData) {
+                if(userData.nickname){
+                    userData.uid = prefix + prefix_n;
+                    userData.id = socket.id;
+                    userList[userData.uid] = userData;
+                    prefix_n++;
+                    userN++;
+
+                    // we store the username in the socket session for this client
+                    socket.userData = userData;
+                    // add the client's username to the global list
+                    //userDatas_chat[userData] = userData;
+                    //++numUsers_chat;
+                    addedUser1 = true;
+
+                    socket.emit('login', {
+                        num: userN,
+                        userData:userData
+                    });
+                    // echo globally (all clients) that a person has connected
+
+                    door.emit('refreshOnline',userList);
+
+                    socket.broadcast.emit('userJoined',userData);
+                }
             });
-            socket.on('re', function(){
-                door.emit("reda","重连成功");
+
+            // when the client emits 'typing', we broadcast it to others
+            socket.on('typing', function () {
+                socket.broadcast.emit('typing', {
+                    userData: socket.userData
+                });
             });
-            socket.on('disconnect', function(){
-                console.log("离线了！");
-                door.emit("buy","走了 ？");
+
+            //新建讨论组
+            socket.on('newgroup',function(data,fn){
+                //socket.join("abc");
+                var groupname = 'group'+new Date().getTime();
+                var l=data.member.length;
+                for(var i=0;i<l;i++){
+                    var id = data.member[i].id;
+                    door.connected[id].join(groupname);
+                }
+                socket.broadcast.to(groupname).emit('newgroup', {
+                    master:socket.userData,
+                    title: data.title,
+                    member: data.member,
+                    gid:groupname,
+                    time: new Date().getTime()
+                });
+                fn({
+                    title: data.title,
+                    member: data.member,
+                    gid:groupname,
+                    time: new Date().getTime()
+                });
+            });
+
+            // when the user disconnects.. perform this
+            socket.on('disconnect', function () {
+                // remove the username from global usernames list
+                if (addedUser1) {
+                    //delete userDatas_chat[socket.userData.id];
+                    //--numUsers_chat;
+
+                    delete userList[socket.userData.uid];
+                    --userN;
+                    // echo globally that this client has left
+                    door.emit('left', {
+                        userData: socket.userData,
+                        num: userN
+                    });
+                }
             });
         });
 
@@ -152,6 +247,7 @@ module.exports = function(io){
                     });
                 }
             });
+
         });
 
 };
