@@ -544,7 +544,7 @@ block content
     script(src='/js/socket.io.js')
     script.
         $(function(){
-            var socket = io.connect('http://127.0.0.1:3000/door');
+            var socket = io.connect('http://127.0.0.1:80/door');
             //var frommsg = 'frommsg';
             socket.on('connect', function() {
                     console.log('连接成功！');
