@@ -29,3 +29,4 @@ node_modules
 /.idea
 /public/uploads
 /public/uploads/headico/blog_20141110_1415600450216.jpg
+/node_modules
