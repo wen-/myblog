@@ -544,7 +544,7 @@ block content
     script(src='/js/socket.io.js')
     script.
         $(function(){
-            var socket = io.connect('http://127.0.0.1:80/chat');
+            var socket = io.connect('http://127.0.0.1:3000/chat');
             //var frommsg = 'frommsg';
             socket.on('connect', function() {
                     console.log('连接成功！');
@@ -572,22 +572,38 @@ block content
                     $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
                 });
             });
-            socket.on('refreshOnline', function (data) {
-                console.log(data);
-                var txts = [],txt = '',txts1 = ['<option value="">所有人</option>'],txt1 = '';
+            function showonline(data){
+                var txts = [],txt = '';
                 $.each(data,function(i,n){
                     var ud = JSON.stringify(n);
                     var userData = "data-userdata='"+ud+"'";
                     txt = '<div class="online_pt clearfix relative" data-uid="'+n.uid+'"><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name" '+userData+'>'+n.nickname+'</div></div>';
                     txts.push(txt);
+                });
+                return txts;
+            }
+            function showonline1(data,add){
+                var txts1 = add?['<option value="">所有人</option>']:[],txt1 = '';
+                $.each(data,function(i,n){
+                    var ud = JSON.stringify(n);
                     txt1 = '<option value=\''+ud+'\'>'+n.nickname+'</option>';
                     txts1.push(txt1);
                 });
+                return txts1;
+            }
+            socket.on('refreshOnline', function (data) {
+                console.log(data);
+                var txts = showonline(data);
+                var txts1 = showonline1(data,true);
                 $(".online_list").html(txts.join(""));
                 $(".msgto select").html(txts1.join(""));
             });
             socket.on('userJoined', function (data) {
                 console.log(data);
+                var txts = showonline(data);
+                var txts1 = showonline1(data);
+                $(".online_list").append(txts.join(""));
+                $(".msgto select").append(txts1.join(""));
                 $(".socketBox_msgM .msgBody").append('<div style="text-align:center;">' + data.nickname + ' 进来了。</div>');
                 $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
             });
@@ -615,6 +631,7 @@ block content
                 $(".online_pt[data-uid='"+data.userData.uid+"']").remove();
                 $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
                 $(".online_name:contains('"+nickname+"')").remove();
+                $(".msgto select option:contains('"+nickname+"')").remove();
             });
             socket.on('postmsg', function (data) {
                 console.log(data);

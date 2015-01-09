@@ -2,6 +2,7 @@
  * Created by Administrator on 2014/7/7.
  */
 //var emt = require('socket.io-emitter')({ host: '127.0.0.1', port: 6379 });
+var redis = require('../node_modules/socket.io-redis/node_modules/redis');
 var usernames = {};
 var numUsers = 0;
 var userDatas_chat = {};
@@ -61,9 +62,9 @@ module.exports = function(io){
             // when the client emits 'add user', this listens and executes
             socket.on('goin', function (userData) {
                 if(userData.nickname){
-                    userData.uid = prefix + prefix_n;
+                    userData.uid = prefix + socket.id;//prefix + prefix_n;
                     userData.id = socket.id;
-                    userList[userData.uid] = userData;
+                    //userList[userData.uid] = userData;
                     prefix_n++;
                     userN++;
 
@@ -78,9 +79,28 @@ module.exports = function(io){
                         num: userN,
                         userData:userData
                     });
+
+                    var client = redis.createClient(6379, '192.168.199.198', {});
+                    client.on("connect", function () {
+                        client.select(2,function(){
+                            //console.log("选择2号库成功！");
+                            client.hmset('userdata',socket.id, JSON.stringify(userData));
+                            client.hvals('userdata',function(err,replies){
+                                replies.forEach(function(n,i){
+                                    replies[i] = JSON.parse(n);
+                                });
+                                socket.emit('refreshOnline',replies);
+                            });
+                            client.quit();
+                        });
+                    });
+                    client.on("error", function (err) {
+                        console.log("连接redis出错了：" + err);
+                    });
+
                     // echo globally (all clients) that a person has connected
 
-                    door.emit('refreshOnline',userList);
+                    //door.emit('refreshOnline',userList);
 
                     socket.broadcast.emit('userJoined',userData);
                 }
@@ -124,7 +144,19 @@ module.exports = function(io){
                     //delete userDatas_chat[socket.userData.id];
                     //--numUsers_chat;
 
-                    delete userList[socket.userData.uid];
+                    var client = redis.createClient(6379, '192.168.199.198', {});
+                    client.on("connect", function () {
+                        client.select(2,function(){
+                            //console.log("选择2号库成功！");
+                            client.hdel('userdata',socket.id);
+                            client.quit();
+                        });
+                    });
+                    client.on("error", function (err) {
+                        console.log("连接redis出错了：" + err);
+                    });
+
+                    //delete userList[socket.userData.uid];
                     --userN;
                     // echo globally that this client has left
                     door.emit('left', {
@@ -141,6 +173,14 @@ module.exports = function(io){
         .of('/chat')
         .on('connection', function (socket) {
             var addedUser1 = false;
+            /*
+            for(var i=0;i<chat.sockets.length;i++){
+                var userdata = chat.sockets[i].userData;
+                if(userdata){
+                    userList[userdata.uid] = userdata;
+                }
+            }
+            */
             socket.on('postmsg', function (data,fn) {
                 // we tell the client to execute 'new message'
                 if(data.gid) {
@@ -175,11 +215,29 @@ module.exports = function(io){
             // when the client emits 'add user', this listens and executes
             socket.on('goin', function (userData) {
                 if(userData.nickname){
-                    userData.uid = prefix + prefix_n;
+                    userData.uid = prefix + socket.id;//prefix + prefix_n;
                     userData.id = socket.id;
-                    userList[userData.uid] = userData;
+                    //userList[userData.uid] = userData;
                     prefix_n++;
                     userN++;
+
+                    var client = redis.createClient(6379, '192.168.199,198', {});
+                    client.on("connect", function () {
+                        client.select(2,function(){
+                            //console.log("选择2号库成功！");
+                            client.hmset('userdata',socket.id, JSON.stringify(userData));
+                            client.hvals('userdata',function(err,replies){
+                                replies.forEach(function(n,i){
+                                    replies[i] = JSON.parse(n);
+                                });
+                                socket.emit('refreshOnline',replies);
+                            });
+                            client.quit();
+                        });
+                    });
+                    client.on("error", function (err) {
+                        console.log("连接redis出错了：" + err);
+                    });
 
                     // we store the username in the socket session for this client
                     socket.userData = userData;
@@ -237,8 +295,19 @@ module.exports = function(io){
                 if (addedUser1) {
                     //delete userDatas_chat[socket.userData.id];
                     //--numUsers_chat;
+                    var client = redis.createClient(6379, '192.168.199,198', {});
+                    client.on("connect", function () {
+                        client.select(2,function(){
+                            //console.log("选择2号库成功！");
+                            client.hdel('userdata',socket.id);
+                            client.quit();
+                        });
+                    });
+                    client.on("error", function (err) {
+                        console.log("连接redis出错了：" + err);
+                    });
 
-                    delete userList[socket.userData.uid];
+                    //delete userList[socket.userData.uid];
                     --userN;
                     // echo globally that this client has left
                     chat.emit('left', {
