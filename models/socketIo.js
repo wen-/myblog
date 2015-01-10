@@ -80,7 +80,7 @@ module.exports = function(io){
                         userData:userData
                     });
 
-                    var client = redis.createClient(6379, '192.168.199.198', {});
+                    var client = redis.createClient(6379, '127.0.0.1', {});
                     client.on("connect", function () {
                         client.select(2,function(){
                             //console.log("选择2号库成功！");
@@ -144,7 +144,7 @@ module.exports = function(io){
                     //delete userDatas_chat[socket.userData.id];
                     //--numUsers_chat;
 
-                    var client = redis.createClient(6379, '192.168.199.198', {});
+                    var client = redis.createClient(6379, '127.0.0.1', {});
                     client.on("connect", function () {
                         client.select(2,function(){
                             //console.log("选择2号库成功！");
