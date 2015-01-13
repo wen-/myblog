@@ -13,6 +13,7 @@ var userN = 0;
 var prefix = "sk";
 var prefix_n = 1;
 var group = "";
+
 module.exports = function(io){
     /*
     io.on('connection', function (socket) {
@@ -22,6 +23,19 @@ module.exports = function(io){
         });
     });
     */
+    //故障重启时清空在线列表
+    var client = redis.createClient(6379, '127.0.0.1', {});
+    client.on("connect", function () {
+        client.select(2,function(){
+            console.log("选择2号库成功！");
+            client.flushdb(function(){
+                client.quit();
+            });
+        });
+    });
+    client.on("error", function (err) {
+        console.log("连接redis出错了：" + err);
+    });
 
     //分支命名空间
     var door = io
@@ -221,7 +235,7 @@ module.exports = function(io){
                     prefix_n++;
                     userN++;
 
-                    var client = redis.createClient(6379, '192.168.199,198', {});
+                    var client = redis.createClient(6379, '192.168.199.198', {});
                     client.on("connect", function () {
                         client.select(2,function(){
                             //console.log("选择2号库成功！");
@@ -295,7 +309,7 @@ module.exports = function(io){
                 if (addedUser1) {
                     //delete userDatas_chat[socket.userData.id];
                     //--numUsers_chat;
-                    var client = redis.createClient(6379, '192.168.199,198', {});
+                    var client = redis.createClient(6379, '192.168.199.198', {});
                     client.on("connect", function () {
                         client.select(2,function(){
                             //console.log("选择2号库成功！");

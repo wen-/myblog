@@ -24,6 +24,7 @@
     "nodemailer":"*",
     "socket.io":"*",
     "socket.io-redis":"*",
-    "socket.io-emitter":"*"
+    "socket.io-emitter":"*",
+    "qr-image":"*"
   }
 }

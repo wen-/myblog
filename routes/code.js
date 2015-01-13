@@ -3,6 +3,7 @@
  */
 var express = require('express');
 var router = express.Router();
+var qrcode = require('qr-image');
 var codeTxt = require('../models/codeTxt.js');
 var codeconf = require('../conf/code.js');
 
@@ -44,4 +45,14 @@ router.get('/textgif',function(req,res) {
     });
 
 });
+
+router.get('/qrcode',function(req,res) {//带上参数code="xxx"
+    var codetxt = req.query.code;
+    var qr_png = qrcode.image(codetxt);
+    //var qr_png = qrcode.matrix(codetxt);
+    //var qr_png = qrcode.imageSync(codetxt);
+    res.set('Content-Type','image/png');
+    qr_png.pipe(res);
+});
+
 module.exports = router;

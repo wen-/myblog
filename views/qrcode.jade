@@ -1,0 +1,60 @@
+extends layout
+block content
+    .qrcodeBox.content
+        form.lfloat(method="get",action="/code/qrcode")
+            .codeinput.clearfix
+                label.lfloat 输入文字或网址：
+                textarea(name="code")
+            .codebtn
+                button.btn(type="submit") 生成二维码
+        .qrcodeShow.lfloat
+            img(src="",alt="二维码")
+    style.
+        .qrcodeBox{
+            width:980px;
+            margin:0 auto;
+            padding-top:5em;
+        }
+        .qrcodeBox form{
+            width:500px;
+        }
+        .qrcodeBox .codebtn{
+            padding:2em 0 0 7.5em;
+        }
+        .qrcodeBox textarea{
+            width:300px;
+            height:100px;
+            resize: none;
+        }
+        .qrcodeShow{
+            text-align: center;
+            min-height: 200px;
+            min-width: 200px;
+            border: solid 1px #ccc;
+            line-height: 200px;
+        }
+        .qrcodeShow img {
+            vertical-align: middle;
+        }
+    script.
+        $(function(){
+            $(".qrcodeBox button").click(function(){
+                var $this = $(this);
+                var code = $(".qrcodeBox textarea[name='code']").val();
+                $this.prop("disabled",true);
+                if(!code){
+                    $this.after('<span class="qrcode_msg" style="color:red;margin-left: 1em;">内容不能为空</span>');
+                    window.setTimeout(function(){$this.prop("disabled",false);$(".qrcode_msg").remove();},2000);
+                    return false;
+                }
+                $this.after('<span class="qrcode_msg" style="margin-left: 1em;">正在生成二维码……</span>');
+                $(".qrcodeShow img").attr("src","/code/qrcode?code="+code).load(function(){
+                    $(".qrcode_msg").remove();
+                    $this.prop("disabled",false);
+                }).error(function(){
+                    $(".qrcode_msg").css("color","red").text("二维码生成失败！");
+                    window.setTimeout(function(){$this.prop("disabled",false);$(".qrcode_msg").remove();},2000);
+                });
+                return false;
+            })
+        });

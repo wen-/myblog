@@ -829,6 +829,12 @@ router.get('/article/:_id', function(req, res) {
     },true);
 });
 
+//生成二维码
+router.get('/qrcode', function(req, res) {
+    res.render('qrcode',{
+        title:"二维码生成"
+    });
+});
 
 
 function checkLogin(req, res, next){
