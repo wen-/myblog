@@ -574,21 +574,34 @@ block content
             });
             function showonline(data){
                 var txts = [],txt = '';
-                $.each(data,function(i,n){
-                    var ud = JSON.stringify(n);
+                if(data.length){
+                    $.each(data,function(i,n){
+                        var ud = JSON.stringify(n);
+                        var userData = "data-userdata='"+ud+"'";
+                        txt = '<div class="online_pt clearfix relative" data-uid="'+n.uid+'"><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name" '+userData+'>'+n.nickname+'</div></div>';
+                        txts.push(txt);
+                    });
+                }else{
+                    var ud = JSON.stringify(data);
                     var userData = "data-userdata='"+ud+"'";
-                    txt = '<div class="online_pt clearfix relative" data-uid="'+n.uid+'"><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name" '+userData+'>'+n.nickname+'</div></div>';
+                    txt = '<div class="online_pt clearfix relative" data-uid="'+data.uid+'"><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name" '+userData+'>'+data.nickname+'</div></div>';
                     txts.push(txt);
-                });
+                }
                 return txts;
             }
             function showonline1(data,add){
                 var txts1 = add?['<option value="">所有人</option>']:[],txt1 = '';
-                $.each(data,function(i,n){
-                    var ud = JSON.stringify(n);
-                    txt1 = '<option value=\''+ud+'\'>'+n.nickname+'</option>';
+                if(data.length){
+                    $.each(data,function(i,n){
+                        var ud = JSON.stringify(n);
+                        txt1 = '<option value=\''+ud+'\'>'+n.nickname+'</option>';
+                        txts1.push(txt1);
+                    });
+                }else{
+                    var ud = JSON.stringify(data);
+                    txt1 = '<option value=\''+ud+'\'>'+data.nickname+'</option>';
                     txts1.push(txt1);
-                });
+                }
                 return txts1;
             }
             socket.on('refreshOnline', function (data) {

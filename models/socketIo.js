@@ -187,14 +187,6 @@ module.exports = function(io){
         .of('/chat')
         .on('connection', function (socket) {
             var addedUser1 = false;
-            /*
-            for(var i=0;i<chat.sockets.length;i++){
-                var userdata = chat.sockets[i].userData;
-                if(userdata){
-                    userList[userdata.uid] = userdata;
-                }
-            }
-            */
             socket.on('postmsg', function (data,fn) {
                 // we tell the client to execute 'new message'
                 if(data.gid) {
@@ -235,7 +227,19 @@ module.exports = function(io){
                     prefix_n++;
                     userN++;
 
-                    var client = redis.createClient(6379, '192.168.199.198', {});
+                    // we store the username in the socket session for this client
+                    socket.userData = userData;
+                    // add the client's username to the global list
+                    //userDatas_chat[userData] = userData;
+                    //++numUsers_chat;
+                    addedUser1 = true;
+
+                    socket.emit('login', {
+                        num: userN,
+                        userData:userData
+                    });
+
+                    var client = redis.createClient(6379, '127.0.0.1', {});
                     client.on("connect", function () {
                         client.select(2,function(){
                             //console.log("选择2号库成功！");
@@ -253,20 +257,9 @@ module.exports = function(io){
                         console.log("连接redis出错了：" + err);
                     });
 
-                    // we store the username in the socket session for this client
-                    socket.userData = userData;
-                    // add the client's username to the global list
-                    //userDatas_chat[userData] = userData;
-                    //++numUsers_chat;
-                    addedUser1 = true;
-
-                    socket.emit('login', {
-                        num: userN,
-                        userData:userData
-                    });
                     // echo globally (all clients) that a person has connected
 
-                    chat.emit('refreshOnline',userList);
+                    //chat.emit('refreshOnline',userList);
 
                     socket.broadcast.emit('userJoined',userData);
                 }
@@ -309,7 +302,8 @@ module.exports = function(io){
                 if (addedUser1) {
                     //delete userDatas_chat[socket.userData.id];
                     //--numUsers_chat;
-                    var client = redis.createClient(6379, '192.168.199.198', {});
+
+                    var client = redis.createClient(6379, '127.0.0.1', {});
                     client.on("connect", function () {
                         client.select(2,function(){
                             //console.log("选择2号库成功！");
@@ -332,5 +326,4 @@ module.exports = function(io){
             });
 
         });
-
 };
