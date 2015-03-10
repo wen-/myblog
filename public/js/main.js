@@ -224,15 +224,15 @@ $(function(){
         var emailReg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{1,6})$/;
 
         if(email == "" || password == "" || codeIMG == ""){
-            $this.parents(".login_data").find(".login_msg").text("邮箱/密码/验证码 不能为空！");
+            $this.parents(".login_data").find(".login_msg").text("邮箱/密码/验证码 不能为空！").css({"visibility":"visible"});
             return false;
         }
         if(emailReg.test(email)){
-            $this.parents(".login_data").find(".login_msg").html('正在登录<img style="vertical-align: middle;height:3px" src="/images/ajax-loader.gif" alt="" />');
+            $this.parents(".login_data").find(".login_msg").html('正在登录<img style="vertical-align: middle;height:3px" src="/images/ajax-loader.gif" alt="" />').css({"visibility":"visible"});
             $this.prop("disbled",true);
             ajaxLogin();
         }else{
-            $this.parents(".login_data").find(".login_msg").text("邮箱格式不正确！");
+            $this.parents(".login_data").find(".login_msg").text("邮箱格式不正确！").css({"visibility":"visible"});
             return false;
         }
         return false;
@@ -818,7 +818,7 @@ $(function(){
         //maxSize:[160,160],
         boxWidth: 400,
         boxHeight: 225,
-        setSelect:   [ 0, 0, 80, 80 ],
+        setSelect:   [ 0, 0, 80, 80 ],//可在回调中设置
         onChange: updatePreview,
         onSelect: updatePreview,
         aspectRatio: xsize / ysize
@@ -829,7 +829,10 @@ $(function(){
         boundy = bounds[1];
         jcrop_api = this;
 
-        //$preview.appendTo(jcrop_api.ui.holder);不需要用它的样式
+        //在回调中设置选框效果更好
+        //jcrop_api.animateTo([boundx *.5-65,boundy *.5-65,boundx *.5+65,boundy *.5+65]);
+        //var cc = jcrop_api.tellSelect();
+        //updatePreview(cc);
     });
     //}
 
