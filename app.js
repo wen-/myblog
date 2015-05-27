@@ -22,11 +22,12 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+app.set('codelength',1);
 
 app.use(compression());//启用压缩
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.text({limit:1024000}));//post内容不超过1000kb
 app.use(bodyParser.json({limit:1024000}));//post内容不超过1000kb
@@ -59,13 +60,16 @@ app.use('/upload/blog',multer({
 app.use('/users/headico',multer({
     dest: './public/uploads/headico',
     limits: {
-        fileSize: 2000000 //2M
+        fileSize: 1000000 //2M
     },
     onFileUploadStart: function (file) {
         var allowSuffix = "jpg,bmp,gif,png,jpeg";
         if (allowSuffix.indexOf(file.extension) < 0){
             return false;
         }
+    },
+    onFileUploadData: function (file, data, req, res) {
+        //console.log(data.length + ' of ' + file.fieldname + ' arrived')
     },
     onFileUploadComplete: function (file) {
         console.log(file.fieldname + ' uploaded to  ' + file.path)

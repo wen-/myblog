@@ -5,11 +5,11 @@ var express = require('express');
 var router = express.Router();
 var qrcode = require('qr-image');
 var codeTxt = require('../models/codeTxt.js');
-var codeconf = require('../conf/code.js');
 
 /* GET code listing. */
 router.get('/numjpg',function(req,res) {
-    var codeobj =new codeTxt(req.session,codeconf.length);
+    var codeconf = require('../conf/code.js');
+    var codeobj = new codeTxt(req.session,codeconf.length);
     codeobj.codeIMG(function(json){
         //req.session.codeUrl = json.t;
         res.set('Content-Type','image/jpeg');
@@ -18,6 +18,7 @@ router.get('/numjpg',function(req,res) {
 });
 
 router.get('/numgif',function(req,res) {
+    var codeconf = require('../conf/code.js');
     var codeobj =new codeTxt(req.session,codeconf.length);
     codeobj.codeGIF(function(json){
         //req.session.codeUrl = json.t;
@@ -27,6 +28,10 @@ router.get('/numgif',function(req,res) {
 });
 
 router.get('/textjpg',function(req,res) {
+    //var oldtime = +new Date();
+    var codeconf = require('../conf/code.js');
+    //var newtime = +new Date();
+    //console.log('加载code模块时间为：'+(newtime-oldtime));
     var codeobj =new codeTxt(req.session,codeconf.length,true);
     codeobj.codeIMG(function(json){
         //req.session.codeUrl = json.t;
@@ -37,6 +42,7 @@ router.get('/textjpg',function(req,res) {
 });
 
 router.get('/textgif',function(req,res) {
+    var codeconf = require('../conf/code.js');
     var codeobj =new codeTxt(req.session,codeconf.length,true);
     codeobj.codeGIF(function(json){
         //req.session.codeUrl = json.t;

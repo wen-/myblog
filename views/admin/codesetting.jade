@@ -37,7 +37,7 @@ block content
 					url: window.location.pathname,
 					data: {"codelength":$("input[name='codelength']").val()},
 					success: function (data) {
-						if(data.success){
+						if(data.state == "success"){
 							$("div.err_msg").css({"visibility":"visible"});
 							$("div.err_msg span").html("保存成功！");
 							window.setTimeout(function(){
