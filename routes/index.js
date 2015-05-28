@@ -2,10 +2,18 @@ var express = require('express');
 var router = express.Router();
 var crypto = require('crypto'),
     user = require('../models/user.js'),
+    test = require('../models/test.js'),
     post = require('../models/post.js'),
     sort = require('../models/sort.js'),
     sendmail = require('../models/sendMail.js');
 
+//test数据库表名测试
+router.get('/test',function(req,res){
+    var t = new test({'name':"Aest"});
+    t.save(function(){
+        res.send('<h1>保存成功!</h1>');
+    });
+});
 /* GET home page. */
 router.get('/socket', function(req, res) {
     res.render('say', {

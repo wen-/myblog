@@ -150,7 +150,7 @@ router.post('/headico', function(req, res) {
       var cropW = new cropWatermark(opt);
       cropW.cw(function () {
         var _url = tmp_path.replace(/^public/, '');
-        _url = _url.replace(/\\/g, '/');
+        _url = req.headers.origin + _url.replace(/\\/g, '/');
         user.saveHead(email,_url,function(err){
           if(err){
             if (req.xhr) {
@@ -164,6 +164,7 @@ router.post('/headico', function(req, res) {
             }
             return false;
           }
+          req.session.user.headIco = _url;
           if (req.xhr) {
             res.json({
               "state": "SUCCESS",
@@ -176,6 +177,7 @@ router.post('/headico', function(req, res) {
             res.set('Content-Type', 'text/html');
             res.send('{"state":"SUCCESS","url":"'+ _url +'","title":"'+ upfiles.name +'","original":"'+ upfiles.originalname +'"}');
           }
+
         });
 
       });
