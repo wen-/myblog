@@ -186,6 +186,13 @@ module.exports = function(io){
     var chat = io
         .of('/chat')
         .on('connection', function (socket) {
+            var socketIP = socket.handshake.address;
+            var socketDomain = socket.handshake.headers.origin;
+            var socketKEY = socket.handshake.query.key;
+            if(!(socketDomain == 'http://localhost:3000' || socketDomain == 'http://127.0.0.1:3000')){
+                socket.disconnect();
+                return false;
+            }
             var addedUser1 = false;
             socket.on('postmsg', function (data,fn) {
                 // we tell the client to execute 'new message'

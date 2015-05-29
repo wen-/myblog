@@ -69,7 +69,7 @@ $(function() {
     var typing = false;
     var lastTypingTime;
     var $currentInput = $usernameInput.focus();
-    var socket = io.connect('http://localhost:3000/chat');
+    var socket = io.connect('http://192.168.1.120:3000/chat');
 
 
     socket.on('connect', function () {
@@ -338,3 +338,57 @@ $(function() {
 </script>
 </body>
 </html>
+<!--
+<div>
+    <dl class="n">
+        <dt>1、这是题目这是题目这是题目</dt>
+        <dd>
+            <label><input type="radio" name="test1" value="4" />极不同意</label>
+            <label><input type="radio" name="test1" value="3" />不同意</label>
+            <label><input type="radio" name="test1" value="2" />中立</label>
+            <label><input type="radio" name="test1" value="1" />同意</label>
+            <label><input type="radio" name="test1" value="0" />非常同意</label>
+        </dd>
+    </dl>
+    <dl class="e">
+        <dt>2、这是题目这是题目这是题目</dt>
+        <dd>
+            <label><input type="radio" name="test2" value="0" />极不同意</label>
+            <label><input type="radio" name="test2" value="1" />不同意</label>
+            <label><input type="radio" name="test2" value="2" />中立</label>
+            <label><input type="radio" name="test2" value="3" />同意</label>
+            <label><input type="radio" name="test2" value="4" />非常同意</label>
+        </dd>
+    </dl>
+    <dl class="o">
+        <dt>3、这是题目这是题目这是题目</dt>
+        <dd>
+            <label><input type="radio" name="test3" value="0" />极不同意</label>
+            <label><input type="radio" name="test3" value="1" />不同意</label>
+            <label><input type="radio" name="test3" value="2" />中立</label>
+            <label><input type="radio" name="test3" value="3" />同意</label>
+            <label><input type="radio" name="test3" value="4" />非常同意</label>
+        </dd>
+    </dl>
+    <dl class="a">
+        <dt>4、这是题目这是题目这是题目</dt>
+        <dd>
+            <label><input type="radio" name="test4" value="0" />极不同意</label>
+            <label><input type="radio" name="test4" value="1" />不同意</label>
+            <label><input type="radio" name="test4" value="2" />中立</label>
+            <label><input type="radio" name="test4" value="3" />同意</label>
+            <label><input type="radio" name="test4" value="4" />非常同意</label>
+        </dd>
+    </dl>
+    <dl class="c">
+        <dt>5、这是题目这是题目这是题目</dt>
+        <dd>
+            <label><input type="radio" name="test5" value="0" />极不同意</label>
+            <label><input type="radio" name="test5" value="1" />不同意</label>
+            <label><input type="radio" name="test5" value="2" />中立</label>
+            <label><input type="radio" name="test5" value="3" />同意</label>
+            <label><input type="radio" name="test5" value="4" />非常同意</label>
+        </dd>
+    </dl>
+</div>
+-->

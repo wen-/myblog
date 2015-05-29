@@ -17,6 +17,9 @@ var code = require('./routes/code');
 var upload = require('./routes/upload');
 var conf = require('./routes/conf');
 
+//后台发请求测试
+//var http = require('http');
+
 var app = express();
 
 // view engine setup
@@ -139,5 +142,28 @@ app.use(function(err, req, res, next) {
     });
 });
 
+/**发请求测试
+var abc = {
+    hostname: 'wap.muzhiwan',
+    port: 80,
+    path: '/search/testremote',
+    method: 'GET'
+    //method: 'POST',
+    //headers: {
+    //    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    //}
+};
+var req = http.request(abc,function(res){
+    res.setEncoding('utf8');
+    res.on('data', function (chunk) {
+        console.log('BODY: ' + chunk);
+    });
+});
+req.on('error', function (e) {
+    console.log('problem with request: ' + e.message);
+});
+
+req.end();
+*/
 
 module.exports = app;
