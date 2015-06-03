@@ -3,6 +3,7 @@
  */
 //var emt = require('socket.io-emitter')({ host: '127.0.0.1', port: 6379 });
 var redis = require('../node_modules/socket.io-redis/node_modules/redis');
+var crypto = require('crypto');
 var usernames = {};
 var numUsers = 0;
 var userDatas_chat = {};
@@ -23,6 +24,8 @@ module.exports = function(io){
         });
     });
     */
+
+
     //故障重启时清空在线列表
     var client = redis.createClient(6379, '127.0.0.1', {});
     client.on("connect", function () {
@@ -186,10 +189,16 @@ module.exports = function(io){
     var chat = io
         .of('/chat')
         .on('connection', function (socket) {
+            //生成加密KEY
+            var md5 = crypto.createHash('md5');
+            var time = new Date(),y = time.getFullYear(),m = time.getMonth()+1,d = time.getDate(),s = time.getHours(),_m = Math.floor(time.getMinutes()/3)*3;
+            time = y+''+m+''+d+''+s+''+_m;
+            var keyMD5 = md5.update('IM'+time).digest('hex');
+
             var socketIP = socket.handshake.address;
             var socketDomain = socket.handshake.headers.origin;
             var socketKEY = socket.handshake.query.key;
-            if(!(socketDomain == 'http://localhost:3000' || socketDomain == 'http://127.0.0.1:3000')){
+            if(!(socketDomain == 'http://localhost:3000' || socketDomain == 'http://127.0.0.1:3000' || keyMD5 == socketKEY)){
                 socket.disconnect();
                 return false;
             }

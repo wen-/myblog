@@ -29,6 +29,7 @@ ul.jPag-pages{
     list-style-type:none;
     margin:0px 0px 0px 0px;
     padding:0px;
+    font-family: Arial;
 }
 ul.jPag-pages li{
     display:inline;

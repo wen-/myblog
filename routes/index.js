@@ -14,10 +14,33 @@ router.get('/test',function(req,res){
         res.send('<h1>保存成功!</h1>');
     });
 });
-/* GET home page. */
-router.get('/socket', function(req, res) {
-    res.render('say', {
 
+router.get('/socket', function(req, res) {
+    //生成加密KEY
+    var md5 = crypto.createHash('md5');
+    var time = new Date(),y = time.getFullYear(),m = time.getMonth()+1,d = time.getDate(),s = time.getHours(),_m = Math.floor(time.getMinutes()/3)*3;
+    time = y+''+m+''+d+''+s+''+_m;
+    var keyMD5 = md5.update('IM'+time).digest('hex');
+    var testmd5 = crypto.createHash('md5').update('abc').digest('hex');
+    console.log(testmd5);
+    res.render('say', {
+        "key":keyMD5
+    });
+});
+router.get('/socket/key', function(req, res) {
+    //验证用户名和密码
+    var userName = req.body.username,
+        password = crypto.createHash('md5').update(req.body.password).digest('hex');
+
+    //生成加密KEY
+    var md5 = crypto.createHash('md5');
+    //var time = new Date(),y = time.getFullYear(),m = time.getMonth()+1,d = time.getDate(),s = time.getHours(),_m = Math.floor(time.getMinutes()/3)*3;
+    //time = y+''+m+''+d+''+s+''+_m;
+    var time = new Date().getTime();
+    var keyMD5 = md5.update('IM'+time).digest('hex');
+
+    res.json({
+        "key":keyMD5
     });
 });
 router.get('/socketall', function(req, res) {
@@ -26,6 +49,7 @@ router.get('/socketall', function(req, res) {
     });
 });
 
+/* GET home page. */
 router.get('/', function(req, res) {
     var page = req.query.page?parseInt(req.query.page):1;
     var recycle = req.query.recycle?parseInt(req.query.recycle):{$ne:1};

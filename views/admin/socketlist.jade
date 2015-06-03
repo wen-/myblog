@@ -1,0 +1,118 @@
+extends layout
+block content
+	style.
+		th,td {
+			text-align:center;
+		}
+		.table a {
+			display:inline-block;
+			margin: 0 5px;
+		}
+	table.table
+		thead
+			tr
+				td(colspan="2",style="border-right:0;font-size:18px;font-weight:bold;text-align:left;padding-left:2em;")
+					|IM 权限列表
+				td(colspan="1",style="border-left:0;text-align:right;")
+					div.search_box
+						input(type="text",name="keyword",placeholder='请输入搜索关键字')
+						button.imsearch.btn(type="button") 搜索
+			tr
+				th(style="width:40%;") 用户名
+				th 状态
+				th 操作
+		tbody.blogList
+			-if(posts){
+				each item in posts
+					-var activate0 = item.activate?'禁用':'激活';
+					-var activate1 = item.activate?'激活':'禁用';
+					-var state = item.activate?'0':'1';
+					-var id = item.id
+					tr
+						td #{item.email}
+						td.state #{activate1}
+						td
+							button.activateIM.btn(type="button",data-id="#{id}",data-state="#{state}",style="margin-right:1em;") #{activate0}
+							button.delIM.btn(type="button",data-id="#{id}") 删除
+			-}
+		-if(total>1)
+			tfoot
+				td(colspan="2") &nbsp;
+				td
+					button.delIM.btn(type="button",data-id="all") 全部删除
+	-if(total>10)
+		.pagebox
+			#pagebox.jPaginate
+
+	script(src='/js/page/jquery.paginate.js')
+	script.
+		$(function(){
+			if(#{total}>10){
+				var pageurl = "/im/socketlist";
+				//console.log(pageurl);
+				$("#pagebox").paginate({
+					count 		: Math.ceil(#{total}/10),
+					start 		: 1,
+					display     : 10,
+					border					: true,
+					border_color			: '#BEF8B8',
+					text_color  			: '#68BA64',
+					background_color    	: '#E3F2E1',
+					border_hover_color		: '#68BA64',
+					text_hover_color  		: 'black',
+					background_hover_color	: '#fff',
+					images					: false,
+					mouse					: 'press',
+					onChange     			: function(page){
+						$.ajax({
+							type: "GET",
+							url: pageurl,
+							data: {"page":page},
+							dataType:'json',
+							success: function (data) {
+								htm(data);
+							},
+							error: function (err) {
+								alert(err)
+							}
+						});
+					}
+				});
+			}
+			function htm(data){
+				var txts = [];
+				$.each(data.posts,function(i,n){
+					var activate0 = n.activate?'禁用':'激活';
+					var activate1 = n.activate?'激活':'禁用';
+					var state = n.activate?'0':'1';
+					var id = n._id;
+					var t = '<tr><td>'+n.email+'</td><td class="state">'+activate1+'</td><td><button type="button" data-id="'+id+'" data-state="'+state+'" style="margin-right:1em;" class="activateIM btn">'+activate0+'</button><button type="button" data-id="'+id+'" class="delIM btn">删除</button></td></tr>';
+
+					txts.push(t);
+				});
+				$(".blogList").html(txts.join(""));
+			}
+			$(document).on("click","button.activateIM",function(){
+				var $this = $(this);
+				var aid = $this.data("id");
+				var state = $this.data("state");
+				$.ajax({
+					type: "GET",
+					url: "/im/activatesocket",
+					data: {"id":aid,"state":state},
+					dataType:'json',
+					success: function (data) {
+						if(data.success == 200){
+							if(state == 0){
+								$this.text("激活").data("state",1).parent().siblings("td.state").html("禁用");
+							}else{
+								$this.text("禁用").data("state",0).parent().siblings("td.state").html("激活");
+							}
+						};
+					},
+					error: function (err) {
+						alert(err)
+					}
+				});
+			})
+		});

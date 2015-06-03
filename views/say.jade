@@ -544,7 +544,8 @@ block content
     script(src='/js/socket.io.js')
     script.
         $(function(){
-            var socket = io.connect('http://127.0.0.1:3000/chat');
+            var isfocus = true;
+            var socket = io.connect('http://127.0.0.1:3000/chat?key=#{key}');
             //var frommsg = 'frommsg';
             socket.on('connect', function() {
                     console.log('连接成功！');
@@ -570,6 +571,7 @@ block content
                     var timetxt = (time.getMonth() + 1) + '-' + time.getDate() + ' ' + time.getHours() + ':' + time.getMinutes();
                     $(".socketBox_msgM .msgBody").append('<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">来自' + data.from.nickname + '的私信<span class="saytime">' + timetxt + '</span></div><div class="txt_module">' + data.message + '</div></div></div>');
                     $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
+                    showNotification(data);
                 });
             });
             function showonline(data){
@@ -658,6 +660,7 @@ block content
                 }
                 $(".socketBox_msgM .msgBody").append(msg);
                 $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
+                showNotification(data);
             });
 
 
@@ -806,6 +809,33 @@ block content
                     $p.find(".online_list").show();
                     $p.find(".group_list").hide();
                 }
+            })
+
+            function showNotification(data){
+                if(Notification){
+                    Notification.requestPermission(function(result) {
+                        if (result === 'granted') { //允许
+                            var notification = new Notification(data.userData.nickname,{
+                                body : data.message,
+                                icon : 'http://img02.muzhiwan.com//2015/04/24/com.GoodFeel.Tokidora_110914/5539c2d2ac5e4_98.png',
+                                tag : {} // 可以加一个tag
+                            });
+                            window.setTimeout(function(){notification.close()},3000);
+                            notification.onclick = function(){
+                                //alert('点击了消息');
+                                window.focus();
+                            }
+                        } else if (result === 'denied') { //拒绝
+                            console.log('拒绝了消息提示');
+                        }
+                    });
+                }
+            }
+
+            $(window).on("blur",function(){
+                isfocus = false;
+            }).on("focus",function(){
+                isfocus = true;
             })
 
         });

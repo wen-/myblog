@@ -1,0 +1,66 @@
+extends layout
+block content
+	table.table
+		tr
+			th(colspan="2",style="border-right:0;font-size:18px;font-weight:bold;text-align:left;padding-left:2em;")
+				|添加 IM 权限
+		tr
+			th 用户名
+			td
+				input(type="text",maxlength="50",name="username",placeholder='邮箱')
+		tr
+			th 密码
+			td
+				input(type="password",maxlength="20",name="password")
+		tr
+			th 状态
+			td
+				label(for="t1",style="padding:0 10px;")
+					input(type="radio",id="t1",name="activate",value='1',checked,style="margin-right:5px;vertical-align: middle;")
+					|激活
+				label(for="t0")
+					input(type="radio",id="t0",name="activate",value='0',style="margin-right:5px;vertical-align: middle;")
+					|禁用
+
+	.send_socket
+		div(style="padding-top:2em;text-align:center;")
+			button.btn(type="button") 保存
+	script.
+		$(function(){
+			$(".send_socket button").click(function(){
+				var $this = $(this);
+				$this.prop("disabled",true);
+				var username = $.trim($("input[name='username']").val());
+				var password = $("input[name='password']").val();
+				var activate = $("input[name='activate']").val();
+				var reg= new RegExp(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]+$/);
+				if(username != "" && password != "" && reg.test(username)){
+					$.ajax({
+						type: "POST",
+						url: window.location.pathname,
+						data: {"username":username,"password":password,"activate":activate},
+						success: function (data) {
+							if(data.success == 200){
+								$this.html('添加成功！');
+								window.setTimeout(function(){
+									$("input[name='username']").val('')
+									$("input[name='password']").val('');
+									$this.html('保存').prop("disabled",false);
+								},1000);
+							}
+						},
+						error: function (err) {
+							$this.html('保存失败！');
+							window.setTimeout(function(){
+								$this.html('保存').prop("disabled",false);
+							},1000);
+						}
+					})
+				}else{
+					$this.html('请填写正确的用户名/密码！');
+					window.setTimeout(function(){
+						$this.html('保存').prop("disabled",false);
+					},1000)
+				}
+			})
+		});
