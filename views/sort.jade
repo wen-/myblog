@@ -2,7 +2,7 @@ extends layout
 block content
     div.content(style="padding:3em 0;")
         div.sort_t 查看：
-            select#select_sort.select
+            select#select_sort.btn.btn-default
                 option 请选择分类
                 -if(sorts)
                     each item in sorts

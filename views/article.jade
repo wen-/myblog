@@ -64,28 +64,23 @@ block content
                                     div.comments_details_m !{comment.content}
                             -})
                     div.comment_box_b(style="display:block;")
-                        form.log_comment_data(method="post")
-                            ul.ui_ul_input
-                                if(locals.user)
-                                    li
-                                        label 姓名：
-                                        input(type="text",name="name",value="#{locals.user.name}")
-                                    li
-                                        label 邮箱：
-                                        input(type="text",name="email",value="#{locals.user.email}")
-                                else
-                                    li
-                                        label 姓名：
-                                        input(type="text",name="name")
-                                    li
-                                        label 邮箱：
-                                        input(type="text",name="email")
-                                li
-                                    label.lfloat 评论：
-                                    textarea(name="content")
-                                li
-                                    label 验证码：
-                                    input.codeIMG_txt(type="text",name="codeIMG")
+                        form.log_comment_data.form-horizontal(method="post")
+                            .form-group
+                                label.col-sm-2.control-label(for="name")  姓名：
+                                .col-sm-4
+                                    input.form-control(type="text",id="name",name="name",placeholder="姓名")
+                            .form-group
+                                label.col-sm-2.control-label(for="email")  邮箱：
+                                .col-sm-4
+                                    input.form-control(type="email",id="email",name="email",placeholder="邮箱")
+                            .form-group
+                                label.col-sm-2.control-label(for="content")  评论：
+                                .col-sm-8
+                                    textarea.form-control(rows="3",id="content",name="content",placeholder="说点什么吧！")
+                            .form-group
+                                label.col-sm-2.control-label(for="codeIMG")  验证码：
+                                .col-sm-8
+                                    input.form-control.codeIMG_txt(type="text",id="codeIMG",name="codeIMG",placeholder="验证码",style="width:8em;display:inline;")
                                     img#loginCodeUrl.CodeUrl(src="/images/demoCode.png",alt="",title="点击获取验证码")
                             div.comment_msg(id="msg#{post._id}") 数据发送中
                                 img(style="vertical-align: middle;height:3px",src="/images/ajax-loader.gif",alt="")
@@ -100,3 +95,10 @@ block content
                             |<span class="comments_num">#{post.comments.length}</span>
                         else
                             |<span class="comments_num">0</span>
+<form class="form-horizontal">
+<div class="form-group">
+<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+<div class="col-sm-10">
+<input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+</div>
+</div>

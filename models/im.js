@@ -58,7 +58,7 @@ im.get = function(email, callback) {
         if (err) {
             return callback(err);
         }
-        callback(null, user);
+        callback(null,user);
     });
 };
 
@@ -78,6 +78,18 @@ im.savePassword = function(email,password,callback){
 im.activateIM = function(aid,state,callback){
     //更新密码信息
     imModel.update({"_id":aid},{"activate":state},function(err){
+        if(err){
+            callback(err);//失败返回出错信息
+        }else{
+            callback(null);//成功返回结果
+        }
+    });
+};
+
+//删除用户
+im.delIM = function(aid,callback){
+    //更新密码信息
+    imModel.remove({"_id":aid},function(err){
         if(err){
             callback(err);//失败返回出错信息
         }else{

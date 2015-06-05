@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var crypto = require('crypto'),
     im = require('../models/im.js');
+var redis = require('../node_modules/socket.io-redis/node_modules/redis');
+
 
 router.get('/socket', function(req, res) {
     //生成加密KEY
@@ -31,6 +33,8 @@ router.get('/socket/key', function(req, res) {
         "key":keyMD5
     });
 });
+
+router.get('/socketlist',checkLogin);
 router.get('/socketlist', function(req, res) {
     var page = req.query.page?parseInt(req.query.page):1;
     var query = {
@@ -61,11 +65,15 @@ router.get('/socketlist', function(req, res) {
 
     });
 });
+
+router.get('/addsocket',checkLogin);
 router.get('/addsocket', function(req, res) {
     res.render('admin/addsocket', {
 
     });
 });
+
+router.post('/addsocket',checkLogin);
 router.post('/addsocket', function(req, res) {
     var userName = req.body.username,
         password = crypto.createHash('md5').update(req.body.password).digest('hex'),
@@ -87,6 +95,8 @@ router.post('/addsocket', function(req, res) {
         });
     });
 });
+
+router.get('/activatesocket',checkLogin);
 router.get('/activatesocket', function(req, res) {
     var id = req.query.id;
     var state = req.query.state;
@@ -97,5 +107,75 @@ router.get('/activatesocket', function(req, res) {
     })
 
 });
+
+router.get('/delsocket',checkLogin);
+router.get('/delsocket', function(req, res) {
+    var id = req.query.id;
+    im.delIM(id,function(){
+        res.json({
+            success:200
+        })
+    })
+});
+
+
+//获取im key
+router.get('/key',function(req,res){
+    //var userName = req.body.username;
+    //var passWord = req.body.password;
+    var userName = req.query.username;
+    var passWord = req.query.password;
+    var md5 = crypto.createHash('md5');
+    var passwordMD5 = md5.update(passWord).digest('hex');
+    im.get(userName,function(err,user){
+        if(err){
+            return res.json({
+                success: -100,
+                msg: '账号/密码不正确'
+            });
+        }
+        if(!user || passwordMD5 !== user.password){
+            return res.json({
+                success: -100,
+                msg: '账号/密码不正确'
+            });
+        }
+
+        var time = new Date().getTime();
+        var keyMD5 = crypto.createHash('md5').update(user.email+time).digest('hex');
+        var client = redis.createClient(6379, '127.0.0.1', {});
+        client.on("connect", function () {
+            client.select(3,function(){
+                //console.log("选择3号库成功！");
+                client.hmset('keys', keyMD5,'',function(err,replies){
+                    res.json({
+                        success: 200,
+                        key: keyMD5
+                    })
+                });
+                client.quit();
+            });
+        });
+        client.on("error", function (err) {
+            console.log("连接redis出错了(存入imKey)：" + err);
+        });
+    })
+});
+
+function checkLogin(req, res, next){
+    if(!req.session.user){
+        req.flash('error','未登录!');
+        return res.redirect('/login');
+    }
+    next();
+}
+
+function checkNotLogin(req,res,next){
+    if(req.session.user){
+        req.flash('error','已登录!');
+        return res.redirect('/');
+    }
+    next();
+}
 
 module.exports = router;

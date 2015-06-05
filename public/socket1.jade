@@ -1,0 +1,25 @@
+doctype html
+html
+  head(lang='en')
+    meta(charset='UTF-8')
+    |     
+    title
+    |     
+    script(src='js/jquery-1.9.1.min.js')
+    |     
+    script(src='js/json2.js')
+    |     
+    script(src='js/socket.io.js')
+    |     
+    script.
+      var socket = io.connect('http://localhost:3000/chat');
+      socket.on('connect', function() {
+      console.log('连接成功！');
+      //socket.emit('my other event', { my: 'data' });
+      });
+      socket.on('news', function (data) {
+      console.log('返回的数据：'+data);
+      socket.emit('my other event', { my: 'data' });
+      });
+  body
+    h1 socket 测试

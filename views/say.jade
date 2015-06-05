@@ -1,841 +1,866 @@
-extends layout
-block content
-    div.content.socket_content
-        .socket_box.clearfix
-            .socketBox_page.left
-                .socketBox_msgT.clearfix
-                    span.dname_show 吹水区
-                .socketBox_msgM
-                    .msgBody
-                        .msgList.msgList_your.clearfix
-                            .msgListYour_ico.lfloat
-                                img(src="images/head.gif",alt="")
-                            .msgListYour_txt
-                                .txt_module 说点什么吧
-                        .msgList.msgList_me.clearfix
-                            .msgListMe_ico.rfloat
-                                img(src="images/head.gif",alt="")
-                            .msgListMe_txt
-                                .txt_module 说点什么好呢？
-                        .msgList.msgList_your.clearfix
-                            .msgListYour_ico.lfloat
-                                img(src="images/head.gif",alt="")
-                            .msgListYour_txt
-                                .txt_module 说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧！
-                        .msgList.msgList_me.clearfix
-                            .msgListMe_ico.rfloat
-                                img(src="images/head.gif",alt="")
-                            .msgListMe_txt
-                                .txt_module 说点什么好呢？
-                        .msgList.msgList_me.clearfix
-                            .msgListMe_ico.rfloat
-                                img(src="images/head.gif",alt="")
-                            .msgListMe_txt
-                                .txt_module 说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么好呢？
-                .socketBox_msgB
-                    .sendBoxBtn
-                        .face
-                            img(src="images/face.png",alt="",id="sendFace")
-                            img(src="images/face1.png",alt="",id="sendFile")
-                        input(type="text",id="inputMsg")
-                        .msgto
-                            label 发给
-                            select.select
-                                option(value="") 所有人
-                        button(type="button",id="sendBtn") 发送
-                    .sendBoxInfo
-                        .face_ico
-                            -for(var i=1;i<=85;i++)
-                                -if(i<10)
-                                    -var ii = '00' + i
-                                -if(i>=10)
-                                    -var ii = '0' + i
-                                img(src="images/faces/#{ii}.png",alt="")
-                        .file_ico
-                            .uppic
-                                form#uploadForm(action="",target="",method="post",enctype="multipart/form-data")
-                                    input.uploadfile(type="file",name="upfile",style="width:auto; cursor: pointer;")
-                                    img.uploadIco(src="images/file.png",alt="")
-                            .recordBox
-                                .recordIco.recordStar(title="录音")
-                                    img(src="images/audio1.png",alt="")
-                                .recordIco.recordStop(style="display: none;",title="停止")
-                                    img(src="images/audio1.png",alt="")
-                                span(style="display:none;position: absolute;top: 24px;left:-10px;width:80px;color:#fff;")
-                                    |录音中
-                                    img(src="images/ajax-loader.gif",style="height: 6px;vertical-align: middle",alt="")
+doctype html
+html
+    head
+        include headData
+    body
+        include topheader
+        div.socket_content
+            .socket_box.clearfix
+                .socketBox_page.left
+                    .socketBox_msgT.clearfix
+                        span.dname_show 吹水区
+                    .socketBox_msgM
+                        .msgBody
+                            .msgList.msgList_your.clearfix
+                                .msgListYour_ico.lfloat
+                                    img(src="images/head.gif",alt="")
+                                .msgListYour_txt
+                                    .txt_module 说点什么吧
+                            .msgList.msgList_me.clearfix
+                                .msgListMe_ico.rfloat
+                                    img(src="images/head.gif",alt="")
+                                .msgListMe_txt
+                                    .txt_module 说点什么好呢？
+                            .msgList.msgList_your.clearfix
+                                .msgListYour_ico.lfloat
+                                    img(src="images/head.gif",alt="")
+                                .msgListYour_txt
+                                    .txt_module 说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧！
+                            .msgList.msgList_me.clearfix
+                                .msgListMe_ico.rfloat
+                                    img(src="images/head.gif",alt="")
+                                .msgListMe_txt
+                                    .txt_module 说点什么好呢？
+                            .msgList.msgList_me.clearfix
+                                .msgListMe_ico.rfloat
+                                    img(src="images/head.gif",alt="")
+                                .msgListMe_txt
+                                    .txt_module 说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么好呢？
+                    .socketBox_msgB
+                        .sendBoxBtn
+                            .face
+                                img(src="images/face.png",alt="",id="sendFace")
+                                img(src="images/face1.png",alt="",id="sendFile")
+                            input(type="text",id="inputMsg")
+                            .msgto
+                                label 发给
+                                select.select
+                                    option(value="") 所有人
+                            button(type="button",id="sendBtn") 发送
+                        .sendBoxInfo
+                            .face_ico
+                                -for(var i=1;i<=85;i++)
+                                    -if(i<10)
+                                        -var ii = '00' + i
+                                    -if(i>=10)
+                                        -var ii = '0' + i
+                                    img(src="images/faces/#{ii}.png",alt="")
+                            .file_ico
+                                .uppic
+                                    form#uploadForm(action="",target="",method="post",enctype="multipart/form-data")
+                                        input.uploadfile(type="file",name="upfile",style="width:auto; cursor: pointer;")
+                                        img.uploadIco(src="images/file.png",alt="")
+                                .recordBox
+                                    .recordIco.recordStar(title="录音")
+                                        img(src="images/audio1.png",alt="")
+                                    .recordIco.recordStop(style="display: none;",title="停止")
+                                        img(src="images/audio1.png",alt="")
+                                    span(style="display:none;position: absolute;top: 24px;left:-10px;width:80px;color:#fff;")
+                                        |录音中
+                                        img(src="images/ajax-loader.gif",style="height: 6px;vertical-align: middle",alt="")
 
-            .online_body
-                .online_t
-                    img.online_ico(src="images/head.gif",alt="")
-                    div.online_name(data-uid="sk1") 名字
-                    .groupAdd 创建讨论组
-                    .groupBtn 讨论组
-                .online_list
-                    div.online_pt.clearfix
-                        img.online_ico.lfloat(alt="")
-                        div.online_name(data-userdata="") 名字
-                .group_list(style="display:none;")
-                    .group
-                        //.groupT 讨论组1
-                        //.groupM
-                            .online_pt.clearfix
-                                img.online_ico.lfloat(alt="")
-                                div.online_name(data-uid="sk1") 名字
-    .skloginBoxBG
-    .skloginBox
-        .skloginbody
-            h1 Hi,已为您随机选择了昵称：
-                span.randomNickName
-            .nickname
-                input.nicknamediy(type="checkbox")
-                |自己来：
-                input.nicknamev(type="text")
-            .skloginBtn
-                button.sendNickName.btn(type="button") 确定
-                button.changeNickName.btn(type="button") 换个昵称
-    .popupBoxBG
-    .popupBox
-        .popupBoxBody
-            .popupBoxT
-                |讨论组名称：
-                input.groupTitle(type="text")
-                .closePopup ×
-            .popupBoxM
-                .onlineList
-                    .onlineList_t
-                        h2 在线列表
+                .online_body
+                    .online_t
+                        img.online_ico(src="images/head.gif",alt="")
+                        div.online_name(data-uid="sk1") 名字
+                        .groupAdd 创建讨论组
+                        .groupBtn 讨论组
                     .online_list
                         div.online_pt.clearfix
                             img.online_ico.lfloat(alt="")
-                            div.online_name(data-userdata="sk1") 名字
-                .selectAdd_list
-                    .selectAddList_t
-                        h2 已选择联系人
-                    .selectAddList_m
-                        //div.online_pt.clearfix
-                            img.online_ico.lfloat(alt="")
-                            div.online_name(data-userdata="sk1") 名字
-            .popupBoxB
-                button.groupSend.btn(type="button") 确定
-                button.groupcancel.btn(type="button") 取消
-    style.
-        .skloginBoxBG,.popupBoxBG{
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            z-index: 100;
-            top:0;
-            left:0;
-            background-color: rgba(0,0,0,.5);
-        }
-        .skloginBox,.popupBox{
-            position: fixed;
-            z-index: 101;
-            width: 300px;
-            height:200px;
-            left:50%;
-            margin-left: -150px;
-            top:50%;
-            margin-top:-120px;
-            padding:8px;
-            border:solid 1px #efefef;
-            background-color: rgba(0,0,0,.3);
-            border-radius: 6px;
-        }
-        .popupBoxBG{
-            display:none;
-        }
-        .popupBox{
-            display:none;
-            width: 500px;
-            height:400px;
-            z-index: 102;
-            margin-left: -250px;
-            margin-top: -140px;
-        }
-        .skloginbody,.popupBoxBody{
-            height: 100%;
-            background-color: #fff;
-        }
-        .skloginbody h1{
-            font-size: 14px;
-            padding:2em 1em 1em;
-        }
-        .nickname{
-            padding:1em;
-            color: #ccc;
-        }
-        .nicknamediy{
-            vertical-align: middle;
-        }
-        input.nicknamev{
-            background-color: #efefef;
-        }
-        .skloginBtn{
-            padding:1em;
-            text-align: center;
-        }
-        .skloginBtn button{
-            margin:0 .5em;
-        }
-        .socket_content{
-            position: relative;
-        }
-        .popupBoxT{
-            padding: 10px 2em;
-            border-bottom: solid 1px #ccc;
-        }
-        .popupBoxT h1{
-            font-size: 14px;
-        }
-        .closePopup{
-            position: absolute;
-            right: 8px;
-            top: 8px;
-            height: 30px;
-            width: 30px;
-            border: solid 4px #ccc;
-            border-radius: 0 0 0 60px;
-            background-color: #666;
-            color: #fff;
-            text-align: right;
-            line-height: 15px;
-            font-size: 30px;
-            border-top: 0;
-            border-right: 0;
-            cursor: pointer;
-        }
-        .popupBoxM{
-            display: -moz-box;
-            display: flex;
-            display: -webkit-box;
-            height: 280px;
-        }
-        .popupBoxM .online_pt{
-            margin:.5em 1em;
-        }
-        .popupBoxM .online_ico{
-            width:30px;
-            height:30px;
-        }
-        .popupBoxM .online_name {
-            margin-top:.5em;
-        }
-        .popupBoxM .onlineList{
-            display: block;
-            width:200px;
-            overflow: hidden;
-            overflow-y: auto;
-            border-right: solid 1px #ccc;
-        }
-        .popupBoxM .selectAdd_list{
-            -moz-box-flex: 1;
-            -webkit-box-flex: 1;
-            box-flex: 1;
-            flex: 1;
-        }
-        .popupBoxB{
-            padding-top:1em;
-            border-top:solid 1px #ccc;
-            text-align: center;
-        }
-        .popupBoxB button{
-            margin:0 1em;
-        }
-        .onlineList_t,.selectAddList_t{
-            padding:.5em 0 .5em 1em;
-        }
-        .online_list,.selectAddList_m{
-            -moz-box-flex: 1;
-            -webkit-box-flex: 1;
-            box-flex: 1;
-            flex: 1;
-        }
-        .popupBoxM .onlineList, .popupBoxM .selectAdd_list {
-            display: -moz-box;
-            display: flex;
-            display: -webkit-box;
-            height: 100%;
-            -moz-box-orient: vertical;
-            -webkit-box-orient: vertical;
-            box-orient: vertical;
-            flex-direction: column;
-        }
-        .socketBox_page{
-            border: solid 1px #333;
-            height:500px;
-            width:60%;
-            position: relative;
-            background-color:#ececec;
-            display: -moz-box;
-            -moz-box-orient: vertical;
-            -webkit-box-orient: vertical;
-            box-orient: vertical;
-            display: flex;
-            flex-direction: column;
-            display: -webkit-box;
-            margin-top:2em;
-        }
-        .online_name {
-            padding-left: 50px;
-        }
-        .socketBox_msgT, .socketBox_msgB {
-            width:100%;
-            background-color: #474747;
-        }
-        .socketBox_msgT {
-            height: 40px;
-            line-height: 40px;
-            top:0;
-            color:#fff;
-            text-align: center;
-            border-bottom: solid 1px #999;
-        }
-        .socketBox_msgB{
-            bottom: 0;
-            border-top: solid 1px #999;
-            height: auto;
-            padding: .5em 0;
-            position: relative;
-        }
-        .sendBoxBtn{
-            display: -moz-box;
-            display: flex;
-            display: -webkit-box;
-        }
-        .face{
-            -moz-box-flex: 1;
-            -webkit-box-flex: 1;
-            box-flex: 1;
-            flex: 1;
-        }
-        .face img {
-            margin-left: 10px;
-            cursor: pointer;
-            vertical-align: middle;
-        }
-        .msgto{
-            margin-left:1em;
-        }
-        .msgto label {
-            color:#fff;
-        }
-        .msgto select{
-            margin-left:5px;
-        }
-        .socketBox_msgB #inputMsg{
-            display: block;
-            border: solid 1px #ccc;
-            box-shadow: inset 1px 1px 3px #333;
-            padding: 3px;
-            -moz-box-flex: 4;
-            -webkit-box-flex: 4;
-            box-flex: 4;
-            flex: 4;
-            height:24px;
-        }
-        .socketBox_msgB #sendBtn{
-            display: block;
-            margin:0 1em;
-            background-color: #efefef;
-            border: solid 1px #999;
-            padding: 3px 0;
-            -moz-box-flex: 1;
-            -webkit-box-flex: 1;
-            box-flex: 1;
-            border-radius: 4px;
-            box-shadow: 1px 1px 0 #000;
-            outline: none;
-            border:solid 1px #fff;
-            flex: 1;
-        }
-        .face_ico,.file_ico{
-            display: none;
-            padding:10px 5px;
-        }
-        .face_ico img{
-            margin:4px;
-        }
-        .socketBox_msgB #sendBtn:active{
-            background-color: #ccc;
-            box-shadow: none;
-        }
-        .uppic,.recordBox{
-            width: 24px;
-            height: 24px;
-            display: inline-block;
-            position: relative;
-            margin-left: 1em;
-        }
-        .uppic{
-            overflow: hidden;
-        }
-        .uploadIco,.recordIco img{
-            width:24px;
-            height:24px;
-            border:none;
-            cursor: pointer;
-        }
-        .socketBox_msgM{
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            padding: 1em 0;
-            position: relative;
-            -moz-box-flex: 1;
-            -webkit-box-flex: 1;
-            box-flex: 1;
-            flex: 1;
-            overflow-y: auto;
-        }
-        .msgList{
-            margin-bottom: 1em;
-        }
-        .msgListYour_ico,.msgListMe_ico{
-            width: 40px;
-            height:40px;
-            margin:0 15px;
-        }
-        .msgListYour_ico img,.msgListMe_ico img{
-            width: 100%;
-            height:100%;
-            border:solid 1px #ccc;
-            border-radius: 4px;
-        }
-        .msgListYour_txt,.msgListMe_txt{
-            margin:0 70px;
-        }
-        .txt_module{
-            background-color: #fff;
-            display: inline-block;
-            border-radius: 10px;
-            padding: 10px;
-            position: relative;
-        }
-        .txt_module:before{
-            content: "";
-            height: 11px;
-            width: 11px;
-            color: #fff;
-            position: absolute;
-            left: -10px;
-            top: 7px;
-            background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAASRJREFUeNq01LFKA0EQxvE1yEmMMRgLbSIqAUEU7LSzEBsrtbIRwbxEWkEI5BkE0UZrn8PCysonSBWxEEQc/wOzcEou3pnJBz8Cl+VbLtnZICLB2YWMofRULJ6lbUlFHzRHLKzjVn5Fv+jgyhYUKUzQQk8GRBcs4g193OMI5SGFu7jMKoyZ0MWkjU74mWe84wkrqGENMyFHYnGCR2wGp5Ts8wPHePUu1rzgbBzFmgd0XZozjtG1jJisIzWHO3x5F5ewhBt8ehbH8lV0bYAKJZ7jYX+uDscJWljWs19kQP4qn8c+zrGdZ/ryFMdMYwOHOEATFY9izaTdGVvYw45tUEc5PRdFi9MbVNGwt1i3DRYwi6n/FqeT2M9UtdKaV/HAa+JbgAEALlYXH2MTJmMAAAAASUVORK5CYII=") no-repeat;
-            background-size: 100%;
-        }
-        .msgListMe_txt{
-            text-align: right;
-        }
-        .msgListMe_txt .txt_module {
-            background-color: #36f;
-        }
-        .msgListMe_txt .txt_module{
-            text-align: left;
-        }
-        .msgListMe_txt .txt_module:before{
-            background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAUlJREFUeNq0lL1KA0EURmfjIghWPoM2VkJ8iJR2VlaKik8gFgZsBEGwEhQLUdQHsLAICIqFRcDSP0REIkpAUIJECbueK7cIMpud2Ww+OAyEu2cnd+5OUJyNY2PMCpRNjinougxTvRBL9mCxF2LJqr5gqEvvcMHyo7TkBqah31MoG9qRZwM9vKTUYRsq1S1zZisYnzMDLCWY1LUPRtLE7WnALXzAI4yBSEf/1S1JS0OPvzkIxZSaa1i3HV43+YIJ+MlbvAB3SeOWNQew32mOs6QC8xDlKT7XuW+kfXmukd0dwwy82QrCDNJv2NWxuk8q8hHLh/QMG3AEr52KQ0ehzOgpbMKFraeu4lj7KIIqHMKJ9jNKk3Kv/ImjNlkLPuEBLnWUrvQyavkchIjXoAnvUIMneNHLpumywyRxWR+OskpsCWLnW9MvvwIMANROU6D1D/OoAAAAAElFTkSuQmCC") no-repeat;
-            background-size: 100%;
-            right: -10px;
-            left:auto;
-        }
-        .onling_n{
-            padding:.5em;
-            text-align: center;
-        }
-        .sayname{
-            margin-bottom: 5px;
-            color:#555;
-        }
-        .saytime{
-            margin-left: 20px;
-        }
-        .online_body {
-            width: 300px;
-            height: 500px;
-            position: absolute;
-            right: 0;
-            top: 0;
-            margin-top: 2em;
-            border: solid 1px #ececec;
-        }
-        .online_t {
-            height: 149px;
-            position: relative;
-            text-align: center;
-            border-bottom: solid 1px #ececec;
-        }
-        .online_t .online_ico {
-            width:100px;
-            height:100px;
-            margin: .5em 0;
-        }
-        .online_t .online_name {
-            font-size: 18px;
-            padding:0;
-            margin:0;
-        }
-        .groupAdd{
-            position: absolute;
-            left:5px;
-            bottom:5px;
-            cursor: pointer;
-            z-index: 10;
-        }
-        .groupBtn{
-            position: absolute;
-            right:5px;
-            bottom:5px;
-            cursor: pointer;
-            z-index: 10;
-        }
-        .online_list {
-            width: 300px;
-            height: 350px;
-            overflow-y: auto;
-        }
-        .online_pt{
-            padding:1em;
-        }
-        .popupBoxM .online_pt:hover{
-            background-color:#efefef;
-            cursor: pointer;
-        }
-        .popupBoxM .selectAddList_m .online_pt:first-child:hover {
-            background-color: transparent;
-            cursor: default;
-        }
-        .online_ico {
-            width: 40px;
-            height: 40px;
-            border: solid 1px #ccc;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            -o-border-radius: 4px;
-            -ms-border-radius: 4px;
-            border-radius: 4px;
-        }
-        .online_name{
-            margin-top:1em;
-        }
-        .popupBox .online_list{
-            width:auto;
-        }
-        .groupT{
-            font-size: 14px;
-            text-align: center;
-            height: 38px;
-            line-height: 38px;
-            border-top: solid 1px #fff;
-            border-bottom: solid 1px #ccc;
-            background-color: #efefef;
-        }
-        .groupM{
-            height:310px;
-            overflow-y: auto;
-        }
-        .privateChat{
-            position: absolute;
-            z-index: 1;
-            right:10px;
-            top:1em;
-            cursor: pointer;
-        }
-    script(src='/js/username.js')
-    script(src='/js/socket.io.js')
-    script.
-        $(function(){
-            var isfocus = true;
-            var socket = io.connect('http://127.0.0.1:3000/chat?key=#{key}');
-            //var frommsg = 'frommsg';
-            socket.on('connect', function() {
-                    console.log('连接成功！');
-                    //socket.emit('my other event', { my: 'data' });
-            });
-            socket.on('connect_failed', function () {
-                alert("与服务器通讯失败。");
-            });
-            socket.on('disconnect', function () {
-                alert("与服务器连接断开。");
-            });
-            socket.on('login', function (data) {
-                console.log(data);
-                var userData = JSON.stringify(data.userData);
-                $(".skloginBoxBG,.skloginBox").remove();
-                $(".online_t .online_name").text(data.userData.nickname).attr("data-userdata",userData);
-                $(".selectAddList_m").html('<div style="cursor:default;" class="online_pt clearfix relative" data-uid="'+data.userData.uid+'"><img class="online_ico lfloat" src="images/head.gif" alt=""><div class="online_name">'+data.userData.nickname+'</div></div>');
-                $(".selectAddList_m .online_pt:first .online_name").attr("data-userdata",userData);
-                socket.on(data.userData.uid, function (data) {
-                    console.log(data);
-                    var time = new Date();
-                    time.setTime(data.time);
-                    var timetxt = (time.getMonth() + 1) + '-' + time.getDate() + ' ' + time.getHours() + ':' + time.getMinutes();
-                    $(".socketBox_msgM .msgBody").append('<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">来自' + data.from.nickname + '的私信<span class="saytime">' + timetxt + '</span></div><div class="txt_module">' + data.message + '</div></div></div>');
-                    $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
-                    showNotification(data);
+                            div.online_name(data-userdata="") 名字
+                    .group_list(style="display:none;")
+                        .group
+                            //.groupT 讨论组1
+                            //.groupM
+                                .online_pt.clearfix
+                                    img.online_ico.lfloat(alt="")
+                                    div.online_name(data-uid="sk1") 名字
+        .skloginBoxBG
+        .skloginBox
+            .skloginbody
+                h1 Hi,已为您随机选择了昵称：
+                    span.randomNickName
+                .nickname
+                    input.nicknamediy(type="checkbox")
+                    |自己来：
+                    input.nicknamev(type="text")
+                .skloginBtn
+                    button.sendNickName.btn(type="button") 确定
+                    button.changeNickName.btn(type="button") 换个昵称
+        .popupBoxBG
+        .popupBox
+            .popupBoxBody
+                .popupBoxT
+                    |讨论组名称：
+                    input.groupTitle(type="text")
+                    .closePopup ×
+                .popupBoxM
+                    .onlineList
+                        .onlineList_t
+                            h2 在线列表
+                        .online_list
+                            div.online_pt.clearfix
+                                img.online_ico.lfloat(alt="")
+                                div.online_name(data-userdata="sk1") 名字
+                    .selectAdd_list
+                        .selectAddList_t
+                            h2 已选择联系人
+                        .selectAddList_m
+                            //div.online_pt.clearfix
+                                img.online_ico.lfloat(alt="")
+                                div.online_name(data-userdata="sk1") 名字
+                .popupBoxB
+                    button.groupSend.btn(type="button") 确定
+                    button.groupcancel.btn(type="button") 取消
+        nav.navbar.navbar-default.navbar-fixed-bottom
+            .row.navsocket
+                .col-xs-4.text-center 在线列表
+                .col-xs-4.text-center 群组
+                .col-xs-4.text-center 吹水吧
+        style.
+            .skloginBoxBG,.popupBoxBG{
+                height: 100%;
+                width: 100%;
+                position: absolute;
+                z-index: 100;
+                top:0;
+                left:0;
+                background-color: rgba(0,0,0,.5);
+            }
+            .skloginBox,.popupBox{
+                position: fixed;
+                z-index: 101;
+                width: 300px;
+                height:200px;
+                left:50%;
+                margin-left: -150px;
+                top:50%;
+                margin-top:-120px;
+                padding:8px;
+                border:solid 1px #efefef;
+                background-color: rgba(0,0,0,.3);
+                border-radius: 6px;
+            }
+            .popupBoxBG{
+                display:none;
+            }
+            .popupBox{
+                display:none;
+                width: 500px;
+                height:400px;
+                z-index: 102;
+                margin-left: -250px;
+                margin-top: -140px;
+            }
+            .skloginbody,.popupBoxBody{
+                height: 100%;
+                background-color: #fff;
+            }
+            .skloginbody h1{
+                font-size: 14px;
+                padding:2em 1em 1em;
+            }
+            .nickname{
+                padding:1em;
+                color: #ccc;
+            }
+            .nicknamediy{
+                vertical-align: middle;
+            }
+            input.nicknamev{
+                background-color: #efefef;
+            }
+            .skloginBtn{
+                padding:1em;
+                text-align: center;
+            }
+            .skloginBtn button{
+                margin:0 .5em;
+            }
+            .socket_content{
+                position: relative;
+            }
+            .popupBoxT{
+                padding: 10px 2em;
+                border-bottom: solid 1px #ccc;
+            }
+            .popupBoxT h1{
+                font-size: 14px;
+            }
+            .closePopup{
+                position: absolute;
+                right: 8px;
+                top: 8px;
+                height: 30px;
+                width: 30px;
+                border: solid 4px #ccc;
+                border-radius: 0 0 0 60px;
+                background-color: #666;
+                color: #fff;
+                text-align: right;
+                line-height: 15px;
+                font-size: 30px;
+                border-top: 0;
+                border-right: 0;
+                cursor: pointer;
+            }
+            .popupBoxM{
+                display: -moz-box;
+                display: flex;
+                display: -webkit-box;
+                height: 280px;
+            }
+            .popupBoxM .online_pt{
+                margin:.5em 1em;
+            }
+            .popupBoxM .online_ico{
+                width:30px;
+                height:30px;
+            }
+            .popupBoxM .online_name {
+                margin-top:.5em;
+            }
+            .popupBoxM .onlineList{
+                display: block;
+                width:200px;
+                overflow: hidden;
+                overflow-y: auto;
+                border-right: solid 1px #ccc;
+            }
+            .popupBoxM .selectAdd_list{
+                -moz-box-flex: 1;
+                -webkit-box-flex: 1;
+                box-flex: 1;
+                flex: 1;
+            }
+            .popupBoxB{
+                padding-top:1em;
+                border-top:solid 1px #ccc;
+                text-align: center;
+            }
+            .popupBoxB button{
+                margin:0 1em;
+            }
+            .onlineList_t,.selectAddList_t{
+                padding:.5em 0 .5em 1em;
+            }
+            .online_list,.selectAddList_m{
+                -moz-box-flex: 1;
+                -webkit-box-flex: 1;
+                box-flex: 1;
+                flex: 1;
+            }
+            .popupBoxM .onlineList, .popupBoxM .selectAdd_list {
+                display: -moz-box;
+                display: flex;
+                display: -webkit-box;
+                height: 100%;
+                -moz-box-orient: vertical;
+                -webkit-box-orient: vertical;
+                box-orient: vertical;
+                flex-direction: column;
+            }
+            .socketBox_page{
+                border: solid 1px #333;
+                height:500px;
+                width:100%;
+                position: relative;
+                background-color:#ececec;
+                display: -moz-box;
+                -moz-box-orient: vertical;
+                -webkit-box-orient: vertical;
+                box-orient: vertical;
+                display: flex;
+                flex-direction: column;
+                display: -webkit-box;
+                margin-top:2em;
+            }
+            .online_name {
+                padding-left: 50px;
+            }
+            .socketBox_msgT, .socketBox_msgB {
+                width:100%;
+                background-color: #474747;
+            }
+            .socketBox_msgT {
+                height: 40px;
+                line-height: 40px;
+                top:0;
+                color:#fff;
+                text-align: center;
+                border-bottom: solid 1px #999;
+            }
+            .socketBox_msgB{
+                bottom: 0;
+                border-top: solid 1px #999;
+                height: auto;
+                padding: .5em 0;
+                position: relative;
+            }
+            .sendBoxBtn{
+                display: -moz-box;
+                display: flex;
+                display: -webkit-box;
+            }
+            .face{
+                -moz-box-flex: 1;
+                -webkit-box-flex: 1;
+                box-flex: 1;
+                flex: 1;
+            }
+            .face img {
+                margin-left: 10px;
+                cursor: pointer;
+                vertical-align: middle;
+            }
+            .msgto{
+                margin-left:1em;
+            }
+            .msgto label {
+                color:#fff;
+            }
+            .msgto select{
+                margin-left:5px;
+            }
+            .socketBox_msgB #inputMsg{
+                display: block;
+                border: solid 1px #ccc;
+                box-shadow: inset 1px 1px 3px #333;
+                padding: 3px;
+                -moz-box-flex: 4;
+                -webkit-box-flex: 4;
+                box-flex: 4;
+                flex: 4;
+                height:24px;
+            }
+            .socketBox_msgB #sendBtn{
+                display: block;
+                margin:0 1em;
+                background-color: #efefef;
+                border: solid 1px #999;
+                padding: 3px 0;
+                -moz-box-flex: 1;
+                -webkit-box-flex: 1;
+                box-flex: 1;
+                border-radius: 4px;
+                box-shadow: 1px 1px 0 #000;
+                outline: none;
+                border:solid 1px #fff;
+                flex: 1;
+            }
+            .face_ico,.file_ico{
+                display: none;
+                padding:10px 5px;
+            }
+            .face_ico img{
+                margin:4px;
+            }
+            .socketBox_msgB #sendBtn:active{
+                background-color: #ccc;
+                box-shadow: none;
+            }
+            .uppic,.recordBox{
+                width: 24px;
+                height: 24px;
+                display: inline-block;
+                position: relative;
+                margin-left: 1em;
+            }
+            .uppic{
+                overflow: hidden;
+            }
+            .uploadIco,.recordIco img{
+                width:24px;
+                height:24px;
+                border:none;
+                cursor: pointer;
+            }
+            .socketBox_msgM{
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                padding: 1em 0;
+                position: relative;
+                -moz-box-flex: 1;
+                -webkit-box-flex: 1;
+                box-flex: 1;
+                flex: 1;
+                overflow-y: auto;
+            }
+            .msgList{
+                margin-bottom: 1em;
+            }
+            .msgListYour_ico,.msgListMe_ico{
+                width: 40px;
+                height:40px;
+                margin:0 15px;
+            }
+            .msgListYour_ico img,.msgListMe_ico img{
+                width: 100%;
+                height:100%;
+                border:solid 1px #ccc;
+                border-radius: 4px;
+            }
+            .msgListYour_txt,.msgListMe_txt{
+                margin:0 70px;
+            }
+            .txt_module{
+                background-color: #fff;
+                display: inline-block;
+                border-radius: 10px;
+                padding: 10px;
+                position: relative;
+            }
+            .txt_module:before{
+                content: "";
+                height: 11px;
+                width: 11px;
+                color: #fff;
+                position: absolute;
+                left: -10px;
+                top: 7px;
+                background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAASRJREFUeNq01LFKA0EQxvE1yEmMMRgLbSIqAUEU7LSzEBsrtbIRwbxEWkEI5BkE0UZrn8PCysonSBWxEEQc/wOzcEou3pnJBz8Cl+VbLtnZICLB2YWMofRULJ6lbUlFHzRHLKzjVn5Fv+jgyhYUKUzQQk8GRBcs4g193OMI5SGFu7jMKoyZ0MWkjU74mWe84wkrqGENMyFHYnGCR2wGp5Ts8wPHePUu1rzgbBzFmgd0XZozjtG1jJisIzWHO3x5F5ewhBt8ehbH8lV0bYAKJZ7jYX+uDscJWljWs19kQP4qn8c+zrGdZ/ryFMdMYwOHOEATFY9izaTdGVvYw45tUEc5PRdFi9MbVNGwt1i3DRYwi6n/FqeT2M9UtdKaV/HAa+JbgAEALlYXH2MTJmMAAAAASUVORK5CYII=") no-repeat;
+                background-size: 100%;
+            }
+            .msgListMe_txt{
+                text-align: right;
+            }
+            .msgListMe_txt .txt_module {
+                background-color: #36f;
+            }
+            .msgListMe_txt .txt_module{
+                text-align: left;
+            }
+            .msgListMe_txt .txt_module:before{
+                background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAUlJREFUeNq0lL1KA0EURmfjIghWPoM2VkJ8iJR2VlaKik8gFgZsBEGwEhQLUdQHsLAICIqFRcDSP0REIkpAUIJECbueK7cIMpud2Ww+OAyEu2cnd+5OUJyNY2PMCpRNjinougxTvRBL9mCxF2LJqr5gqEvvcMHyo7TkBqah31MoG9qRZwM9vKTUYRsq1S1zZisYnzMDLCWY1LUPRtLE7WnALXzAI4yBSEf/1S1JS0OPvzkIxZSaa1i3HV43+YIJ+MlbvAB3SeOWNQew32mOs6QC8xDlKT7XuW+kfXmukd0dwwy82QrCDNJv2NWxuk8q8hHLh/QMG3AEr52KQ0ehzOgpbMKFraeu4lj7KIIqHMKJ9jNKk3Kv/ImjNlkLPuEBLnWUrvQyavkchIjXoAnvUIMneNHLpumywyRxWR+OskpsCWLnW9MvvwIMANROU6D1D/OoAAAAAElFTkSuQmCC") no-repeat;
+                background-size: 100%;
+                right: -10px;
+                left:auto;
+            }
+            .onling_n{
+                padding:.5em;
+                text-align: center;
+            }
+            .sayname{
+                margin-bottom: 5px;
+                color:#555;
+            }
+            .saytime{
+                margin-left: 20px;
+            }
+            .online_body {
+                width: 300px;
+                height: 500px;
+                /*position: absolute;*/
+                right: 0;
+                top: 0;
+                margin-top: 2em;
+                border: solid 1px #ececec;
+            }
+            .online_t {
+                height: 149px;
+                position: relative;
+                text-align: center;
+                border-bottom: solid 1px #ececec;
+            }
+            .online_t .online_ico {
+                width:100px;
+                height:100px;
+                margin: .5em 0;
+            }
+            .online_t .online_name {
+                font-size: 18px;
+                padding:0;
+                margin:0;
+            }
+            .groupAdd{
+                position: absolute;
+                left:5px;
+                bottom:5px;
+                cursor: pointer;
+                z-index: 10;
+            }
+            .groupBtn{
+                position: absolute;
+                right:5px;
+                bottom:5px;
+                cursor: pointer;
+                z-index: 10;
+            }
+            .online_list {
+                width: 300px;
+                height: 350px;
+                overflow-y: auto;
+            }
+            .online_pt{
+                padding:1em;
+            }
+            .popupBoxM .online_pt:hover{
+                background-color:#efefef;
+                cursor: pointer;
+            }
+            .popupBoxM .selectAddList_m .online_pt:first-child:hover {
+                background-color: transparent;
+                cursor: default;
+            }
+            .online_ico {
+                width: 40px;
+                height: 40px;
+                border: solid 1px #ccc;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                -o-border-radius: 4px;
+                -ms-border-radius: 4px;
+                border-radius: 4px;
+            }
+            .online_name{
+                margin-top:1em;
+            }
+            .popupBox .online_list{
+                width:auto;
+            }
+            .groupT{
+                font-size: 14px;
+                text-align: center;
+                height: 38px;
+                line-height: 38px;
+                border-top: solid 1px #fff;
+                border-bottom: solid 1px #ccc;
+                background-color: #efefef;
+            }
+            .groupM{
+                height:310px;
+                overflow-y: auto;
+            }
+            .privateChat{
+                position: absolute;
+                z-index: 1;
+                right:10px;
+                top:1em;
+                cursor: pointer;
+            }
+            .navsocket{
+                background-color:#fefefe;
+            }
+            .navsocket .col-xs-4 {
+                height:50px;
+                line-height:50px;
+            }
+        include footjs
+        script(src='/js/username.js')
+        script(src='/js/socket.io.js')
+        script.
+            $(function(){
+                var isfocus = true;
+                var socket = io.connect('http://192.168.1.120:3000/chat');
+                //var frommsg = 'frommsg';
+                socket.on('connect', function() {
+                        console.log('连接成功！');
+                        //socket.emit('my other event', { my: 'data' });
                 });
-            });
-            function showonline(data){
-                var txts = [],txt = '';
-                if(data.length){
-                    $.each(data,function(i,n){
-                        var ud = JSON.stringify(n);
+                socket.on('connect_failed', function () {
+                    alert("与服务器通讯失败。");
+                });
+                socket.on('disconnect', function () {
+                    alert("与服务器连接断开。");
+                });
+                socket.on('login', function (data) {
+                    console.log(data);
+                    var userData = JSON.stringify(data.userData);
+                    $(".skloginBoxBG,.skloginBox").remove();
+                    $(".online_t .online_name").text(data.userData.nickname).attr("data-userdata",userData);
+                    $(".selectAddList_m").html('<div style="cursor:default;" class="online_pt clearfix relative" data-uid="'+data.userData.uid+'"><img class="online_ico lfloat" src="images/head.gif" alt=""><div class="online_name">'+data.userData.nickname+'</div></div>');
+                    $(".selectAddList_m .online_pt:first .online_name").attr("data-userdata",userData);
+                    socket.on(data.userData.uid, function (data) {
+                        console.log(data);
+                        var time = new Date();
+                        time.setTime(data.time);
+                        var timetxt = (time.getMonth() + 1) + '-' + time.getDate() + ' ' + time.getHours() + ':' + time.getMinutes();
+                        $(".socketBox_msgM .msgBody").append('<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">来自' + data.from.nickname + '的私信<span class="saytime">' + timetxt + '</span></div><div class="txt_module">' + data.message + '</div></div></div>');
+                        $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
+                        //if(!isfocus){
+                            showNotification(data);
+                        //}
+                    });
+                });
+                function showonline(data){
+                    var txts = [],txt = '';
+                    if(data.length){
+                        $.each(data,function(i,n){
+                            var ud = JSON.stringify(n);
+                            var userData = "data-userdata='"+ud+"'";
+                            txt = '<div class="online_pt clearfix relative" data-uid="'+n.uid+'"><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name" '+userData+'>'+n.nickname+'</div></div>';
+                            txts.push(txt);
+                        });
+                    }else{
+                        var ud = JSON.stringify(data);
                         var userData = "data-userdata='"+ud+"'";
-                        txt = '<div class="online_pt clearfix relative" data-uid="'+n.uid+'"><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name" '+userData+'>'+n.nickname+'</div></div>';
+                        txt = '<div class="online_pt clearfix relative" data-uid="'+data.uid+'"><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name" '+userData+'>'+data.nickname+'</div></div>';
                         txts.push(txt);
-                    });
-                }else{
-                    var ud = JSON.stringify(data);
-                    var userData = "data-userdata='"+ud+"'";
-                    txt = '<div class="online_pt clearfix relative" data-uid="'+data.uid+'"><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name" '+userData+'>'+data.nickname+'</div></div>';
-                    txts.push(txt);
+                    }
+                    return txts;
                 }
-                return txts;
-            }
-            function showonline1(data,add){
-                var txts1 = add?['<option value="">所有人</option>']:[],txt1 = '';
-                if(data.length){
-                    $.each(data,function(i,n){
-                        var ud = JSON.stringify(n);
-                        txt1 = '<option value=\''+ud+'\'>'+n.nickname+'</option>';
+                function showonline1(data,add){
+                    var txts1 = add?['<option value="">所有人</option>']:[],txt1 = '';
+                    if(data.length){
+                        $.each(data,function(i,n){
+                            var ud = JSON.stringify(n);
+                            txt1 = '<option value=\''+ud+'\'>'+n.nickname+'</option>';
+                            txts1.push(txt1);
+                        });
+                    }else{
+                        var ud = JSON.stringify(data);
+                        txt1 = '<option value=\''+ud+'\'>'+data.nickname+'</option>';
                         txts1.push(txt1);
-                    });
-                }else{
-                    var ud = JSON.stringify(data);
-                    txt1 = '<option value=\''+ud+'\'>'+data.nickname+'</option>';
-                    txts1.push(txt1);
+                    }
+                    return txts1;
                 }
-                return txts1;
-            }
-            socket.on('refreshOnline', function (data) {
-                console.log(data);
-                var txts = showonline(data);
-                var txts1 = showonline1(data,true);
-                $(".online_list").html(txts.join(""));
-                $(".msgto select").html(txts1.join(""));
-            });
-            socket.on('userJoined', function (data) {
-                console.log(data);
-                var txts = showonline(data);
-                var txts1 = showonline1(data);
-                $(".online_list").append(txts.join(""));
-                $(".msgto select").append(txts1.join(""));
-                $(".socketBox_msgM .msgBody").append('<div style="text-align:center;">' + data.nickname + ' 进来了。</div>');
-                $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
-            });
-            socket.on('newgroup', function (data) {
-                console.log(data);
-                $(".socketBox_msgM .msgBody").append('<div style="text-align:center;">' + data.master.nickname + ' 把你加进了讨论组 《'+data.title+'》</div>');
-                $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
-                var htmls = [],html='';
-                $.each(data.member,function(i,n){
-                    var userdata = JSON.stringify(n);
-                    userdata = "data-userdata='"+userdata+"'";
-                    html = '<div class="online_pt clearfix"><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name" '+userdata+'>'+n.nickname+'</div></div>';
-                    htmls.push(html);
-                })
-                var groupn = htmls.join("");
-                var txt = '<div class="group"><div class="groupT" data-gid="'+data.gid+'">'+data.title+'</div><div class="groupM">'+groupn+'</div></div>';
-                $(".group_list").append(txt);
-                var txt1 = '<option value=\''+JSON.stringify(data)+'\'>讨论组:'+data.title+'</option>';
-                $(".msgto select").append(txt1);
-            });
-            socket.on('left', function (data) {
-                console.log(data);
-                var nickname = data.userData.nickname;
-                $(".socketBox_msgM .msgBody").append('<div style="text-align:center;">' + nickname + ' 离开了。</div>');
-                $(".online_pt[data-uid='"+data.userData.uid+"']").remove();
-                $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
-                $(".online_name:contains('"+nickname+"')").remove();
-                $(".msgto select option:contains('"+nickname+"')").remove();
-            });
-            socket.on('postmsg', function (data) {
-                console.log(data);
-                var time = new Date(),msg = "";
-                time.setTime(data.time);
-                var timetxt = (time.getMonth()+1)+'-'+ time.getDate()+' '+ time.getHours()+':'+ time.getMinutes();
-                if(data.gid){
-                    msg = '<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">来自讨论组：《'+data.title+'》 '+data.userData.nickname+'的信息<span class="saytime">'+timetxt+'</span></div><div class="txt_module">'+data.message+'</div></div></div>';
-                }else{
-                    msg = '<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">'+data.userData.nickname+'<span class="saytime">'+timetxt+'</span></div><div class="txt_module">'+data.message+'</div></div></div>';
-                }
-                $(".socketBox_msgM .msgBody").append(msg);
-                $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
-                showNotification(data);
-            });
+                socket.on('refreshOnline', function (data) {
+                    console.log(data);
+                    var txts = showonline(data);
+                    var txts1 = showonline1(data,true);
+                    $(".online_list").html(txts.join(""));
+                    $(".msgto select").html(txts1.join(""));
+                });
+                socket.on('userJoined', function (data) {
+                    console.log(data);
+                    var txts = showonline(data);
+                    var txts1 = showonline1(data);
+                    $(".online_list").append(txts.join(""));
+                    $(".msgto select").append(txts1.join(""));
+                    $(".socketBox_msgM .msgBody").append('<div style="text-align:center;">' + data.nickname + ' 进来了。</div>');
+                    $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
+                });
+                socket.on('newgroup', function (data) {
+                    console.log(data);
+                    $(".socketBox_msgM .msgBody").append('<div style="text-align:center;">' + data.master.nickname + ' 把你加进了讨论组 《'+data.title+'》</div>');
+                    $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
+                    var htmls = [],html='';
+                    $.each(data.member,function(i,n){
+                        var userdata = JSON.stringify(n);
+                        userdata = "data-userdata='"+userdata+"'";
+                        html = '<div class="online_pt clearfix"><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name" '+userdata+'>'+n.nickname+'</div></div>';
+                        htmls.push(html);
+                    })
+                    var groupn = htmls.join("");
+                    var txt = '<div class="group"><div class="groupT" data-gid="'+data.gid+'">'+data.title+'</div><div class="groupM">'+groupn+'</div></div>';
+                    $(".group_list").append(txt);
+                    var txt1 = '<option value=\''+JSON.stringify(data)+'\'>讨论组:'+data.title+'</option>';
+                    $(".msgto select").append(txt1);
+                });
+                socket.on('left', function (data) {
+                    console.log(data);
+                    var nickname = data.userData.nickname;
+                    $(".socketBox_msgM .msgBody").append('<div style="text-align:center;">' + nickname + ' 离开了。</div>');
+                    $(".online_pt[data-uid='"+data.userData.uid+"']").remove();
+                    $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
+                    $(".online_name:contains('"+nickname+"')").remove();
+                    $(".msgto select option:contains('"+nickname+"')").remove();
+                });
+                socket.on('postmsg', function (data) {
+                    console.log(data);
+                    var time = new Date(),msg = "";
+                    time.setTime(data.time);
+                    var timetxt = (time.getMonth()+1)+'-'+ time.getDate()+' '+ time.getHours()+':'+ time.getMinutes();
+                    if(data.gid){
+                        msg = '<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">来自讨论组：《'+data.title+'》 '+data.userData.nickname+'的信息<span class="saytime">'+timetxt+'</span></div><div class="txt_module">'+data.message+'</div></div></div>';
+                    }else{
+                        msg = '<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">'+data.userData.nickname+'<span class="saytime">'+timetxt+'</span></div><div class="txt_module">'+data.message+'</div></div></div>';
+                    }
+                    $(".socketBox_msgM .msgBody").append(msg);
+                    $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
+                    //if(!isfocus){
+                        showNotification(data);
+                    //}
+
+                });
 
 
-            var l = randomname.length+1;
-            var n = Math.floor(Math.random()*l);
-            var randomNickName = randomname[n];
-            $(".randomNickName").text(randomNickName);
-
-            $(".changeNickName").click(function(){
+                var l = randomname.length+1;
                 var n = Math.floor(Math.random()*l);
                 var randomNickName = randomname[n];
                 $(".randomNickName").text(randomNickName);
-            })
-            $(".sendNickName").click(function(){
-                var nicknamev = $.trim($("input.nicknamev").val()) || $(".randomNickName").text();
-                if(nicknamev != ''){
-                    socket.emit('goin', {"nickname": nicknamev});
-                }
-            });
-            $(".nicknamediy").change(function () {
-                if($(this).prop("checked")){
-                    $(".nickname").css("color","#000");
-                    $("input.nicknamev").css("background-color","#fff");
-                }else{
-                    $(".nickname").css("color","#ccc");
-                    $("input.nicknamev").css("background-color","#efefef");
-                }
-            });
-            $(document).on("click",".groupT",function(){
-                var gid = $(this).attr("data-gid");
-                $("#sendBtn").attr("data-gid",gid);
-            });
-            $("#sendBtn").click(function(){
-                var $this = $(this),fromuid = "",touid = "";
-                var msg = $("#inputMsg").val();
-                var tt = new Date().getTime();
-                var msgto = $(".msgto select").val();
-                if(!!msg){
-                    var txt = '<div class="msgList msgList_me clearfix"><div class="msgListMe_ico rfloat"><img src="images/head.gif" alt=""></div><div class="msgListMe_txt"><div class="txt_module" id="msg'+tt+'">'+msg+'</div></div></div>';
-                    var msgData = {
-                        "msg":msg
-                    };
-                    if (msgto) {
-                        msgto = JSON.parse($(".msgto select").val());
-                        from = JSON.parse($(".online_t .online_name").attr("data-userdata"));
-                        to = msgto;
-                        if(msgto.title){
-                            to = msgto.member;
-                            txt = '<div class="msgList msgList_me clearfix"><div class="msgListMe_ico rfloat"><img src="images/head.gif" alt=""></div><div class="msgListMe_txt"><div class="sayname">消息发给讨论组：《'+msgto.title+'》</div><div class="txt_module" id="msg'+tt+'">'+msg+'</div></div></div>';
-                            msgData.gid = msgto.gid;
-                            msgData.title = msgto.title;
-                        }else{
-                            txt = '<div class="msgList msgList_me clearfix"><div class="msgListMe_ico rfloat"><img src="images/head.gif" alt=""></div><div class="msgListMe_txt"><div class="sayname">消息发给：'+msgto.nickname+'</div><div class="txt_module" id="msg'+tt+'">'+msg+'</div></div></div>';
-                        }
-                        msgData.from = from;
-                        msgData.to = to;
+
+                $(".changeNickName").click(function(){
+                    var n = Math.floor(Math.random()*l);
+                    var randomNickName = randomname[n];
+                    $(".randomNickName").text(randomNickName);
+                })
+                $(".sendNickName").click(function(){
+                    var nicknamev = $.trim($("input.nicknamev").val()) || $(".randomNickName").text();
+                    if(nicknamev != ''){
+                        socket.emit('goin', {"nickname": nicknamev});
                     }
-                    $(".socketBox_msgM .msgBody").append(txt);
-                    $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
-                    socket.emit('postmsg',msgData,function(){
-                        $("#inputMsg").val("");
-                    });
-                }else{
-                    $this.prop("disabled",true);
-                    $this.text('内容不能为空');
-                    window.setTimeout(function(){
-                        $this.prop("disabled",false);
-                        $this.text('发送');
-                    },1000)
-                }
-            })
+                });
+                $(".nicknamediy").change(function () {
+                    if($(this).prop("checked")){
+                        $(".nickname").css("color","#000");
+                        $("input.nicknamev").css("background-color","#fff");
+                    }else{
+                        $(".nickname").css("color","#ccc");
+                        $("input.nicknamev").css("background-color","#efefef");
+                    }
+                });
+                $(document).on("click",".groupT",function(){
+                    var gid = $(this).attr("data-gid");
+                    $("#sendBtn").attr("data-gid",gid);
+                });
+                $("#sendBtn").click(function(){
+                    var $this = $(this),fromuid = "",touid = "";
+                    var msg = $("#inputMsg").val();
+                    var tt = new Date().getTime();
+                    var msgto = $(".msgto select").val();
+                    if(!!msg){
+                        var txt = '<div class="msgList msgList_me clearfix"><div class="msgListMe_ico rfloat"><img src="images/head.gif" alt=""></div><div class="msgListMe_txt"><div class="txt_module" id="msg'+tt+'">'+msg+'</div></div></div>';
+                        var msgData = {
+                            "msg":msg
+                        };
+                        if (msgto) {
+                            msgto = JSON.parse($(".msgto select").val());
+                            from = JSON.parse($(".online_t .online_name").attr("data-userdata"));
+                            to = msgto;
+                            if(msgto.title){
+                                to = msgto.member;
+                                txt = '<div class="msgList msgList_me clearfix"><div class="msgListMe_ico rfloat"><img src="images/head.gif" alt=""></div><div class="msgListMe_txt"><div class="sayname">消息发给讨论组：《'+msgto.title+'》</div><div class="txt_module" id="msg'+tt+'">'+msg+'</div></div></div>';
+                                msgData.gid = msgto.gid;
+                                msgData.title = msgto.title;
+                            }else{
+                                txt = '<div class="msgList msgList_me clearfix"><div class="msgListMe_ico rfloat"><img src="images/head.gif" alt=""></div><div class="msgListMe_txt"><div class="sayname">消息发给：'+msgto.nickname+'</div><div class="txt_module" id="msg'+tt+'">'+msg+'</div></div></div>';
+                            }
+                            msgData.from = from;
+                            msgData.to = to;
+                        }
+                        $(".socketBox_msgM .msgBody").append(txt);
+                        $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
+                        socket.emit('postmsg',msgData,function(){
+                            $("#inputMsg").val("");
+                        });
+                    }else{
+                        $this.prop("disabled",true);
+                        $this.text('内容不能为空');
+                        window.setTimeout(function(){
+                            $this.prop("disabled",false);
+                            $this.text('发送');
+                        },1000)
+                    }
+                })
 
-            //创建讨论组
-            $(".groupAdd").click(function(){
-                $(".popupBoxBG").show();
-                $(".popupBox").show();
-            });
+                //创建讨论组
+                $(".groupAdd").click(function(){
+                    $(".popupBoxBG").show();
+                    $(".popupBox").show();
+                });
 
-            //新建群组列表点击
-            $(document).on("click",".popupBoxM .online_list .online_pt",function(){
-                var uid = $(this).attr("data-uid"),hover = "";
-                $(".popupBoxM .selectAddList_m .online_pt").each(function(i,n){
-                    var suid = $(this).attr("data-uid");
-                    if (suid == uid) {
-                        hover = true;
+                //新建群组列表点击
+                $(document).on("click",".popupBoxM .online_list .online_pt",function(){
+                    var uid = $(this).attr("data-uid"),hover = "";
+                    $(".popupBoxM .selectAddList_m .online_pt").each(function(i,n){
+                        var suid = $(this).attr("data-uid");
+                        if (suid == uid) {
+                            hover = true;
+                            return false;
+                        }
+                    })
+                    if(hover){
+                        alert("联系人已存在");
                         return false;
                     }
-                })
-                if(hover){
-                    alert("联系人已存在");
-                    return false;
-                }
-                var copy = $(this).clone();
-                $(".selectAddList_m").append(copy);
-            });
-            $(document).on("click",".popupBoxM .selectAddList_m .online_pt:not(:first)",function(){
-                $(this).remove();
-            });
-
-            //关闭弹出窗
-            $(document).on("click",".closePopup,.groupcancel",function(){
-                $(this).parents(".popupBox").hide();
-                $(".popupBoxBG").hide();
-                $(".selectAddList_m").empty();
-            })
-
-            //创建群组确定
-            $(".groupSend").click(function(){
-                var t = $(".groupTitle").val();
-                if(!t){
-                    alert("讨论组名称不能为空！");
-                    return false;
-                }
-                var groupn = $(".selectAddList_m").html();
-                var txt = '<div class="group"><div class="groupT">'+t+'</div><div class="groupM">'+groupn+'</div></div>';
-                var member = [];
-                $(".selectAddList_m .online_name").each(function(i,n){
-                    var userdata = JSON.parse($(this).attr("data-userdata"));
-                    member.push(userdata);
+                    var copy = $(this).clone();
+                    $(".selectAddList_m").append(copy);
                 });
-                var data = {
-                    "title" : t,
-                    "member" : member
-                };
-                socket.emit('newgroup',data,function(d){
-                    var txt1 = '<option value=\''+JSON.stringify(d)+'\'>讨论组:'+d.title+'</option>';
-                    $(".msgto select").append(txt1);
+                $(document).on("click",".popupBoxM .selectAddList_m .online_pt:not(:first)",function(){
+                    $(this).remove();
+                });
+
+                //关闭弹出窗
+                $(document).on("click",".closePopup,.groupcancel",function(){
+                    $(this).parents(".popupBox").hide();
+                    $(".popupBoxBG").hide();
+                    $(".selectAddList_m").empty();
                 })
-                $(".group_list").append(txt);
-                $(".groupTitle").val("");
-                $(".selectAddList_m").empty();
-                $(this).parents(".popupBox").hide();
-                $(".popupBoxBG").hide();
-            })
 
-            //点击讨论组
-            $(".groupBtn").click(function(){
-                var txt = $(this).text();
-                var $p = $(this).parents(".online_body");
-                if(txt == "讨论组"){
-                    $(this).text("在线列表");
-                    $p.find(".online_list").hide();
-                    $p.find(".group_list").show();
-                }else{
-                    $(this).text("讨论组");
-                    $p.find(".online_list").show();
-                    $p.find(".group_list").hide();
-                }
-            })
-
-            function showNotification(data){
-                if(Notification){
-                    Notification.requestPermission(function(result) {
-                        if (result === 'granted') { //允许
-                            var notification = new Notification(data.userData.nickname,{
-                                body : data.message,
-                                icon : 'http://img02.muzhiwan.com//2015/04/24/com.GoodFeel.Tokidora_110914/5539c2d2ac5e4_98.png',
-                                tag : {} // 可以加一个tag
-                            });
-                            window.setTimeout(function(){notification.close()},3000);
-                            notification.onclick = function(){
-                                //alert('点击了消息');
-                                window.focus();
-                            }
-                        } else if (result === 'denied') { //拒绝
-                            console.log('拒绝了消息提示');
-                        }
+                //创建群组确定
+                $(".groupSend").click(function(){
+                    var t = $(".groupTitle").val();
+                    if(!t){
+                        alert("讨论组名称不能为空！");
+                        return false;
+                    }
+                    var groupn = $(".selectAddList_m").html();
+                    var txt = '<div class="group"><div class="groupT">'+t+'</div><div class="groupM">'+groupn+'</div></div>';
+                    var member = [];
+                    $(".selectAddList_m .online_name").each(function(i,n){
+                        var userdata = JSON.parse($(this).attr("data-userdata"));
+                        member.push(userdata);
                     });
+                    var data = {
+                        "title" : t,
+                        "member" : member
+                    };
+                    socket.emit('newgroup',data,function(d){
+                        var txt1 = '<option value=\''+JSON.stringify(d)+'\'>讨论组:'+d.title+'</option>';
+                        $(".msgto select").append(txt1);
+                    })
+                    $(".group_list").append(txt);
+                    $(".groupTitle").val("");
+                    $(".selectAddList_m").empty();
+                    $(this).parents(".popupBox").hide();
+                    $(".popupBoxBG").hide();
+                })
+
+                //点击讨论组
+                $(".groupBtn").click(function(){
+                    var txt = $(this).text();
+                    var $p = $(this).parents(".online_body");
+                    if(txt == "讨论组"){
+                        $(this).text("在线列表");
+                        $p.find(".online_list").hide();
+                        $p.find(".group_list").show();
+                    }else{
+                        $(this).text("讨论组");
+                        $p.find(".online_list").show();
+                        $p.find(".group_list").hide();
+                    }
+                })
+
+                function showNotification(data){
+                    if(Notification){
+                        Notification.requestPermission(function(result) {
+                            if (result === 'granted') { //允许
+                                var notification = new Notification(data.userData.nickname,{
+                                    body : data.message,
+                                    icon : 'http://img02.muzhiwan.com//2015/04/24/com.GoodFeel.Tokidora_110914/5539c2d2ac5e4_98.png',
+                                    tag : {} // 可以加一个tag
+                                });
+                                window.setTimeout(function(){notification.close()},3000);
+                                notification.onclick = function(){
+                                    //alert('点击了消息');
+                                    window.focus();
+                                }
+                            } else if (result === 'denied') { //拒绝
+                                console.log('拒绝了消息提示');
+                            }
+                        });
+                    }else{
+                        alert(Notification);
+                    }
                 }
-            }
 
-            $(window).on("blur",function(){
-                isfocus = false;
-            }).on("focus",function(){
-                isfocus = true;
-            })
-
-        });
+                $(window).on("blur",function(){
+                    isfocus = false;
+                    console.log("失去焦点")
+                }).on("focus",function(){
+                    isfocus = true;
+                    console.log("获得焦点")
+                });
+            });

@@ -114,5 +114,26 @@ block content
 						alert(err)
 					}
 				});
+			});
+			$(document).on("click","button.delIM",function(){
+				var $this = $(this);
+				var aid = $this.data("id");
+				var del = window.confirm("确定删除该账号？")
+				if(del){
+					$.ajax({
+						type: "GET",
+						url: "/im/delsocket",
+						data: {"id":aid},
+						dataType:'json',
+						success: function (data) {
+							if(data.success == 200){
+								window.location.reload();
+							};
+						},
+						error: function (err) {
+							alert(err)
+						}
+					});
+				}
 			})
 		});

@@ -190,17 +190,45 @@ module.exports = function(io){
         .of('/chat')
         .on('connection', function (socket) {
             //生成加密KEY
-            var md5 = crypto.createHash('md5');
+            /*var md5 = crypto.createHash('md5');
             var time = new Date(),y = time.getFullYear(),m = time.getMonth()+1,d = time.getDate(),s = time.getHours(),_m = Math.floor(time.getMinutes()/3)*3;
             time = y+''+m+''+d+''+s+''+_m;
-            var keyMD5 = md5.update('IM'+time).digest('hex');
+            var keyMD5 = md5.update('IM'+time).digest('hex');*/
 
             var socketIP = socket.handshake.address;
             var socketDomain = socket.handshake.headers.origin;
+            var socketDomain1 = (socket.handshake.headers.referer.indexOf('http://192.168.1.120'))>-1;
             var socketKEY = socket.handshake.query.key;
-            if(!(socketDomain == 'http://localhost:3000' || socketDomain == 'http://127.0.0.1:3000' || keyMD5 == socketKEY)){
-                socket.disconnect();
-                return false;
+            if(socketKEY) {
+                var client = redis.createClient(6379, '127.0.0.1', {});
+                client.on("connect", function () {
+                    client.select(3, function () {
+                        //console.log("选择3号库成功！");
+                        client.HEXISTS('keys', socketKEY, function (err, replies) {
+                            if (replies == 0) {
+                                socket.disconnect();
+                                return false;
+                            } else {
+                                client.HDEL('keys', socketKEY, function (err, replies) {
+                                    if (replies == 0) {
+                                        console.log('删除使用过的key: ' + socketKEY + ' 失败！');
+                                    } else {
+                                        console.log('成功删除使用过的key: ' + socketKEY);
+                                    }
+                                    client.quit();
+                                })
+                            }
+                        });
+                    });
+                });
+                client.on("error", function (err) {
+                    console.log("连接redis出错了：" + err);
+                });
+            }else{
+                if(!(socketDomain == 'http://localhost:3000' || socketDomain == 'http://192.168.1.120:3000' || socketDomain1)){
+                    socket.disconnect();
+                    return false;
+                }
             }
             var addedUser1 = false;
             socket.on('postmsg', function (data,fn) {
