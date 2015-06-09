@@ -6,9 +6,30 @@ html
         include topheader
         div.socket_content
             .socket_box
-                .socketBox_page.module_page
+                .online_body.module_page
+                    .online_t
+                        img.online_ico(src="images/head.gif",alt="")
+                        div.online_name(data-id="sk1") 名字
+                        .groupAdd 创建讨论组
+                        .groupBtn 讨论组
+                    #online_list.online_list
+                        .scroller
+                    .group_list(style="display:none;")
+                        div.scroller
+                .message_body.module_page
+                    .scroller.message_list
+                        .media
+                            .media-left
+                                a(href="#")
+                                    img.media-object(src="images/head.gif",alt="")
+                            .media-body
+                                h4.media-heading 标题
+                                p 这是就是消息体了
+                .socketBox_page.module_page.activate_page
                     .socketBox_msgT.clearfix
-                        span.dname_show 吹水区
+                        .back 返回
+                        span.dname_show 所有人
+                        .members 人员
                     .socketBox_msgM
                         .msgBody
                             .msgList.msgList_your.clearfix
@@ -21,44 +42,21 @@ html
                                     img(src="images/head.gif",alt="")
                                 .msgListMe_txt
                                     .txt_module 说点什么好呢？
-                            .msgList.msgList_your.clearfix
-                                .msgListYour_ico.lfloat
-                                    img(src="images/head.gif",alt="")
-                                .msgListYour_txt
-                                    .txt_module 说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧！
-                            .msgList.msgList_me.clearfix
-                                .msgListMe_ico.rfloat
-                                    img(src="images/head.gif",alt="")
-                                .msgListMe_txt
-                                    .txt_module 说点什么好呢？
-                            .msgList.msgList_me.clearfix
-                                .msgListMe_ico.rfloat
-                                    img(src="images/head.gif",alt="")
-                                .msgListMe_txt
-                                    .txt_module 说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么吧说点什么好呢？
                     .socketBox_msgB
                         .sendBoxBtn
                             .face
                                 img(src="images/face.png",alt="",id="sendFace")
                                 img(src="images/face1.png",alt="",id="sendFile")
                             input.form-control(type="text",id="inputMsg")
-                            //.msgto
-                                label 发给
-                                select.select
-                                    option(value="") 所有人
                             button.btn.btn-default(type="button",id="sendBtn") 发送
-                            //form.navbar-form.navbar-left(role="search")
-                                .form-group
-                                    input#inputMsg(type="text",class="form-control",placeholder="说点什么吧")
-                                button#sendBtn(type="submit",class="btn btn-default") 发送
                         .sendBoxInfo
                             .face_ico
-                                -for(var i=1;i<=85;i++)
-                                    -if(i<10)
-                                        -var ii = '00' + i
-                                    -if(i>=10)
-                                        -var ii = '0' + i
-                                    img(src="images/faces/#{ii}.png",alt="")
+                                -for(var i=1;i<85;i++)
+                                -if(i<10)
+                                -var ii = '00' + i
+                                -if(i>=10)
+                                -var ii = '0' + i
+                                img(src="images/faces/#{ii}.png",alt="")
                             .file_ico
                                 .uppic
                                     form#uploadForm(action="",target="",method="post",enctype="multipart/form-data")
@@ -72,35 +70,6 @@ html
                                     span(style="display:none;position: absolute;top: 24px;left:-10px;width:80px;color:#fff;")
                                         |录音中
                                         img(src="images/ajax-loader.gif",style="height: 6px;vertical-align: middle",alt="")
-
-                .online_body.module_page.activate_page
-                    .online_t
-                        img.online_ico(src="images/head.gif",alt="")
-                        div.online_name(data-uid="sk1") 名字
-                        .groupAdd 创建讨论组
-                        .groupBtn 讨论组
-                    #online_list.online_list
-                        .scroller
-                            div.online_pt.clearfix
-                                img.online_ico.lfloat(src="images/head.gif",alt="")
-                                div.online_name(data-userdata="") 名字
-                    .group_list(style="display:none;")
-                        div.scroller
-                            .group
-                                .groupT 讨论组1
-                            .group
-                                .groupT 讨论组2
-                            .group
-                                .groupT 讨论组3
-                .message_body.module_page
-                    .scroller.message_list
-                        .media
-                            .media-left
-                                a(href="#")
-                                    img.media-object(src="images/head.gif",alt="")
-                            .media-body
-                                h4.media-heading 标题
-                                p 这是就是消息体了
         .skloginBoxBG
         .skloginBox
             .skloginbody
@@ -118,7 +87,7 @@ html
             .popupBoxBody
                 .popupBoxT
                     |讨论组名称：
-                    input.groupTitle(type="text")
+                    input.groupTitle.form-control(type="text",maxlength="14")
                     .closePopup ×
                 .popupBoxM
                     .onlineList
@@ -126,25 +95,19 @@ html
                             h2 在线列表
                         .online_list.copy_onlineList
                             .scroller
-                                div.online_pt.clearfix
-                                    img.online_ico.lfloat(alt="")
-                                    div.online_name(data-userdata="sk1") 名字
                     .selectAdd_list
                         .selectAddList_t
                             h2 已选择联系人
                         .selectAddList_m
                             .scroller
-                            //div.online_pt.clearfix
-                                img.online_ico.lfloat(alt="")
-                                div.online_name(data-userdata="sk1") 名字
                 .popupBoxB
                     button.groupSend.btn(type="button") 确定
                     button.groupcancel.btn(type="button") 取消
         nav.navbar.navbar-default.navbar-fixed-bottom
             .row.navsocket
-                .col-xs-4.text-center.activate.online_btn 在线列表
-                .col-xs-4.text-center.msg_btn 消息
-                .col-xs-4.text-center 吹水吧
+                .col-xs-4.text-center.online_btn.navb_btn 在线列表
+                .col-xs-4.text-center.msg_btn.navb_btn 消息
+                .col-xs-4.text-center.activate.cs_btn.navb_btn 吹水吧
         style.
             html,body{
                 height:100%;
@@ -152,12 +115,22 @@ html
                 overflow: hidden;
                 padding-top:0;
             }
+            .message_list .media{
+                padding: 10px 10px 0;
+                border-bottom: solid 1px #efefef;
+                margin-top:0;
+            }
+            .media-object{
+                max-width: none;
+                width:40px;
+                height:40px;
+                border-radius: 20px;
+            }
             .navbar{
                 margin-bottom: 0;
             }
             .navbar-fixed-top{
                 position: static;
-                margin-bottom: 10px;
             }
             .module_page{
                 position: absolute;
@@ -165,6 +138,9 @@ html
                 width:100%;
                 top:0;
                 left:100%;
+                -webkit-transition: all 0.3s ease 0s;
+                -moz-transition: all 0.3s ease 0s;
+                -o-transition: all 0.3s ease 0s;
                 transition: all 0.3s ease 0s;
                 display: -moz-box;
                 -moz-box-orient: vertical;
@@ -230,10 +206,15 @@ html
                 height:400px;
                 z-index: 2002;
                 margin-left: -250px;
-                margin-top: -140px;
+                margin-top: -180px;
+            }
+            .groupTitle{
+                display: inline-block;
+                width:60%;
             }
             .popupBox h2{
                 font-size: 16px;
+                margin-top:0;
             }
             .skloginbody,.popupBoxBody{
                 height: 100%;
@@ -292,10 +273,7 @@ html
                 display: -moz-box;
                 display: flex;
                 display: -webkit-box;
-                height: 280px;
-            }
-            .popupBoxM .online_pt{
-                /*margin:.5em 1em;*/
+                height: 270px;
             }
             .popupBoxM .online_ico{
                 width:30px;
@@ -380,6 +358,7 @@ html
                 height: auto;
                 padding: .5em 0;
                 position: relative;
+                left:0;
             }
             .sendBoxBtn{
                 display: -moz-box;
@@ -463,6 +442,23 @@ html
                 box-flex: 1;
                 flex: 1;
                 overflow-y: auto;
+            }
+            .back,.members{
+                position: absolute;
+                display: none;
+            }
+            .back{
+                left:10px;
+            }
+            .members{
+                right:10px;
+                top:0;
+            }
+            .dname_show{
+                width: 14em;
+                display: inline-block;
+                overflow: hidden;
+                white-space: nowrap;
             }
             .msgList{
                 margin-bottom: 1em;
@@ -561,21 +557,16 @@ html
             .groupAdd{
                 position: absolute;
                 left:5px;
-                bottom:5px;
+                bottom:10px;
                 cursor: pointer;
                 /*z-index: 10;*/
             }
             .groupBtn{
                 position: absolute;
                 right:5px;
-                bottom:5px;
+                bottom:10px;
                 cursor: pointer;
                 /*z-index: 10;*/
-            }
-            .online_list {
-                /*width: 300px;
-                height: 350px;
-                overflow-y: auto;*/
             }
             .online_pt{
                 padding:1em;
@@ -611,9 +602,6 @@ html
                 border-bottom: solid 1px #efefef;
                 padding:0 10px;
             }
-            .groupM{
-
-            }
             .privateChat{
                 position: absolute;
                 z-index: 1;
@@ -638,9 +626,9 @@ html
         script.
             $(function(){
                 //alert($(window).height());
-                $(".socket_content").css({"height":$(window).height()-112,"overflow":"hidden"});
+                $(".socket_content").css({"height":$(window).height()-102,"overflow":"hidden"});
                 $(window).resize(function(){
-                    $(".socket_content").css({"height":$(window).height()-112,"overflow":"hidden"});
+                    $(".socket_content").css({"height":$(window).height()-102,"overflow":"hidden"});
                 });
                 $(".group_list").show();
                 var myScroll_onlineList = new IScroll('#online_list',{mouseWheel: true,click:true});
@@ -648,7 +636,19 @@ html
                 var myScroll_select_onlineList = new IScroll('.selectAddList_m',{mouseWheel: true,click:true});
                 var myScroll_groupList = new IScroll('.group_list',{mouseWheel: true,click:true});
                 $(".group_list").hide();
-
+                $(".navb_btn").click(function(){
+                    $(".navb_btn").removeClass("activate");
+                    var $this = $(this);
+                    var index = $this.index();
+                    $this.addClass("activate");
+                    if($this.hasClass("cs_btn")){
+                        $(".dname_show").text("所有人");
+                        $(".back,.members").hide();
+                        $(".msgBody").empty();
+                        $("#sendBtn").removeAttr("data-userdata");
+                    }
+                    $(".module_page").removeClass("activate_page").eq(index).addClass("activate_page");
+                });
                 var isfocus = true;
                 var socket = io.connect('http://192.168.1.120:3000/chat');
                 //var frommsg = 'frommsg';
@@ -656,80 +656,91 @@ html
                         console.log('连接成功！');
                         //socket.emit('my other event', { my: 'data' });
                 });
+                socket.on('reconnect', function() {
+                    //alert('重连成功！');
+                    //socket.emit('my other event', { my: 'data' });
+                    socket.emit('goin', {"nickname": $(".online_t .online_name").text()||randomNickName});
+                    $(".online_pt").remove();
+                });
                 socket.on('connect_failed', function () {
                     alert("与服务器通讯失败。");
                 });
                 socket.on('disconnect', function () {
-                    alert("与服务器连接断开。");
+                    console.log("与服务器连接断开。");
+                    $("body").append('<div id="errsocket">与服务器连接已断开！</div>');
+                    $("#errsocket").css({"height":"48px","lineHeight":"48px","width":"150px","position":"absolute","zIndex":"10005","left":"50%","marginLeft":"-75px","top":"50%","marginTop":"-24px","backgroundColor":"red","color":"#fff","textAlign":"center","borderRadius":"8px"});
+                    window.setTimeout(function(){$("#errsocket").fadeOut(function(){$("#errsocket").remove();})},2000);
                 });
                 socket.on('login', function (data) {
                     console.log(data);
                     var userData = JSON.stringify(data.userData);
                     $(".skloginBoxBG,.skloginBox").remove();
-                    $(".online_t .online_name").text(data.userData.nickname).attr("data-userdata",userData);
-                    $(".selectAddList_m .scroller").html('<div style="cursor:default;" class="online_pt clearfix relative" data-uid="'+data.userData.uid+'"><img class="online_ico lfloat" src="images/head.gif" alt=""><div class="online_name">'+data.userData.nickname+'</div></div>');
-                    $(".selectAddList_m .online_pt:first .online_name").attr("data-userdata",userData);
-                    socket.on(data.userData.uid, function (data) {
+                    $(".online_t .online_name").text(data.userData.nickname).attr("data-id",data.userData.id);
+                    $(".selectAddList_m .scroller").html('<div style="cursor:default;" class="online_pt clearfix relative"><img class="online_ico lfloat" src="images/head.gif" alt=""><div class="online_name">'+data.userData.nickname+'</div></div>');
+                    $(".selectAddList_m .online_pt:first").attr("data-userdata",userData);
+                    socket.on(data.userData.id, function (data) {
                         console.log(data);
                         var time = new Date();
                         time.setTime(data.time);
                         var timetxt = (time.getMonth() + 1) + '-' + time.getDate() + ' ' + time.getHours() + ':' + time.getMinutes();
-                        $(".socketBox_msgM .msgBody").append('<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">来自' + data.from.nickname + '的私信<span class="saytime">' + timetxt + '</span></div><div class="txt_module">' + data.message + '</div></div></div>');
-                        $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
-                        //if(!isfocus){
-                            showNotification(data);
-                        //}
+                        if($(".socketBox_page").hasClass("activate_page") || data.from.nickname == $(".dname_show").text()){
+                            $(".socketBox_msgM .msgBody").append('<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">来自' + data.from.nickname + '的私信<span class="saytime">' + timetxt + '</span></div><div class="txt_module">' + data.message + '</div></div></div>');
+                            $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
+                        }else{
+                            if (window.localStorage) {
+                                localStorage.getItem(data.from.nickname)?localStorage.setItem(data.from.nickname, localStorage.getItem(data.from.nickname)+data):localStorage.setItem(data.from.nickname, data);
+                            }
+                            var title;
+                            if(data.title){
+                                title = data.title;
+                            }else if(data.from){
+                                title = data.from.nickname
+                            }else{
+                                title = "吹水区"
+                            }
+                            var t = '<div class="media"><div class="media-left"><a href="#"><img src="images/head.gif" alt="" class="media-object"></a></div><div class="media-body"><h4 class="media-heading">'+title+'</h4><p>'+data.message+'</p></div></div>'
+                            $(".message_list").append(t);
+                        }
+                        showNotification(data);
                     });
                 });
                 function showonline(data){
                     var txts = [],txt = '';
+                    var currentid = $(".online_t .online_name").attr("data-id");
                     if(data.length){
                         $.each(data,function(i,n){
+                            if(n.id == currentid){
+                                return;
+                            }
                             var ud = JSON.stringify(n);
                             var userData = "data-userdata='"+ud+"'";
-                            txt = '<div class="online_pt clearfix relative" data-uid="'+n.uid+'"><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name" '+userData+'>'+n.nickname+'</div></div>';
+                            txt = '<div class="online_pt clearfix relative" data-id="'+n.id+'" ' + userData + '><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name">'+n.nickname+'</div></div>';
                             txts.push(txt);
                         });
                     }else{
+                        if(n.id == currentid){
+                            return;
+                        }
                         var ud = JSON.stringify(data);
                         var userData = "data-userdata='"+ud+"'";
-                        txt = '<div class="online_pt clearfix relative" data-uid="'+data.uid+'"><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name" '+userData+'>'+data.nickname+'</div></div>';
+                        txt = '<div class="online_pt clearfix relative" data-id="'+data.id+'" ' + userData + '><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name">'+data.nickname+'</div></div>';
                         txts.push(txt);
                     }
                     return txts;
                 }
-                function showonline1(data,add){
-                    var txts1 = add?['<option value="">所有人</option>']:[],txt1 = '';
-                    if(data.length){
-                        $.each(data,function(i,n){
-                            var ud = JSON.stringify(n);
-                            txt1 = '<option value=\''+ud+'\'>'+n.nickname+'</option>';
-                            txts1.push(txt1);
-                        });
-                    }else{
-                        var ud = JSON.stringify(data);
-                        txt1 = '<option value=\''+ud+'\'>'+data.nickname+'</option>';
-                        txts1.push(txt1);
-                    }
-                    return txts1;
-                }
                 socket.on('refreshOnline', function (data) {
                     console.log(data);
                     var txts = showonline(data);
-                    var txts1 = showonline1(data,true);
                     $(".online_list .scroller").append(txts.join(""));
                     myScroll_onlineList.refresh();
                     myScroll_copy_onlineList.refresh();
-                    $(".msgto select").html(txts1.join(""));
                 });
                 socket.on('userJoined', function (data) {
                     console.log(data);
                     var txts = showonline(data);
-                    var txts1 = showonline1(data);
                     $(".online_list .scroller").append(txts.join(""));
                     myScroll_onlineList.refresh();
                     myScroll_copy_onlineList.refresh();
-                    $(".msgto select").append(txts1.join(""));
                     $(".socketBox_msgM .msgBody").append('<div style="text-align:center;">' + data.nickname + ' 进来了。</div>');
                     $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
                 });
@@ -744,39 +755,51 @@ html
                         html = '<div class="online_pt clearfix"><img class="online_ico lfloat" src="images/head.gif" alt="" /><div class="online_name" '+userdata+'>'+n.nickname+'</div></div>';
                         htmls.push(html);
                     })
-                    var groupn = htmls.join("");
-                    var txt = '<div class="group"><div class="groupT" data-gid="'+data.gid+'">'+data.title+'</div><div class="groupM">'+groupn+'</div></div>';
+                    //var groupn = htmls.join("");
+                    var txt = '<div class="group" data-gid="' + data.gid + '" data-userdata=\''+JSON.stringify(data)+'\'><div class="groupT" data-gid="'+data.gid+'">'+data.title+'</div></div>';
                     $(".group_list .scroller").append(txt);
                     myScroll_groupList.refresh();
-                    var txt1 = '<option value=\''+JSON.stringify(data)+'\'>讨论组:'+data.title+'</option>';
-                    $(".msgto select").append(txt1);
+                    //var txt1 = '<option value=\''+JSON.stringify(data)+'\'>讨论组:'+data.title+'</option>';
+                    //$(".msgto select").append(txt1);
                 });
                 socket.on('left', function (data) {
                     console.log(data);
                     var nickname = data.userData.nickname;
                     $(".socketBox_msgM .msgBody").append('<div style="text-align:center;">' + nickname + ' 离开了。</div>');
-                    $(".online_pt[data-uid='"+data.userData.uid+"']").remove();
+                    $(".online_pt[data-id='"+data.userData.id+"']").remove();
                     $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
                     $(".online_name:contains('"+nickname+"')").remove();
-                    $(".msgto select option:contains('"+nickname+"')").remove();
+                    //$(".msgto select option:contains('"+nickname+"')").remove();
                     myScroll_onlineList.refresh();
                     myScroll_copy_onlineList.refresh();
                 });
                 socket.on('postmsg', function (data) {
                     console.log(data);
-                    var time = new Date(),msg = "";
+                    var time = new Date(),msg = "",title;
                     time.setTime(data.time);
                     var timetxt = (time.getMonth()+1)+'-'+ time.getDate()+' '+ time.getHours()+':'+ time.getMinutes();
                     if(data.gid){
+                        title = data.title;
                         msg = '<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">来自讨论组：《'+data.title+'》 '+data.userData.nickname+'的信息<span class="saytime">'+timetxt+'</span></div><div class="txt_module">'+data.message+'</div></div></div>';
                     }else{
+                        title = data.from.nickname;
                         msg = '<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">'+data.userData.nickname+'<span class="saytime">'+timetxt+'</span></div><div class="txt_module">'+data.message+'</div></div></div>';
                     }
-                    $(".socketBox_msgM .msgBody").append(msg);
+
+                    if($(".socketBox_page").hasClass("activate_page") || title == $(".dname_show").text()){
+                        $(".socketBox_msgM .msgBody").append(msg);
+                    }else{
+                        if (window.localStorage) {
+                            localStorage.getItem(title)?localStorage.setItem(title, localStorage.getItem(title)+data):localStorage.setItem(title, data);
+                        }
+                        title = title || "吹水区";
+                        var t = '<div class="media"><div class="media-left"><a href="#"><img src="images/head.gif" alt="" class="media-object"></a></div><div class="media-body"><h4 class="media-heading">'+title+'</h4><p>'+data.message+'</p></div></div>'
+                        $(".message_list").append(t);
+                    }
+
+                    //$(".socketBox_msgM .msgBody").append(msg);
                     $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
-                    //if(!isfocus){
-                        showNotification(data);
-                    //}
+                    showNotification(data);
 
                 });
 
@@ -811,19 +834,20 @@ html
                     $("#sendBtn").attr("data-gid",gid);
                 });
                 $("#sendBtn").click(function(){
-                    var $this = $(this),fromuid = "",touid = "";
+                    var $this = $(this),fromid = "",toid = "";
                     var msg = $("#inputMsg").val();
                     var tt = new Date().getTime();
-                    var msgto = $(".msgto select").val();
+                    //var msgto = $(".msgto select").val();
+                    var msgto = $this.attr("data-userdata");
                     if(!!msg){
                         var txt = '<div class="msgList msgList_me clearfix"><div class="msgListMe_ico rfloat"><img src="images/head.gif" alt=""></div><div class="msgListMe_txt"><div class="txt_module" id="msg'+tt+'">'+msg+'</div></div></div>';
                         var msgData = {
                             "msg":msg
                         };
                         if (msgto) {
-                            msgto = JSON.parse($(".msgto select").val());
-                            from = JSON.parse($(".online_t .online_name").attr("data-userdata"));
-                            to = msgto;
+                            msgto = JSON.parse(msgto);
+                            from = $(".online_t .online_name").attr("data-id");
+                            to = msgto.id;
                             if(msgto.title){
                                 to = msgto.member;
                                 txt = '<div class="msgList msgList_me clearfix"><div class="msgListMe_ico rfloat"><img src="images/head.gif" alt=""></div><div class="msgListMe_txt"><div class="sayname">消息发给讨论组：《'+msgto.title+'》</div><div class="txt_module" id="msg'+tt+'">'+msg+'</div></div></div>';
@@ -864,10 +888,10 @@ html
 
                 //新建群组列表点击
                 $(document).on("tap click",".popupBoxM .online_list .online_pt",function(){
-                    var uid = $(this).attr("data-uid"),hover = "";
+                    var id = $(this).attr("data-id"),hover = "";
                     $(".popupBoxM .selectAddList_m .scroller .online_pt").each(function(i,n){
-                        var suid = $(this).attr("data-uid");
-                        if (suid == uid) {
+                        var sid = $(this).attr("data-id");
+                        if (sid == id) {
                             hover = true;
                             return false;
                         }
@@ -899,10 +923,8 @@ html
                         alert("讨论组名称不能为空！");
                         return false;
                     }
-                    var groupn = $(".selectAddList_m .scroller").html();
-                    var txt = '<div class="group"><div class="groupT">'+t+'</div><div class="groupM">'+groupn+'</div></div>';
                     var member = [];
-                    $(".selectAddList_m .online_name").each(function(i,n){
+                    $(".selectAddList_m .online_pt").each(function(i,n){
                         var userdata = JSON.parse($(this).attr("data-userdata"));
                         member.push(userdata);
                     });
@@ -911,12 +933,14 @@ html
                         "member" : member
                     };
                     socket.emit('newgroup',data,function(d){
-                        var txt1 = '<option value=\''+JSON.stringify(d)+'\'>讨论组:'+d.title+'</option>';
-                        $(".msgto select").append(txt1);
+                        //var txt1 = '<option value=\''+JSON.stringify(d)+'\'>讨论组:'+d.title+'</option>';
+                        var txt = '<div class="group" data-gid="'+d.gid+'" data-userdata=\'' + JSON.stringify(d) + '\'><div class="groupT">' + t + '</div></div>';
+                        //$(".msgto select").append(txt1);
+                        $(".group_list .scroller").append(txt);
                     })
-                    $(".group_list .scroller").append(txt);
+
                     $(".groupTitle").val("");
-                    $(".selectAddList_m .scroller").empty();
+                    $(".selectAddList_m .scroller .online_pt:not(:first)").remove();
                     $(this).parents(".popupBox").hide();
                     $(".popupBoxBG").hide();
                 })
@@ -959,11 +983,30 @@ html
                     }
                 }
 
+                $(document).on("click",".socket_box .online_pt,.socket_box .group",function(){
+                    var $this = $(this);
+                    var userdata = $this.attr("data-userdata");
+                    var userdataJSON = JSON.parse(userdata);
+                    var dname_show;
+                    if(userdataJSON.title){
+                        dname_show = userdataJSON.title;
+                        $(".members").show();
+                    }else{
+                        dname_show = userdataJSON.nickname;
+                        $(".members").hide();
+                    }
+                    $(".back").attr("data-top",1).show();
+                    $(".dname_show").text(dname_show).attr("data-id",userdataJSON.gid||userdataJSON.id);
+                    $(".module_page").removeClass("activate_page");
+                    $(".socketBox_page").addClass("activate_page");
+                    $("#sendBtn").attr("data-userdata",userdata);
+                });
+
                 $(window).on("blur",function(){
                     isfocus = false;
-                    console.log("失去焦点")
+                    //console.log("失去焦点")
                 }).on("focus",function(){
                     isfocus = true;
-                    console.log("获得焦点")
+                    //console.log("获得焦点")
                 });
             });

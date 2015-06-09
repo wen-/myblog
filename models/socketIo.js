@@ -189,6 +189,19 @@ module.exports = function(io){
     var chat = io
         .of('/chat')
         .on('connection', function (socket) {
+            /*  socket.emit()自己收到
+                socket.broadcast.emit()自己收不到，其它人能收到
+                chat.emit()所有人都能收到
+                socket.broadcast.to(socket.id或指定群组groupname).emit()指定的人收到
+                如果是指定某个群组，先要构建一个群组：
+                 var groupname = 'group'+new Date().getTime();
+                 var l=data.member.length;
+                 for(var i=0;i<l;i++){
+                    var id = data.member[i].id;
+                    chat.connected[id].join(groupname);
+                 }
+             */
+
             //生成加密KEY
             /*var md5 = crypto.createHash('md5');
             var time = new Date(),y = time.getFullYear(),m = time.getMonth()+1,d = time.getDate(),s = time.getHours(),_m = Math.floor(time.getMinutes()/3)*3;
@@ -244,10 +257,10 @@ module.exports = function(io){
                 }else{
                     if(data.from){
                         //socket.join("abc");
-                        socket.broadcast.to(data.to.id).emit(data.to.uid, {
+                        socket.broadcast.to(data.to).emit(data.to, {
                             userData: socket.userData,
                             from: socket.userData,
-                            to:userList[data.to.uid],
+                            to:data.to,
                             message: data.msg,
                             time: new Date().getTime()
                         });
@@ -265,7 +278,7 @@ module.exports = function(io){
             // when the client emits 'add user', this listens and executes
             socket.on('goin', function (userData) {
                 if(userData.nickname){
-                    userData.uid = prefix + socket.id;//prefix + prefix_n;
+                    //userData.uid = prefix + socket.id;//prefix + prefix_n;
                     userData.id = socket.id;
                     //userList[userData.uid] = userData;
                     prefix_n++;
