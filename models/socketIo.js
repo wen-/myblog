@@ -50,7 +50,7 @@ module.exports = function(io){
                 if(data.gid) {
                     socket.broadcast.to(data.gid).emit('postmsg', {
                         userData: socket.userData,
-                        message: data.msg,
+                        message: data.message,
                         gid:data.gid,
                         title:data.title,
                         time: new Date().getTime()
@@ -62,13 +62,13 @@ module.exports = function(io){
                             userData: socket.userData,
                             from: socket.userData,
                             to:userList[data.to.uid],
-                            message: data.msg,
+                            message: data.message,
                             time: new Date().getTime()
                         });
                     }else{
                         socket.broadcast.emit('postmsg', {
                             userData: socket.userData,
-                            message: data.msg,
+                            message: data.message,
                             time: new Date().getTime()
                         });
                     }
@@ -245,14 +245,15 @@ module.exports = function(io){
             }
             var addedUser1 = false;
             socket.on('postmsg', function (data,fn) {
+                var currentTime = new Date().getTime();
                 // we tell the client to execute 'new message'
                 if(data.gid) {
                     socket.broadcast.to(data.gid).emit('postmsg', {
                         userData: socket.userData,
-                        message: data.msg,
+                        message: data.message,
                         gid:data.gid,
                         title:data.title,
-                        time: new Date().getTime()
+                        time: currentTime
                     });
                 }else{
                     if(data.from){
@@ -261,18 +262,18 @@ module.exports = function(io){
                             userData: socket.userData,
                             from: socket.userData,
                             to:data.to,
-                            message: data.msg,
-                            time: new Date().getTime()
+                            message: data.message,
+                            time: currentTime
                         });
                     }else{
                         socket.broadcast.emit('postmsg', {
                             userData: socket.userData,
-                            message: data.msg,
-                            time: new Date().getTime()
+                            message: data.message,
+                            time: currentTime
                         });
                     }
                 }
-                fn();
+                fn(currentTime);
             });
 
             // when the client emits 'add user', this listens and executes

@@ -24,7 +24,7 @@ html
                                     img.media-object(src="images/head.gif",alt="")
                             .media-body
                                 h4.media-heading 标题
-                                p 这是就是消息体了
+                                p 这是就是消息体了这是就是消息体了这是就是消息体了这是就是消息体了
                 .socketBox_page.module_page.activate_page
                     .socketBox_msgT.clearfix
                         .back 返回
@@ -107,6 +107,7 @@ html
             .row.navsocket
                 .col-xs-4.text-center.online_btn.navb_btn 在线列表
                 .col-xs-4.text-center.msg_btn.navb_btn 消息
+                    span.newMsgTip.animated new
                 .col-xs-4.text-center.activate.cs_btn.navb_btn 吹水吧
         style.
             html,body{
@@ -118,7 +119,19 @@ html
             .message_list .media{
                 padding: 10px 10px 0;
                 border-bottom: solid 1px #efefef;
-                margin-top:0;
+                margin-top: 0;
+            }
+            .message_list .media-left{
+                float:left;
+            }
+            .message_list .media-body{
+                width:60%;
+                display: block;
+            }
+            .message_list .media p{
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             .media-object{
                 max-width: none;
@@ -619,6 +632,22 @@ html
             .navsocket .activate{
                 background-color: #ccc;
             }
+            .message_list h4{
+                font-size: 16px;
+            }
+            .newMsgTip{
+                display: none;
+                position: absolute;
+                background-color: red;
+                color: #fff;
+                height: 16px;
+                width: 33px;
+                line-height: 16px;
+                border-radius: 10px;
+                top: 10px;
+                box-shadow: 1px 1px 1px #333;
+            }
+
         include footjs
         script(src='/js/iscroll-master/build/iscroll.js')
         script(src='/js/username.js')
@@ -647,6 +676,9 @@ html
                         $(".msgBody").empty();
                         $("#sendBtn").removeAttr("data-userdata");
                     }
+                    if($this.hasClass("msg_btn")){
+                        $(".newMsgTip").hide();
+                    }
                     $(".module_page").removeClass("activate_page").eq(index).addClass("activate_page");
                 });
                 var isfocus = true;
@@ -671,37 +703,44 @@ html
                     $("#errsocket").css({"height":"48px","lineHeight":"48px","width":"150px","position":"absolute","zIndex":"10005","left":"50%","marginLeft":"-75px","top":"50%","marginTop":"-24px","backgroundColor":"red","color":"#fff","textAlign":"center","borderRadius":"8px"});
                     window.setTimeout(function(){$("#errsocket").fadeOut(function(){$("#errsocket").remove();})},2000);
                 });
+                //登录进来后的处理
                 socket.on('login', function (data) {
                     console.log(data);
                     var userData = JSON.stringify(data.userData);
                     $(".skloginBoxBG,.skloginBox").remove();
-                    $(".online_t .online_name").text(data.userData.nickname).attr("data-id",data.userData.id);
+                    $(".online_t .online_name").text(data.userData.nickname).attr("data-id",data.userData.id).attr("data-userdata",userData);
                     $(".selectAddList_m .scroller").html('<div style="cursor:default;" class="online_pt clearfix relative"><img class="online_ico lfloat" src="images/head.gif" alt=""><div class="online_name">'+data.userData.nickname+'</div></div>');
                     $(".selectAddList_m .online_pt:first").attr("data-userdata",userData);
+                    //获取id绑定单对单（私聊）
                     socket.on(data.userData.id, function (data) {
                         console.log(data);
+                        var userdata = JSON.stringify(data.userData);
                         var time = new Date();
                         time.setTime(data.time);
                         var timetxt = (time.getMonth() + 1) + '-' + time.getDate() + ' ' + time.getHours() + ':' + time.getMinutes();
-                        if($(".socketBox_page").hasClass("activate_page") || data.from.nickname == $(".dname_show").text()){
+                        if($(".socketBox_page").hasClass("activate_page") && data.from.nickname == $(".dname_show").text()){
                             $(".socketBox_msgM .msgBody").append('<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">来自' + data.from.nickname + '的私信<span class="saytime">' + timetxt + '</span></div><div class="txt_module">' + data.message + '</div></div></div>');
                             $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
                         }else{
-                            if (window.localStorage) {
-                                localStorage.getItem(data.from.nickname)?localStorage.setItem(data.from.nickname, localStorage.getItem(data.from.nickname)+data):localStorage.setItem(data.from.nickname, data);
-                            }
                             var title;
                             if(data.title){
                                 title = data.title;
                             }else if(data.from){
                                 title = data.from.nickname
                             }else{
-                                title = "吹水区"
+                                title = "所有人"
                             }
-                            var t = '<div class="media"><div class="media-left"><a href="#"><img src="images/head.gif" alt="" class="media-object"></a></div><div class="media-body"><h4 class="media-heading">'+title+'</h4><p>'+data.message+'</p></div></div>'
+                            var t = '<div class="media" data-userdata=\''+userdata+'\'><div class="media-left"><a href="#"><img src="images/head.gif" alt="" class="media-object"></a></div><div class="media-body"><h4 class="media-heading">'+title+'</h4><p>'+data.message+'</p></div></div>'
                             $(".message_list").append(t);
+                            $(".newMsgTip").show().addClass("shake_short");
+                            window.setTimeout(function(){$(".newMsgTip").removeClass("shake_short");},2000);
                         }
-                        showNotification(data);
+                        if (window.localStorage) {
+                            localStorage.getItem(data.from.nickname) ? localStorage.setItem(data.from.nickname, localStorage.getItem(data.from.nickname) + ',' + JSON.stringify(data)) : localStorage.setItem(data.from.nickname, JSON.stringify(data));
+                        }
+                        if(!isfocus){
+                            showNotification(data);
+                        }
                     });
                 });
                 function showonline(data){
@@ -728,6 +767,7 @@ html
                     }
                     return txts;
                 }
+                //刷新在线列表
                 socket.on('refreshOnline', function (data) {
                     console.log(data);
                     var txts = showonline(data);
@@ -735,6 +775,7 @@ html
                     myScroll_onlineList.refresh();
                     myScroll_copy_onlineList.refresh();
                 });
+                //有人进来时处理
                 socket.on('userJoined', function (data) {
                     console.log(data);
                     var txts = showonline(data);
@@ -744,6 +785,7 @@ html
                     $(".socketBox_msgM .msgBody").append('<div style="text-align:center;">' + data.nickname + ' 进来了。</div>');
                     $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
                 });
+                //接收到被人拉入讨论组时处理
                 socket.on('newgroup', function (data) {
                     console.log(data);
                     $(".socketBox_msgM .msgBody").append('<div style="text-align:center;">' + data.master.nickname + ' 把你加进了讨论组 《'+data.title+'》</div>');
@@ -762,6 +804,7 @@ html
                     //var txt1 = '<option value=\''+JSON.stringify(data)+'\'>讨论组:'+data.title+'</option>';
                     //$(".msgto select").append(txt1);
                 });
+                //接收到有人离开时处理
                 socket.on('left', function (data) {
                     console.log(data);
                     var nickname = data.userData.nickname;
@@ -773,8 +816,10 @@ html
                     myScroll_onlineList.refresh();
                     myScroll_copy_onlineList.refresh();
                 });
+                //接收到消息的处理
                 socket.on('postmsg', function (data) {
                     console.log(data);
+                    var userdata = JSON.stringify(data.userData);
                     var time = new Date(),msg = "",title;
                     time.setTime(data.time);
                     var timetxt = (time.getMonth()+1)+'-'+ time.getDate()+' '+ time.getHours()+':'+ time.getMinutes();
@@ -785,21 +830,24 @@ html
                         title = data.from.nickname;
                         msg = '<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">'+data.userData.nickname+'<span class="saytime">'+timetxt+'</span></div><div class="txt_module">'+data.message+'</div></div></div>';
                     }
-
-                    if($(".socketBox_page").hasClass("activate_page") || title == $(".dname_show").text()){
+                    title = title || "所有人";
+                    if($(".socketBox_page").hasClass("activate_page") && title == $(".dname_show").text()){
                         $(".socketBox_msgM .msgBody").append(msg);
                     }else{
-                        if (window.localStorage) {
-                            localStorage.getItem(title)?localStorage.setItem(title, localStorage.getItem(title)+data):localStorage.setItem(title, data);
-                        }
-                        title = title || "吹水区";
-                        var t = '<div class="media"><div class="media-left"><a href="#"><img src="images/head.gif" alt="" class="media-object"></a></div><div class="media-body"><h4 class="media-heading">'+title+'</h4><p>'+data.message+'</p></div></div>'
+                        var t = '<div class="media" data-userdata=\'' + userdata + '\'><div class="media-left"><a href="#"><img src="images/head.gif" alt="" class="media-object"></a></div><div class="media-body"><h4 class="media-heading">'+title+'</h4><p>'+data.message+'</p></div></div>'
                         $(".message_list").append(t);
+                        $(".newMsgTip").show().addClass("shake_short");
+                        window.setTimeout(function(){$(".newMsgTip").removeClass("shake_short");},2000);
+                    }
+                    if (window.localStorage) {
+                        localStorage.getItem(title) ? localStorage.setItem(title, localStorage.getItem(title) + ',' + JSON.stringify(data)) : localStorage.setItem(title, JSON.stringify(data));
                     }
 
                     //$(".socketBox_msgM .msgBody").append(msg);
                     $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
-                    showNotification(data);
+                    if(!isfocus){
+                        showNotification(data);
+                    }
 
                 });
 
@@ -842,7 +890,7 @@ html
                     if(!!msg){
                         var txt = '<div class="msgList msgList_me clearfix"><div class="msgListMe_ico rfloat"><img src="images/head.gif" alt=""></div><div class="msgListMe_txt"><div class="txt_module" id="msg'+tt+'">'+msg+'</div></div></div>';
                         var msgData = {
-                            "msg":msg
+                            "message":msg
                         };
                         if (msgto) {
                             msgto = JSON.parse(msgto);
@@ -861,8 +909,14 @@ html
                         }
                         $(".socketBox_msgM .msgBody").append(txt);
                         $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
-                        socket.emit('postmsg',msgData,function(){
+                        socket.emit('postmsg',msgData,function(msgtime){
                             $("#inputMsg").val("");
+                            var title = $(".dname_show").text();
+                            msgData.userData = JSON.parse($(".online_t .online_name").attr("data-userdata"));
+                            msgData.time = msgtime;
+                            if (window.localStorage) {
+                                localStorage.getItem(title) ? localStorage.setItem(title, localStorage.getItem(title) + ',' + JSON.stringify(msgData)) : localStorage.setItem(title, JSON.stringify(msgData));
+                            }
                         });
                     }else{
                         $this.prop("disabled",true);
@@ -978,12 +1032,10 @@ html
                                 console.log('拒绝了消息提示');
                             }
                         });
-                    }else{
-                        alert(Notification);
                     }
                 }
 
-                $(document).on("click",".socket_box .online_pt,.socket_box .group",function(){
+                $(document).on("click",".socket_box .online_pt,.socket_box .group,.message_list .media",function(){
                     var $this = $(this);
                     var userdata = $this.attr("data-userdata");
                     var userdataJSON = JSON.parse(userdata);
@@ -995,11 +1047,53 @@ html
                         dname_show = userdataJSON.nickname;
                         $(".members").hide();
                     }
-                    $(".back").attr("data-top",1).show();
                     $(".dname_show").text(dname_show).attr("data-id",userdataJSON.gid||userdataJSON.id);
                     $(".module_page").removeClass("activate_page");
                     $(".socketBox_page").addClass("activate_page");
                     $("#sendBtn").attr("data-userdata",userdata);
+                    $(".msgBody").empty();
+                    //if ($this.hasClass("media")) {
+                        var msgtxt = '';
+                        if(window.localStorage){
+                            var historymsg = window.localStorage.getItem(dname_show);
+                            if(historymsg){
+                                var me = $(".online_t .online_name").attr("data-id");
+                                var historyMsg = JSON.parse('['+window.localStorage.getItem(dname_show)+']');
+                                $.each(historyMsg,function(i,n){
+                                    var time = new Date(),msg = "",title;
+                                    time.setTime(n.time);
+                                    var timetxt = (time.getMonth()+1)+'-'+ time.getDate()+' '+ time.getHours()+':'+ time.getMinutes();
+                                    if(n.gid){
+                                        title = n.title;
+                                        if(me == n.userData.id){
+                                            msg = '<div class="msgList msgList_me clearfix"><div class="msgListMe_ico rfloat"><img src="images/head.gif" alt=""></div><div class="msgListMe_txt"><div class="sayname">' + n.userData.nickname + '<span class="saytime">' + timetxt + '</span></div><div class="txt_module">' + n.message + '</div></div></div>';
+                                        }else{
+                                            msg = '<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">来自讨论组：《'+n.title+'》 '+n.userData.nickname+'的信息<span class="saytime">'+timetxt+'</span></div><div class="txt_module">'+n.message+'</div></div></div>';
+                                        }
+
+                                    }else{
+                                        title = n.userData.nickname;
+                                        if(me == n.userData.id){
+                                            msg = '<div class="msgList msgList_me clearfix"><div class="msgListMe_ico rfloat"><img src="images/head.gif" alt=""></div><div class="msgListMe_txt"><div class="sayname">'+n.userData.nickname+'<span class="saytime">'+timetxt+'</span></div><div class="txt_module">'+n.message+'</div></div></div>';
+                                        }else{
+                                            msg = '<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">'+n.userData.nickname+'<span class="saytime">'+timetxt+'</span></div><div class="txt_module">'+n.message+'</div></div></div>';
+                                        }
+                                    }
+                                    msgtxt+=msg;
+                                });
+                            }
+                        }
+                        $(".msgBody").append(msgtxt);
+                    if ($this.hasClass("media")) {
+                        $(".back").attr("data-top", "2").show();
+                    } else {
+                        $(".back").attr("data-top", "1").show();
+                    }
+
+                });
+
+                $(document).on("click",".message_list .media",function(){
+
                 });
 
                 $(window).on("blur",function(){
