@@ -665,12 +665,11 @@ html
                 var myScroll_select_onlineList = new IScroll('.selectAddList_m',{mouseWheel: true,click:true});
                 var myScroll_groupList = new IScroll('.group_list',{mouseWheel: true,click:true});
                 $(".group_list").hide();
+
+                //底部菜单点击
                 $(".navb_btn").click(function(){
                     var $this = $(this);
                     var index = $this.index();
-                    //if($this.hasClass("activate")){
-                        //return false;
-                    //}
                     $(".navb_btn").removeClass("activate");
                     $this.addClass("activate");
                     if($this.hasClass("cs_btn")){
@@ -686,9 +685,10 @@ html
                     }
                     $(".module_page").removeClass("activate_page").eq(index).addClass("activate_page");
                 });
+
                 var isfocus = true;
                 var socket = io.connect('http://192.168.1.120:3000/chat');
-                //var frommsg = 'frommsg';
+
                 socket.on('connect', function() {
                         console.log('连接成功！');
                         //socket.emit('my other event', { my: 'data' });
@@ -740,14 +740,19 @@ html
                             $(".newMsgTip").show().addClass("shake_short");
                             window.setTimeout(function(){$(".newMsgTip").removeClass("shake_short");},2000);
                         }
+
+                        //缓存消息单聊消息
                         if (window.localStorage) {
                             localStorage.getItem(data.from.nickname) ? localStorage.setItem(data.from.nickname, localStorage.getItem(data.from.nickname) + ',' + JSON.stringify(data)) : localStorage.setItem(data.from.nickname, JSON.stringify(data));
                         }
+                        //PC端消息桌面提示（如果支持）
                         if(!isfocus){
                             showNotification(data);
                         }
                     });
                 });
+
+                //在线列表
                 function showonline(data){
                     var txts = [],txt = '';
                     var currentid = $(".online_t .online_name").attr("data-id");
@@ -828,6 +833,7 @@ html
                     var time = new Date(),msg = "",title,tempuserdata={};
                     time.setTime(data.time);
                     var timetxt = (time.getMonth()+1)+'-'+ time.getDate()+' '+ time.getHours()+':'+ time.getMinutes();
+                    //针对讨论组还是所有人分别处理
                     if(data.gid){
                         data.master = data.from;
                         data.member = data.to;
@@ -835,37 +841,43 @@ html
                         title = data.title;
                         msg = '<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">来自讨论组：《'+data.title+'》 '+data.from.nickname+'的信息<span class="saytime">'+timetxt+'</span></div><div class="txt_module">'+data.message+'</div></div></div>';
                     }else{
+                        //只会存在所有人，因为单聊的在上面处理了
                         tempuserdata = data.from;
-                        if(data.to == "all"){
+                        tempuserdata.to = "all";
+                        title = "所有人";
+                        /*if(data.to == "all"){
                             tempuserdata.to = "all";
                             title = "所有人";
                         }else{
                             title = data.from&&data.from.nickname;
-                        }
+                        }*/
                         msg = '<div class="msgList msgList_your clearfix"><div class="msgListYour_ico lfloat"><img src="images/head.gif" alt=""></div><div class="msgListYour_txt"><div class="sayname">'+data.from.nickname+'<span class="saytime">'+timetxt+'</span></div><div class="txt_module">'+data.message+'</div></div></div>';
                     }
 
+                    //如果是当前聊天窗口则插入消息，否则插入消息提示
                     if($(".socketBox_page").hasClass("activate_page") && title == $(".dname_show").text()){
                         $(".socketBox_msgM .msgBody").append(msg);
                     }else{
-                        var t = '<div class="media" data-userdata=\'' + JSON.stringify(tempuserdata) + '\'><div class="media-left"><a href="#"><img src="images/head.gif" alt="" class="media-object"></a></div><div class="media-body"><h4 class="media-heading">'+title+'</h4><p>'+data.message+'</p></div></div>'
+                        var t = '<div class="media" data-userdata=\'' + JSON.stringify(tempuserdata) + '\'><div class="media-left"><a href="#"><img src="images/head.gif" alt="" class="media-object"></a></div><div class="media-body"><h4 class="media-heading">吹水区</h4><p>'+data.message+'</p></div></div>'
                         $(".message_list").append(t);
+                        //消息图标抖动效果
                         $(".newMsgTip").show().addClass("shake_short");
                         window.setTimeout(function(){$(".newMsgTip").removeClass("shake_short");},2000);
                     }
+                    //将消息写入缓存
                     if (window.localStorage) {
                         localStorage.getItem(title) ? localStorage.setItem(title, localStorage.getItem(title) + ',' + JSON.stringify(data)) : localStorage.setItem(title, JSON.stringify(data));
                     }
 
-                    //$(".socketBox_msgM .msgBody").append(msg);
                     $(".socketBox_msgM").scrollTop($(".msgBody").outerHeight());
+                    //PC端消息桌面提示（如果支持）
                     if(!isfocus){
                         showNotification(data);
                     }
 
                 });
 
-
+                //随机用户名
                 var l = randomname.length+1;
                 var n = Math.floor(Math.random()*l);
                 var randomNickName = randomname[n];
@@ -895,6 +907,8 @@ html
                     var gid = $(this).attr("data-gid");
                     $("#sendBtn").attr("data-gid",gid);
                 });
+
+                //消息发送按钮
                 $("#sendBtn").click(function(){
                     var $this = $(this),fromid = "",toid = "";
                     var msg = $("#inputMsg").val();
@@ -1051,6 +1065,7 @@ html
                     }
                 }
 
+                //在线列表、讨论组列表、消息列表点击
                 $(document).on("click",".socket_box .online_pt,.socket_box .group,.message_list .media",function(){
                     var $this = $(this);
                     var userdata = $this.attr("data-userdata");
@@ -1126,5 +1141,7 @@ html
                 }).on("focus",function(){
                     isfocus = true;
                     //console.log("获得焦点")
+                }).on("unload",function(){
+                    window.localStorage&&window.localStorage.clear();
                 });
             });
