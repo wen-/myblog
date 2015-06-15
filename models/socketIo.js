@@ -249,17 +249,16 @@ module.exports = function(io){
                 // we tell the client to execute 'new message'
                 if(data.gid) {
                     socket.broadcast.to(data.gid).emit('postmsg', {
-                        userData: socket.userData,
+                        from: socket.userData,
+                        to:data.to,
                         message: data.message,
                         gid:data.gid,
                         title:data.title,
                         time: currentTime
                     });
                 }else{
-                    if(data.from){
-                        //socket.join("abc");
+                    if(data.to != "all"){
                         socket.broadcast.to(data.to).emit(data.to, {
-                            userData: socket.userData,
                             from: socket.userData,
                             to:data.to,
                             message: data.message,
@@ -267,7 +266,8 @@ module.exports = function(io){
                         });
                     }else{
                         socket.broadcast.emit('postmsg', {
-                            userData: socket.userData,
+                            from: socket.userData,
+                            to:data.to,
                             message: data.message,
                             time: currentTime
                         });
