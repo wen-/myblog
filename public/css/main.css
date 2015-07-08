@@ -425,6 +425,7 @@ p.key_word a:hover{
     border-bottom:solid 1px #ccc;
     font-size: 1.5em;
     font-weight: normal;
+    margin-top:10px;
 }
 .ui_ul_input{
     padding:2em 0;
@@ -444,9 +445,11 @@ p.key_word a:hover{
 }
 .form_actions{
     text-align: center;
+    padding-bottom: 2em;
 }
 .form_actions .btn{
     font-size: 1.17em;
+    padding: .5em 3em;
 }
 .login_msg{
     color:red;
