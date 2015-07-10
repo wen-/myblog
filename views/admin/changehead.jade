@@ -46,7 +46,7 @@ block content
                                         button.btn.selectImg 选择图片
                                         input#setHeadIco.imitate(name="upfile",type="file")
                                     div.show_head
-                                        -if(!!user && !!user.headIco){
+                                        -if(!!user&&user.headIco){
                                             img(id="clipHead",src="#{user.headIco}")
                                         -}else{
                                             img(id="clipHead",src="/images/head.gif")

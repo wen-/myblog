@@ -49,8 +49,8 @@ codeTxt.prototype.codeIMG = function(callb){
         x_x.push(parseInt(Math.random()*100));
         y_y.push(parseInt(Math.random()*30));
     }
-    imageMagick(100, 30, "green")
-        .fill('rgba(255,255,255,0.15)')//绘制图形的填充颜色
+    imageMagick(100, 30, "rgb(49,176,213)")
+        .fill('rgba(255,255,255,0.14)')//绘制图形的填充颜色
         .drawPolyline([0,10],[100,10])//画折线
         .drawPolyline([0,15],[100,15])//画折线
         .drawPolyline([0,20],[100,20])//画折线
@@ -60,7 +60,7 @@ codeTxt.prototype.codeIMG = function(callb){
         .drawCircle(x_x[3], y_y[3], x_x[3]+5, y_y[3]+5)//画圆
         .drawCircle(x_x[4], y_y[4], x_x[4]+4, y_y[4]+4)//画圆
         .font('./public/fonts/stliti.ttf', !!this.img?20:30)
-        .fill('rgba(255,255,255,0.4)')
+        .fill('rgba(255,255,255,0.8)')
         .drawText(12, 22, t)
         .toBuffer('jpeg', function (err, stdout) {
             //var codeData = "data:jpeg;base64," + stdout.toString('base64');
@@ -83,7 +83,7 @@ codeTxt.prototype.codeGIF = function(callb){
         .drawText(12, 22, t)
         .write('./public/fonts/code.png',function (err) {
             if (err) return console.log(err);
-            imageMagick(100, 30, "green")
+            imageMagick(100, 30, "rgb(49,176,213)")
                 .in('./public/fonts/code.png')
                 .delay(1000)//延迟似乎不起作用
                 .loop(20)//循环次数，默认无限

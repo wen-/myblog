@@ -3,6 +3,7 @@ var router = express.Router();
 var fs = require("fs");
 var path = require('path');
 
+router.get('*',checkLogin);
 //验证码配置
 router.get('/codesetting', function(req, res) {
     var codeconf = require('../conf/code.js');
@@ -31,7 +32,21 @@ router.post('/codesetting', function(req, res) {
     res.json({"state":"success","msg":"保存成功！"})
   })
 });
+function checkLogin(req, res, next){
+    if(!req.session.user){
+        req.flash('error','未登录!');
+        return res.redirect('/login');
+    }
+    next();
+}
 
+function checkNotLogin(req,res,next){
+    if(req.session.user){
+        req.flash('error','已登录!');
+        return res.redirect('/');
+    }
+    next();
+}
 module.exports = router;
 
 

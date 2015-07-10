@@ -1,5 +1,15 @@
-body{
+html,body{
     padding:0;
+    height:100%;
+}
+.section {
+    max-width: 100%;
+}
+.inlineblock{
+    display: inline-block !important;
+    *display:inline !important;
+    vertical-align: middle;
+    zoom:1;
 }
 /****表格样式1********/
 table,th,td{
@@ -53,8 +63,6 @@ th,td{
     width: 200px;
     height: 100%;
     border-right: solid 1px #ccc;
-    padding-top:1000px;
-    margin-top:-1000px;
 }
 .submenu_box dt{
     font-size: 14px;
@@ -75,7 +83,8 @@ th,td{
     background-color: #efefef;
 }
 .submenu_content{
-    padding-left: 201px;
+    margin-left: 200px;
+    font-size:0;
     height: 100%;
 }
 .submenu_content iframe{
@@ -109,7 +118,10 @@ th,td{
     display: inline-block;
     zoom: 1;
     width: auto;
-    padding: 0 90px 0 77px;
+    padding: 0 100px 0 77px;
+}
+.jPaginate a:hover {
+    text-decoration: none;
 }
 .digestNetWorkPic .addBtn{
     cursor: pointer;

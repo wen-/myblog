@@ -13,7 +13,7 @@ block content
                             ul.ui_ul_input
                                 li.user_name
                                     label 用户昵称：
-                                    input(type="text",value="#{user.basicData.name}",name="username",style="width:13.5em;")
+                                    input.form-control.inlineblock(type="text",value="#{user.basicData.name}",name="username",style="width:13.5em;")
                                 li.user_sex
                                     label 性别：
                                     label.sex_man_txt
@@ -34,26 +34,26 @@ block content
                                 li.user_birthday
                                     label 生日：
                                     if(!!user.basicData.birthday)
-                                        input#birthday.birthday(type="text",name="birthday",value="#{user.basicData.birthday}")
+                                        input#birthday.birthday.form-control.inlineblock(type="text",name="birthday",value="#{user.basicData.birthday}")
                                     else
-                                        input#birthday.birthday(type="text",name="birthday")
+                                        input#birthday.birthday.form-control.inlineblock(type="text",name="birthday")
                                     div.msg_txt
                                 li.hometown
                                     label 出生地：
                                     div#hometown.citysele
-                                        select.hometownCity_txt.select.prov
+                                        select.hometownCity_txt.select.prov.form-control.inlineblock
                                     div.msg_txtreside
                                 li.reside
                                     label 居住地：
                                     div#reside.citysele
-                                        select.resideCity_txt.select.prov
+                                        select.resideCity_txt.select.prov.form-control.inlineblock
                                     div.msg_txt
                                 li.user_intro.clearfix
                                     label.lfloat 个人简介：
                                     if(!!user.basicData.intro)
-                                        textarea#userIntro.userIntro_txt(name="intro") #{user.basicData.intro}
+                                        textarea#userIntro.userIntro_txt(style="border-radius: 4px;",name="intro") #{user.basicData.intro}
                                     else
-                                        textarea#userIntro.userIntro_txt(name="intro")
+                                        textarea#userIntro.userIntro_txt(style="border-radius: 4px;",name="intro")
                                     div.msg_txt
                             div.send_msg 数据保存中
                                 img(style="vertical-align: middle;height:3px",src="/images/ajax-loader.gif",alt="")
@@ -66,7 +66,7 @@ block content
                             ul.ui_ul_input
                                 li.user_name
                                     label 用户昵称：
-                                    input(type="text",value="#{user.email}",name="username",style="width:13.5em;")
+                                    input.form-control.inlineblock(type="text",value="#{user.email}",name="username",style="width:13.5em;")
                                 li.user_sex
                                     label 性别：
                                     label.sex_man_txt
@@ -78,24 +78,24 @@ block content
                                     div.msg_txt
                                 li.user_birthday
                                     label 生日：
-                                    input#birthday.birthday(type="text",name="birthday")
+                                    input#birthday.birthday.form-control.inlineblock(type="text",name="birthday")
                                 li.hometown
                                     label 出生地：
                                     div#hometown.citysele
-                                        select.hometownCity_txt.select.prov
-                                        select.hometownOpt1_txt.select
+                                        select.hometownCity_txt.select.prov.form-control.inlineblock
+                                        select.hometownOpt1_txt.select.form-control.inlineblock
                                             option 请选择
                                     div.msg_txtreside
                                 li.reside
                                     label 居住地：
                                     div#reside.citysele
-                                        select.resideCity_txt.select.prov
-                                        select.resideOpt1_txt.select
+                                        select.resideCity_txt.select.prov.form-control.inlineblock
+                                        select.resideOpt1_txt.select.form-control.inlineblock
                                             option 请选择
                                     div.msg_txt
                                 li.user_intro.clearfix
                                     label.lfloat 个人简介：
-                                    textarea#userIntro.userIntro_txt(name="intro") 这家伙很懒，什么也没留下……
+                                    textarea#userIntro.userIntro_txt(style="border-radius: 4px;",name="intro") 这家伙很懒，什么也没留下……
                                     div.msg_txt
                             div.send_msg 数据保存中
                                 img(style="vertical-align: middle;height:3px",src="/images/ajax-loader.gif",alt="")

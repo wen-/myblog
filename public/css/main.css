@@ -88,26 +88,6 @@ img{
 .top_nav_menu h1 a:hover{
     text-decoration: none;
 }
-.search_box input{
-    -webkit-border-radius: 1em 0 0 1em;
-    -moz-border-radius: 1em 0 0 1em;
-    -ms-border-radius: 1em 0 0 1em;
-    -o-border-radius: 1em 0 0 1em;
-    border-radius: 1em 0 0 1em;
-    padding:.4em 1em;
-    padding: .4em \9;
-    width: 13em;
-}
-.search_box button{
-    -webkit-border-radius: 0 1em 1em 0;
-    -moz-border-radius: 0 1em 1em 0;
-    -ms-border-radius: 0 1em 1em 0;
-    -o-border-radius: 0 1em 1em 0;
-    border-radius: 0 1em 1em 0;
-    *display: inline;
-    padding:.4em 1em;
-    margin-left: -1px;
-}
 .say_something{
     cursor: pointer;
     margin-right:1em;
@@ -336,11 +316,13 @@ p.key_word a:hover{
     height: 163px;
 }
 .power_btn_ico {
-    height: 30px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
     cursor: pointer;
     background-color: rgb(59, 179, 224);
     padding: 10px;
+    margin:10px;
+    line-height: 40px;
     position: absolute;
     font-family: "FontAwesome";
     font-size: 40px;
@@ -373,9 +355,8 @@ p.key_word a:hover{
     top:50%;
     background-color: rgb(204, 208, 213);
     position: relative;
-    width: 60px;
-    height: 50px;
-    padding: 8px;
+    width:70px;
+    height: 70px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -o-border-radius: 5px;
@@ -386,7 +367,7 @@ p.key_word a:hover{
     box-shadow: inset 0px 1px 1px #909193, 0px 1px 0px #fff;
 }
 .power_btn_ico:active {
-    margin-top:1px;
+    margin-top:11px;
     color:#7fd2f1;
     background-image: linear-gradient(bottom, rgb(62,184,229) 0%, rgb(44,160,202) 100%);
     background-image: -o-linear-gradient(bottom, rgb(62,184,229) 0%, rgb(44,160,202) 100%);
@@ -658,7 +639,7 @@ p.key_word a:hover{
     margin:.43em 1em 0 0 !important;
 }
 .education_list select{
-    margin: .5em 1em 0 0 !important;
+    margin: .4em 1em 0 0 !important;
 }
 .work_list input{
     width: 15em;
@@ -714,8 +695,8 @@ p.key_word a:hover{
     position:relative;
 }
 .currentHeadIco_show,.newHeadIco_show{
-    width:80px;
-    height:80px;
+    width:65px;
+    height:65px;
     overflow: hidden;
     line-height: 80px;
     text-align: center;
@@ -723,7 +704,7 @@ p.key_word a:hover{
     position: absolute;
 }
 .currentHeadIco_show img,#newHeadImg{
-    vertical-align: middle;
+    vertical-align: top;
 }
 #newHeadImg{
     max-width: none;

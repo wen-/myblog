@@ -7,7 +7,7 @@ block content
 			th 长度
 			td
 				-if(codeconf)
-					input(type="text",maxlength="1",name="codelength",value="#{codeconf.length}")
+					input.form-control.inlineblock(style="width:5em",type="text",maxlength="1",name="codelength",value="#{codeconf.length}")
 				-else
 					input(type="text",maxlength="1",name="codelength")
 	.save_code(style="text-align:center;")

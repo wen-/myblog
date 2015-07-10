@@ -462,7 +462,7 @@ $(function(){
 
     /*--个人中心--*/
     /*生日*/
-    $("#birthday").datepicker({
+    /*$("#birthday").datepicker({
         //showOn: "button",
         //buttonImage: "images/calendar.gif",
         //buttonImageOnly: true,
@@ -508,7 +508,39 @@ $(function(){
                 dates.not( this ).datepicker( "option", option, date );
             }
         }
-    });
+    });*/
+
+    var birthday = {
+        elem: '#birthday',
+        format: 'YYYY-MM-DD',
+        min: laydate.now(), //设定最小日期为当前日期
+        max: '2099-06-16', //最大日期
+        istoday: false
+    };
+    var start = {
+        elem: '#fworkTime',
+        format: 'YYYY-MM-DD',
+        min: laydate.now(), //设定最小日期为当前日期
+        max: '2099-06-16', //最大日期
+        istoday: false,
+        choose: function(datas){
+            end.min = datas; //开始日选好后，重置结束日的最小日期
+            end.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+    var end = {
+        elem: '#tworkTime',
+        format: 'YYYY-MM-DD',
+        min: laydate.now(),
+        max: '2099-06-16',
+        istoday: false,
+        choose: function(datas){
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
+    };
+    $("#birthday").length&&laydate(birthday);
+    $("#fworkTime").length&&laydate(start);
+    $("#tworkTime").length&&laydate(end);
     /*城市联动
     $(".citysele").wen_plug_cityLinkage({
         //prov:"广东",
@@ -813,29 +845,38 @@ $(function(){
         xsize = $pcnt.width(),
         ysize = $pcnt.height();
 
-    //function clipPIC(){
-    $("#clipHead").Jcrop({
-        minSize:[80,80],
-        //maxSize:[160,160],
-        boxWidth: 400,
-        boxHeight: 225,
-        setSelect:   [ 0, 0, 80, 80 ],//可在回调中设置
-        onChange: updatePreview,
-        onSelect: updatePreview,
-        aspectRatio: xsize / ysize
-    },function(){
-        // 获得真实的图像尺寸(样式定义后的尺寸，如display:none;则获取不到样式设置的尺寸，会取原始尺寸)
-        var bounds = this.getBounds();
-        boundx = bounds[0];
-        boundy = bounds[1];
-        jcrop_api = this;
+    var imgsrc = $("clipHead").attr("src");
+    var headico = new Image();
+    headico.src = imgsrc;
+    headico.onload = function(){
+        clipPIC();
+    };
+    headico.onerror = function(){
+        clipPIC();
+    };
+    function clipPIC(){
+        $("#clipHead").Jcrop({
+            minSize:[80,80],
+            //maxSize:[160,160],
+            boxWidth: 400,
+            boxHeight: 225,
+            setSelect:   [ 0, 0, 80, 80 ],//可在回调中设置
+            onChange: updatePreview,
+            onSelect: updatePreview,
+            aspectRatio: xsize / ysize
+        },function(){
+            // 获得真实的图像尺寸(样式定义后的尺寸，如display:none;则获取不到样式设置的尺寸，会取原始尺寸)
+            var bounds = this.getBounds();
+            boundx = bounds[0];
+            boundy = bounds[1];
+            jcrop_api = this;
 
-        //在回调中设置选框效果更好
-        //jcrop_api.animateTo([boundx *.5-65,boundy *.5-65,boundx *.5+65,boundy *.5+65]);
-        //var cc = jcrop_api.tellSelect();
-        //updatePreview(cc);
-    });
-    //}
+            //在回调中设置选框效果更好
+            //jcrop_api.animateTo([boundx *.5-65,boundy *.5-65,boundx *.5+65,boundy *.5+65]);
+            //var cc = jcrop_api.tellSelect();
+            //updatePreview(cc);
+        });
+    }
 
     function updatePreview(c){
         if (parseInt(c.w) > 0){

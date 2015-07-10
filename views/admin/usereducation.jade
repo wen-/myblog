@@ -7,10 +7,34 @@ block content
                 dd
                     form(method="post",id="educationData",name="educationData",action="/users/usereducation")
                         input(type="hidden",name="email",id="email",value="#{user.email}")
-                        div.education_list.clearfix
+                        ul.ui_ul_input.education_list
+                            li.school_sort
+                                label.schoolSort_t 学校类型：
+                                select#schoolSort.schoolSort_m.select.form-control.inlineblock(name="schoolSort")
+                                    option 请选择
+                                    option 博士
+                                    option 硕士
+                                    option 大学
+                                    option 高中
+                                    option 初中
+                                    option 小学
+                                    option 其他
+                            li.school_year
+                                label.schoolName_t 入学年份：
+                                select#schoolYear.schoolYear_m.select.form-control.inlineblock(name="schoolYear")
+                                    option 请选择
+                                    -var currentY = new Date().getFullYear();
+                                    -var Y = currentY - 130;
+                                    -for(;Y <= currentY;currentY--){
+                                        option #{currentY}
+                                    -}
+                            li.school_name
+                                label.schoolName_t 学校名称：
+                                input#schoolName.schoolName_m.form-control.inlineblock(type="text",name="schoolName")
+                        //div.education_list.clearfix
                             div.school_sort.lfloat
                                 div.schoolSort_t 学校类型
-                                select#schoolSort.schoolSort_m.select(name="schoolSort")
+                                select#schoolSort.schoolSort_m.select.form-control.inlineblock(name="schoolSort")
                                     option 请选择
                                     option 博士
                                     option 硕士
@@ -21,16 +45,16 @@ block content
                                     option 其他
                             div.school_name.lfloat
                                 div.schoolName_t 学校名称
-                                input#schoolName.schoolName_m(type="text",name="schoolName")
+                                input#schoolName.schoolName_m.form-control.inlineblock(type="text",name="schoolName")
                             div.school_year.lfloat
                                 div.schoolYear_t 入学年份
-                                select#schoolYear.schoolYear_m.select(name="schoolYear")
+                                select#schoolYear.schoolYear_m.select.form-control.inlineblock(name="schoolYear")
                                     option 请选择
                                     -var currentY = new Date().getFullYear();
                                     -var Y = currentY - 130;
                                     -for(;Y <= currentY;currentY--){
                                         option #{currentY}
                                     -}
-                            div.form_actions
-                                button#sendEducationData.btn(type="submit") 保&nbsp;存
+                        div.form_actions(style="margin-top:5em;")
+                            button#sendEducationData.btn(type="submit") 保&nbsp;存
     include ../footData

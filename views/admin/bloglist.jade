@@ -18,9 +18,13 @@ block content
 						|回收站列表
 					-}
 				td(colspan="2",style="border-left:0;text-align:right;")
-					div.search_box
-						input(type="text",name="keyword",placeholder='请输入搜索关键字')
-						button.blogsearch.btn(type="button") 搜索
+					div.search_box(style="display:inline-block;")
+						div.row
+							.col-lg-6
+								.input-group
+									input(type="text",name="keyword",class="form-control",placeholder="关键字")
+									span.input-group-btn
+										button.blogsearch.btn.btn-default(type="button") 搜索
 			tr
 				th(style="width:40%;") 文章标题
 				th 发表时间

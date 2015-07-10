@@ -7,19 +7,30 @@ block content
                 dd
                     form(method="post",id="workData",name="workData",action="/users/userwork")
                         input(type="hidden",name="email",id="email",value="#{user.email}")
-                        div.work_list.clearfix
+                        ul.ui_ul_input.work_list
+                            li.work_time
+                                label.workTime_t 工作时间：
+                                input#fworkTime.workTime.form-control.inlineblock(type="text",name="fworkTime")
+                                |_&nbsp;&nbsp;
+                                input#tworkTime.workTime.form-control.inlineblock(type="text",name="tworkTime")
+                                input.currentWorkTime(style="vertical-align:middle;margin-top:0;width:auto;",type='checkbox')
+                                span(style="vertical-align:middle;") 至今
+                            li.work_company
+                                label.workCompany_t 工作单位：
+                                input#workCompany.workCompany_m.form-control.inlineblock(type="text",name="workCompany")
+                        //div.work_list.clearfix
                             div.work_company.lfloat
                                 div.workCompany_t 工作单位：
-                                input#workCompany.workCompany_m(type="text",name="workCompany")
+                                input#workCompany.workCompany_m.form-control.inlineblock(type="text",name="workCompany")
                             div.work_time.lfloat
                                 div.workTime_t 工作时间：
-                                input#fworkTime.workTime(type="text",name="fworkTime")
+                                input#fworkTime.workTime.form-control.inlineblock(type="text",name="fworkTime")
                                 |_&nbsp;&nbsp;
-                                input#tworkTime.workTime(type="text",name="tworkTime")
-                                input(style="vertical-align:middle;margin-top:0;width:auto;").currentWorkTime(type='checkbox')
+                                input#tworkTime.workTime.form-control.inlineblock(type="text",name="tworkTime")
+                                input.currentWorkTime(style="vertical-align:middle;margin-top:0;width:auto;",type='checkbox')
                                 span(style="vertical-align:middle;") 至今
-                            div.form_actions
-                                button#sendWorkData.btn(type="submit") 保&nbsp;存
+                        div.form_actions(style="margin-top:5em;")
+                            button#sendWorkData.btn(type="submit") 保&nbsp;存
     include ../footData
     script.
         $(".currentWorkTime").click(function(){

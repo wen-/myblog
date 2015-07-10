@@ -28,7 +28,7 @@ block content
 			td(colspan="2",style="text-align:right;")
 				form.addNewSort(method="post",action="/admin/sort")
 					span.err_msg(style="color:red;display:none;")
-					input(type="text",name="sort")
+					input.form-control.inlineblock(style="width:10em;",type="text",name="sort")
 					button.addNewSortBtn.btn(type="submit",style="margin:0 2em 0 10px;") 新增分类
 	-if(total>10)
 		.pagebox

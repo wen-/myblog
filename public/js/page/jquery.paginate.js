@@ -246,6 +246,6 @@
 						}
 						insidewidth += this.offsetWidth;
 					})
-					_ul.css('width',insidewidth+'px');
+					_ul.css('width',insidewidth+1+'px');
 	}
 })(jQuery);

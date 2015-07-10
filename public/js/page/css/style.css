@@ -3,13 +3,13 @@
     position:relative;
     color:#a5a5a5;
     font-size:small;   
-	width:100%;
+	/*width:100%;*/
 }
 .jPaginate a{
-    line-height:15px;
-    height:18px;
+    line-height:30px;
+    height:30px;
     cursor:pointer;
-    padding:2px 5px;
+    padding:0px 10px;
     margin:2px;
     float:left;
 }
@@ -29,7 +29,6 @@ ul.jPag-pages{
     list-style-type:none;
     margin:0px 0px 0px 0px;
     padding:0px;
-    font-family: Arial;
 }
 ul.jPag-pages li{
     display:inline;
@@ -39,14 +38,14 @@ ul.jPag-pages li{
 }
 ul.jPag-pages li a{
     float:left;
-    padding:2px 5px;
+    padding:0px 10px;
 }
 span.jPag-current{
     cursor:default;
     font-weight:normal;
-    line-height:15px;
-    height:18px;
-    padding:2px 5px;
+    line-height:30px;
+    height:30px;
+    padding:0px 10px;
     margin:2px;
     float:left;
 }
@@ -81,15 +80,15 @@ ul.jPag-pages li span.jPag-next-img{
 }
 span.jPag-sprevious,
 span.jPag-sprevious-img{
-    margin:2px 0px 2px 2px;
-    font-size:18px;
+    margin:7px 0px 2px 2px;
+    font-size:30px;
     width:15px;
     text-align:right;
 }
 span.jPag-snext,
 span.jPag-snext-img{
-    margin:2px 2px 2px 0px;
-    font-size:18px;
+    margin:7px 2px 2px 0px;
+    font-size:30px;
     width:15px;
      text-align:right;
 }

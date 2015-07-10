@@ -11,13 +11,13 @@ block content
 			th 标题
 			td
 				-if(posts)
-					input(type="text",maxlength="50",name="title",value="#{posts.title}")
+					input.form-control(style="width:30%;",type="text",maxlength="50",name="title",value="#{posts.title}")
 				-else
-					input(type="text",maxlength="50",name="title")
+					input.form-control(style="width:30%;",type="text",maxlength="50",name="title")
 		tr
 			th 分类
 			td
-				select.select(name="sort",style="width:168px;")
+				select.form-control.select(name="sort",style="width:30%;")
 					-if(sorts)
 						each item in sorts
 							option #{item.sorttxt}
@@ -25,16 +25,16 @@ block content
 			th 阅读
 			td
 				-if(posts)
-					input(type="text",maxlength="50",name="pv",value="#{posts.pv}")
+					input.form-control(style="width:30%;",type="text",maxlength="50",name="pv",value="#{posts.pv}")
 				-else
-					input(type="text",maxlength="50",name="pv")
+					input.form-control(style="width:30%;",type="text",maxlength="50",name="pv")
 		tr
 			th 摘要
 			td
 				-if(posts)
 					-if(posts.digest.indexOf("__||__")>-1)
 						-var digests = posts.digest.split("__||__");
-						input(type="text",maxlength="200",name="digest",style="width:300px;",value="#{digests[0]}")
+						input.form-control.inlineblock(type="text",maxlength="200",name="digest",style="width:40%;",value="#{digests[0]}")
 						.digestAccessory(style="display:none;")
 							.uppic.accessory
 								form(id="digestPic",action="/upload/blog",method="post",enctype="multipart/form-data")
@@ -50,7 +50,7 @@ block content
 								button.btn.success(style="margin:0 5px;",type="button") 确定
 								button.btn.cancel(type="button") 取消
 					-else
-						input(type="text",maxlength="200",name="digest",style="width:300px;",value="#{posts.digest}")
+						input.form-control.inlineblock(type="text",maxlength="200",name="digest",style="width:40%;",value="#{posts.digest}")
 						.digestAccessory
 							.uppic.accessory
 								form(id="digestPic",action="/upload/blog",method="post",enctype="multipart/form-data")
@@ -62,12 +62,12 @@ block content
 						span.digestNetWorkPic(style="vertical-align: middle; padding-left: 1em;")
 							span.addBtn 添加网络图片
 							span.netWorkPicBox(style="display:none;")
-								input(type="text",style="width:120px;")
+								input.form-control.inlineblock(type="text",style="width:120px;")
 								button.btn.success(style="margin:0 5px;",type="button") 确定
 								button.btn.cancel(type="button") 取消
 
 				-else
-					input(type="text",maxlength="200",name="digest",style="width:300px;")
+					input.form-control.inlineblock(type="text",maxlength="200",name="digest",style="width:40%;")
 					.digestAccessory
 						.uppic.accessory
 							form(id="digestPic",action="/upload/blog",method="post",enctype="multipart/form-data")
@@ -79,7 +79,7 @@ block content
 					span.digestNetWorkPic(style="vertical-align: middle; padding-left: 1em;")
 						span.addBtn 添加网络图片
 						span.netWorkPicBox(style="display:none;")
-							input(type="text",style="width:120px;")
+							input.form-control.inlineblock(type="text",style="width:120px;")
 							button.btn.success(style="margin:0 5px;",type="button") 确定
 							button.btn.cancel(type="button") 取消
 		tr

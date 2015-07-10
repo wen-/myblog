@@ -210,7 +210,7 @@ module.exports = function(io){
 
             var socketIP = socket.handshake.address;
             var socketDomain = socket.handshake.headers.origin;
-            var socketDomain1 = (socket.handshake.headers.referer.indexOf('http://192.168.1.120'))>-1;
+            var socketDomain1 = (socket.handshake.headers.referer.indexOf('http://192.168.20.107'))>-1;
             var socketKEY = socket.handshake.query.key;
             if(socketKEY) {
                 var client = redis.createClient(6379, '127.0.0.1', {});
