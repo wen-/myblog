@@ -111,10 +111,10 @@ $(function(){
                                     <div class="comment_box_b">\
                                         <form method="post" class="log_comment_data">\
                                             <ul class="ui_ul_input">\
-                                                <li><label>姓名：</label><input type="text" name="name" value="" /></li>\
-                                                <li><label>邮箱：</label><input type="text" name="email" value="" /></li>\
-                                                <li><label class="lfloat">评论：</label><textarea name="content"></textarea></li>\
-                                                <li><label>验证码：</label><input class="codeIMG_txt" type="text" name="codeIMG" /><img class="commentCodeUrl CodeUrl" src="/images/demoCode.png" alt="" title="点击获取验证码" /></li>\
+                                                <li><label>姓名：</label><input class="form-control inlineblock" type="text" name="name" value="" /></li>\
+                                                <li><label>邮箱：</label><input class="form-control inlineblock" type="text" name="email" value="" /></li>\
+                                                <li><label class="lfloat">评论：</label><textarea name="content" class="form-control inlineblock"></textarea></li>\
+                                                <li><label>验证码：</label><input class="codeIMG_txt form-control inlineblock" type="text" name="codeIMG" /><img class="commentCodeUrl CodeUrl" src="/images/demoCode.png" alt="" title="点击获取验证码" /></li>\
                                             </ul>\
                                             <div id="msg'+ n._id+'" class="comment_msg">数据发送中<img style="vertical-align: middle;height:3px" src="/images/ajax-loader.gif" alt="" /></div>\
                                             <div class="form_actions">\
@@ -538,9 +538,15 @@ $(function(){
             start.max = datas; //结束日选好后，重置开始日的最大日期
         }
     };
-    $("#birthday").length&&laydate(birthday);
-    $("#fworkTime").length&&laydate(start);
-    $("#tworkTime").length&&laydate(end);
+    var typedate = document.createElement('input');
+    typedate.setAttribute('type', 'date');
+    //浏览器不支持date类型
+    if(typedate.type == 'text'){
+        $("#birthday").length&&laydate(birthday);
+        $("#fworkTime").length&&laydate(start);
+        $("#tworkTime").length&&laydate(end);
+    }
+
     /*城市联动
     $(".citysele").wen_plug_cityLinkage({
         //prov:"广东",
@@ -813,7 +819,7 @@ $(function(){
                     $form.find("#sendImg").html("保存头像").prop("disabled",false);
                 },3000)
             }else{
-                $form.find("#sendImg").html("保存失败！");
+                $form.find("#sendImg").html(json.msg);
                 window.setTimeout(function(){
                     $form.find("#sendImg").html("保存头像").prop("disabled",false);
                 },3000)
@@ -844,16 +850,17 @@ $(function(){
 
         xsize = $pcnt.width(),
         ysize = $pcnt.height();
-
-    var imgsrc = $("clipHead").attr("src");
-    var headico = new Image();
-    headico.src = imgsrc;
-    headico.onload = function(){
-        clipPIC();
-    };
-    headico.onerror = function(){
-        clipPIC();
-    };
+    if($("#clipHead")&&$("#clipHead").length){
+        var imgsrc = $("#clipHead").attr("src");
+        var headico = new Image();
+        headico.src = imgsrc;
+        headico.onload = function(){
+            clipPIC();
+        };
+        headico.onerror = function(){
+            clipPIC();
+        };
+    }
     function clipPIC(){
         $("#clipHead").Jcrop({
             minSize:[80,80],
@@ -1112,7 +1119,6 @@ $(function(){
         };
 
   };
-
 
 
 

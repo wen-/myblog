@@ -5,12 +5,7 @@ html,body{
 .section {
     max-width: 100%;
 }
-.inlineblock{
-    display: inline-block !important;
-    *display:inline !important;
-    vertical-align: middle;
-    zoom:1;
-}
+
 /****表格样式1********/
 table,th,td{
     border-collapse: collapse;
@@ -63,6 +58,7 @@ th,td{
     width: 200px;
     height: 100%;
     border-right: solid 1px #ccc;
+    background-color: #fff;
 }
 .submenu_box dt{
     font-size: 14px;
@@ -125,4 +121,92 @@ th,td{
 }
 .digestNetWorkPic .addBtn{
     cursor: pointer;
+}
+.headnav li.lmenu{
+    display: none;
+    cursor: pointer;
+}
+.submenu_box dd{
+    display: none;
+}
+.addsocket_input{
+    width:30%;
+}
+.laydate_box,.laydate_box *{
+    box-sizing:initial;
+}
+@media all and (max-width: 849px){
+    .current_head {
+        width: 100%;
+        float:none;
+    }
+    .set_head{
+        margin-left: 0;
+        margin-top:2em;
+    }
+}
+@media all and (max-width: 639px){
+.submenu_box{
+    position: absolute;
+    left: -200px;
+}
+.submenu_content{
+    margin-left: 0;
+}
+.headnav li.lmenu{
+    display: inline-block;
+    *display:inline;
+    zoom:1;
+}
+    .userCenter_data dd{
+        padding-left: 1em;
+    }
+}
+@media all and (max-width: 479px){
+    .ui_ul_input label{
+        width:6em;
+        display: block;
+        text-align: left;
+    }
+    .ui_ul_input label.lfloat{
+        float: none;
+    }
+    .userIntro_txt{
+        width:90%;
+    }
+    .userCenter_data dd select{
+        width:6em;
+    }
+    .forgetpw{
+        margin-left: 7em;
+        display: block;
+    }
+    .blogbox input,.blogbox select{
+        width:70% !important;
+    }
+    .blogbox input[type="file"]{
+        width:auto !important;
+    }
+    .userCenter_data dd{
+        padding-left:1em;
+    }
+    #schoolName,#workCompany{
+        width:90%;
+        margin-right: 0;
+    }
+    .ui_ul_input label.sex_man_txt{
+        display: inline-block;
+    }
+    .show_head{
+        width:100%;
+    }
+    .addsocket_input{
+        width:100%;
+    }
+}
+@media all and (max-width: 419px){
+    .activateIM{
+        margin: 0 auto 10px !important;
+        display: block;
+    }
 }

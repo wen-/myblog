@@ -6,6 +6,27 @@ html
         link(rel='stylesheet', href='/umeditor/themes/default/css/umeditor.min.css')
         link(rel='stylesheet', href='/js/page/css/style.css')
         link(rel='stylesheet', href='/css/admin.css')
-    body
+    body(style="overflow-x:hidden;")
         block content
 
+    script.
+        $(function(){
+            $(".lmenu").click(function () {
+                var $this = $(this);
+                if ($this.hasClass("on")) {
+                    $this.removeClass("on");
+                    $(".submenu_box").animate({left: "-200px"}, 500);
+                } else {
+                    $this.addClass("on");
+                    $(".submenu_box").animate({left: 0}, 500);
+                }
+            });
+            $(".submenu_box dt").click(function(){
+                var $this = $(this);
+                $this.next("dd").toggle("slow");
+            });
+            $(".submenu_box a").click(function(){
+                $(".lmenu").removeClass("on");
+                $(".submenu_box").animate({left: "-200px"}, 500);
+            })
+        })

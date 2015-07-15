@@ -44,28 +44,28 @@ if(posts && posts.length>0)
                             div.comment_box_m
 
                             div.comment_box_b
-                                form.log_comment_data(method="post")
+                                form.log_comment_data.form-horizontal(method="post")
                                     ul.ui_ul_input
                                         if(locals.user)
                                             li
                                                 label 姓名：
-                                                input(type="text",name="name",value="#{locals.user.name}")
+                                                input.form-control.inlineblock(type="text",name="name",value="#{locals.user.name}")
                                             li
                                                 label 邮箱：
-                                                input(type="text",name="email",value="#{locals.user.email}")
+                                                input.form-control.inlineblock(type="text",name="email",value="#{locals.user.email}")
                                         else
                                             li
                                                 label 姓名：
-                                                input(type="text",name="name")
+                                                input.form-control.inlineblock(type="text",name="name")
                                             li
                                                 label 邮箱：
-                                                input(type="text",name="email")
+                                                input.form-control.inlineblock(type="text",name="email")
                                         li
                                             label.lfloat 评论：
-                                            textarea(name="content")
+                                            textarea.form-control.inlineblock(name="content")
                                         li
                                             label 验证码：
-                                            input.codeIMG_txt(type="text",name="codeIMG")
+                                            input.codeIMG_txt.form-control.inlineblock(type="text",name="codeIMG")
                                             img.commentCodeUrl.CodeUrl(src="/images/demoCode.png",alt="",title="点击获取验证码")
                                     div.comment_msg(id="msg#{post._id}") 数据发送中
                                         img(style="vertical-align: middle;height:3px",src="/images/ajax-loader.gif",alt="")

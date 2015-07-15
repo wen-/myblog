@@ -32,6 +32,12 @@ img{
 .alert-error{
     color:red;
 }
+.inlineblock{
+    display: inline-block !important;
+    *display:inline !important;
+    vertical-align: middle;
+    zoom:1;
+}
 #gotop{
     display: none;
     width:4em;
@@ -261,6 +267,9 @@ p.key_word a:hover{
     /*height:10em;*/
     overflow: hidden;
 }
+.log_details_m img,.log_details_m embed,.log_details_m video{
+    max-width: 100%;
+}
 .log_details_m p{
     /*padding:.4em 0 1.2em 0;*/
 }
@@ -391,8 +400,9 @@ p.key_word a:hover{
     display: none;
     width: 100%;
     max-width: 400px;
-    left: 50%;
-    margin-left:-200px;
+    left:0;
+    right:0;
+    margin:0 auto;
     border:solid 1px #ccc;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
@@ -491,7 +501,8 @@ p.key_word a:hover{
 }
 .send_msg,.comment_msg{
     visibility: hidden;
-    margin: -1em 0 1em 9em;
+    margin: -1em 0 1em 0em;
+    text-align: center;
 }
 /*--发表评论--*/
 .log_comment_box{
@@ -695,8 +706,8 @@ p.key_word a:hover{
     position:relative;
 }
 .currentHeadIco_show,.newHeadIco_show{
-    width:65px;
-    height:65px;
+    width:68px;
+    height:68px;
     overflow: hidden;
     line-height: 80px;
     text-align: center;
@@ -764,7 +775,10 @@ p.key_word a:hover{
 .userCenter_data dd .birthday{
     width:13.5em;
 }
-.userCenter_data .workTime,.ui_ul_input .codeIMG_txt{
+.userCenter_data .workTime{
+    width:10em;
+}
+.ui_ul_input .codeIMG_txt{
     width:7em;
 }
 .citysele{
@@ -805,6 +819,53 @@ p.key_word a:hover{
 .log_details_b{
     padding-top:20px;
 }
+.forgetpw{
+    margin-left: 1em;
+}
+@media all and (max-width: 579px){
+    .content h1.time_where{
+        padding: 1em 0 1em 3em;
+    }
+    .home_content {
+        background: url("data:image/gif;base64,R0lGODlhCgABAIAAAN/d3QAAACH5BAAAAAAALAAAAAAKAAEAQAIDhI8FADs=") repeat-y 2em 0 #ececec;
+    }
+    .log_time_ico{
+        left:1.2em;
+    }
+    .log_box{
+        padding-left:3em;
+    }
+    .log_head_ico{
+        left:-3em;
+    }
+    .ui_ul_input label{
+        width:5em;
+        text-align: left;
+    }
+    .forgetpw{
+        margin-left: 7em;
+        display: block;
+    }
+    .comment_box_b,.comment_box_b ul{
+        padding:0;
+    }
+    .comment_box_b input{
+
+    }
+    .comment_box_b input,.log_comment_data textarea{
+        width:100%;
+    }
+}
+@media all and (max-width: 479px){
+    .log_comment_data .codeIMG_txt{
+        width:100% !important;
+    }
+    .log_comment_data .CodeUrl{
+        margin:5px 0 0 0;
+    }
+}
+
+
 /*--3d样式（如果支持）--*/
 
 .csstransforms3d .details_3d_view{

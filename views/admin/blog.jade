@@ -1,6 +1,6 @@
 extends layout
 block content
-	table.table
+	table.table.blogbox
 		tr
 			th(colspan="2",style="border-right:0;font-size:18px;font-weight:bold;text-align:left;padding-left:2em;")
 				-if(edit)
@@ -99,6 +99,7 @@ block content
 			span 出错信息
 		-if(edit)
 			button.btn(type="button") 保存
+			a.btn(href='/admin' target="_parent") 取消
 		-else
 			button.btn(type="button") 发表
 
@@ -270,6 +271,12 @@ block content
 					$this.html("确定").prop("disabled",false);
 					$(".digestPicShow").show();
 					$(".digestNetWorkPic").hide();
+				}).error(function(){
+					$this.html("不支持此地址格式");
+					window.setTimeout(function(){
+						$this.html("确定").prop("disabled",false);
+					},1000);
+					return false;
 				});
 			});
 		});

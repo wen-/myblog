@@ -4,14 +4,14 @@ div.login_box
         ul.ui_ul_input
             li.login_name
                 label(for="email") 邮箱：
-                input#email.login_name_txt.form-control(type="text",name="email")
+                input#email.login_name_txt.form-control.inlineblock(type="text",name="email")
             li.login_pass
                 label(for="password") 密码：
-                input#password.login_pass_txt.form-control(type="password",name="password")
-                a(href="/forgetpass",target="_blank",style="margin-left:1em;") 忘了？
+                input#password.login_pass_txt.form-control.inlineblock(type="password",name="password")
+                a.forgetpw(href="/forgetpass",target="_blank") 忘了？
             li.login_code
                 label(for="codeIMG") 验证码：
-                input#codeIMG.login_codeIMG_txt.form-control(type="text",name="codeIMG")
+                input#codeIMG.login_codeIMG_txt.form-control.inlineblock(type="text",name="codeIMG")
                 img#loginCodeUrl.CodeUrl(src="/code/textjpg",alt="",title="点击获取验证码")
                 div.msg_txt
         .login_msg 出错信息

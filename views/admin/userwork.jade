@@ -10,11 +10,12 @@ block content
                         ul.ui_ul_input.work_list
                             li.work_time
                                 label.workTime_t 工作时间：
-                                input#fworkTime.workTime.form-control.inlineblock(type="text",name="fworkTime")
+                                input#fworkTime.workTime.form-control.inlineblock(type="date",name="fworkTime")
                                 |_&nbsp;&nbsp;
-                                input#tworkTime.workTime.form-control.inlineblock(type="text",name="tworkTime")
-                                input.currentWorkTime(style="vertical-align:middle;margin-top:0;width:auto;",type='checkbox')
-                                span(style="vertical-align:middle;") 至今
+                                input#tworkTime.workTime.form-control.inlineblock(type="date",name="tworkTime")
+                                span(style="display:inline-block;")
+                                    input.currentWorkTime(style="vertical-align:middle;margin-top:0;width:auto;",type='checkbox')
+                                    span(style="vertical-align:middle;") 至今
                             li.work_company
                                 label.workCompany_t 工作单位：
                                 input#workCompany.workCompany_m.form-control.inlineblock(type="text",name="workCompany")

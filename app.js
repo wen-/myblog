@@ -64,7 +64,7 @@ app.use('/upload/blog',multer({
 app.use('/users/headico',multer({
     dest: './public/uploads/headico',
     limits: {
-        fileSize: 1000000 //2M
+        fileSize: 2000000 //2M
     },
     onFileUploadStart: function (file) {
         var allowSuffix = "jpg,bmp,gif,png,jpeg";
@@ -101,7 +101,7 @@ app.use(session({
     }),
     cookie:{
         //secure: true//加密，将导致每个请都生成一个新的session,在做验证码是不适用
-        maxAge:1800000
+        maxAge:24*60*60*1000
         //等同于上面,expires:new Date(Date.now() + 1800000)
     }
 }));
