@@ -17,6 +17,7 @@ var code = require('./routes/code');
 var upload = require('./routes/upload');
 var conf = require('./routes/conf');
 var im = require('./routes/im');
+var excel_test = require('./routes/excel_test');
 
 //后台发请求测试
 //var http = require('http');
@@ -112,6 +113,7 @@ app.use('/code', code);
 app.use('/upload', upload);
 app.use('/conf', conf);
 app.use('/im', im);
+app.use('/excel', excel_test);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -291,11 +291,11 @@ router.post('/reg', function(req, res) {
             };
             req.session.save();
 
-            var activationURL = "http://" + req.headers.host + "/reg/activation?uuid="+req.sessionID+"&current="+time;
+            var activationURL = "http://" + req.headers.host + "/reg/activation?uuid="+req.sessionID+"&amp;current="+time;
             console.log(activationURL);
 
             var mailOptions = {
-                from: "182820011@qq.com", // sender address
+                from: "yellowwen@126.com", // sender address
                 to: email, // list of receivers
                 subject: "新用户注册", // Subject line
                 text: "新用户注册标题", // plaintext body

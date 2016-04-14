@@ -17,12 +17,12 @@ module.exports = sendmail;
 sendmail.prototype.send = function(callback) {
 // create reusable transport method (opens pool of SMTP connections)
     var smtpTransport = nodemailer.createTransport({
-        host:"smtp.qq.com",
+        host:"smtp.126.com",
         secureConnection: true, // 使用 SSL
-        port: 587, // SMTP 端口465/587
+        port: 25, // SMTP 端口465/587
         auth: {
-            user: "182820011@qq.com",
-            pass: "yellowwen"
+            user: "yellowwen@126.com",
+            pass: "123456789q"
         }
     });
 // setup e-mail data with unicode symbols
