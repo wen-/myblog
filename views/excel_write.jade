@@ -1,0 +1,12 @@
+extends layout
+block content
+    div.excel_test
+        h1 #{key}
+        div
+            !{xlsxVal}
+        br
+        br
+        a(href='/excel/write/get') 生成excel表格
+        br
+        br
+        a(href='/excel/write/get?xlsx=1') 生成excel表格(XLSX)

@@ -27,6 +27,7 @@
     "socket.io-emitter":"1.0.0",
     "qr-image":"~3.1.0",
     "html2jade":"0.8.4",
-    "exceljs":"0.2.6"
+    "exceljs":"0.2.7",
+    "xlsx":"0.8.0"
   }
 }
