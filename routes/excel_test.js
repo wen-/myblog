@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var Excel = require('exceljs');//只支持xlsx
-var XLSX = require('xlsx');//只支持xlsx及xls
+var XLSX = require('xlsx');//支持读xlsx及xls，写xlsx
 
 
 router.get('/read', function(req, res) {
