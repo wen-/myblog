@@ -28,6 +28,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.set('codelength',1);
+app.set('jsonp callback name', 'callback');
 
 app.use(compression());//启用压缩
 

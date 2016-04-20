@@ -7,6 +7,14 @@ var crypto = require('crypto'),
     sort = require('../models/sort.js'),
     sendmail = require('../models/sendMail.js');
 
+//ajax测试
+router.get('/ajax/json',function(req,res){
+    //jsonp的回调名称默认为callback,可在app.js中设置
+    res.jsonp({
+        "key":"123456789"
+    });
+});
+
 //test数据库表名测试
 router.get('/test',function(req,res){
     var t = new test({'name':"Aest"});
