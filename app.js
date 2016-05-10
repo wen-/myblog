@@ -102,7 +102,7 @@ app.use(session({
         ,pass: settings.pass
     }),
     cookie:{
-        //secure: true//加密，将导致每个请都生成一个新的session,在做验证码是不适用
+        //secure: true//加密，将导致每个请都生成一个新的session,在做验证码是不适用,支持https
         maxAge:24*60*60*1000
         //等同于上面,expires:new Date(Date.now() + 1800000)
     }

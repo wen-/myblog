@@ -83,6 +83,7 @@ router.get('/', function(req, res) {
                 error: req.flash('error').toString()
             })
         }else{
+            //res.cookie('name', 123, {maxAge:600000, httpOnly:true, path:'/'});//写入cookie测试
             res.render('index', {
                 _t:'0',
                 title:"时间去哪了",
