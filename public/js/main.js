@@ -853,13 +853,13 @@ $(function(){
     if($("#clipHead")&&$("#clipHead").length){
         var imgsrc = $("#clipHead").attr("src");
         var headico = new Image();
-        headico.src = imgsrc;
         headico.onload = function(){
             clipPIC();
         };
         headico.onerror = function(){
             clipPIC();
         };
+        headico.src = imgsrc;
     }
     function clipPIC(){
         $("#clipHead").Jcrop({
