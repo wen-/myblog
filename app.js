@@ -30,6 +30,16 @@ app.set('view engine', 'jade');
 app.set('codelength',1);
 app.set('jsonp callback name', 'callback');
 
+//跨域访问
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    //res.header("X-Powered-By",' 3.2.1');
+    //res.header("Content-Type", "application/json;charset=utf-8");
+    next();
+});
+
 app.use(compression());//启用压缩
 
 // uncomment after placing your favicon in /public
@@ -43,7 +53,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/upload/blog',multer({
     dest: './public/uploads/blog',
     limits: {
-        fileSize: 500000 //500k
+        fileSize: 5000000 //500k
     },
     onFileUploadStart: function (file) {
         var allowSuffix = "jpg,bmp,gif,png,jpeg";
