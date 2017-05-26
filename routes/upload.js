@@ -18,7 +18,7 @@ router.post('/blog', function(req, res) {
                     return;
                 }
                 var _url = n.path.replace(/^public/,'');
-                _url = _url.replace(/\\/g,'/');
+                _url = "http://"+ req.headers.host + _url.replace(/\\/g,'/');
                 urllist.push(_url);
                 titlelist.push(n.name);
                 originallist.push(n.originalname);
@@ -26,7 +26,7 @@ router.post('/blog', function(req, res) {
         }else{
             if(!upfiles.truncated){
                 var _url = upfiles.path.replace(/^public/,'');
-                _url = _url.replace(/\\/g,'/');
+                _url = "http://"+ req.headers.host + _url.replace(/\\/g,'/');
                 urllist.push(_url);
                 titlelist.push(upfiles.name);
                 originallist.push(upfiles.originalname);
@@ -49,7 +49,7 @@ router.post('/blog', function(req, res) {
         } else {
             //如果不是ajax上传，返回字符串，返回JSON时会提示下载文件
             res.set('Content-Type', 'text/html');
-            res.send('{"state":"SUCCESS","url":"'+ _url +'","title":"'+ upfiles.name +'","original":"'+ upfiles.originalname +'"}');
+            res.send('{"state":"SUCCESS","url":"http://'+ req.headers.host+_url +'","title":"'+ upfiles.name +'","original":"'+ upfiles.originalname +'"}');
         }
     }else{
         if (req.xhr) {

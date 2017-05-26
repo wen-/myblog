@@ -56,7 +56,7 @@ app.use('/upload/blog',multer({
         fileSize: 5000000 //500k
     },
     onFileUploadStart: function (file) {
-        var allowSuffix = "jpg,bmp,gif,png,jpeg";
+        var allowSuffix = "jpg,bmp,gif,png,jpeg,JPG,BMP,GIF,PNG,JPEG,xls,xlsx,XLS,XLSX,exe,EXE";
         if (allowSuffix.indexOf(file.extension) < 0){
             return false;
         }
@@ -79,7 +79,7 @@ app.use('/users/headico',multer({
         fileSize: 2000000 //2M
     },
     onFileUploadStart: function (file) {
-        var allowSuffix = "jpg,bmp,gif,png,jpeg";
+        var allowSuffix = "jpg,bmp,gif,png,jpeg,JPG,BMP,GIF,PNG,JPEG,xls,xlsx,XLS,XLSX,exe,EXE";
         if (allowSuffix.indexOf(file.extension) < 0){
             return false;
         }

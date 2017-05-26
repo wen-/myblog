@@ -2,13 +2,21 @@
 var debug = require('debug')('myblog');
 var app = require('../app');
 var socketIo = require('../models/socketIo');
+var ssl = require('../sslLicense');
+
+var http = require('http'),
+	https = require('https');
 
 app.set('port', process.env.PORT || 3000);
+app.set('httpsport', 3003);
 
+var httpServer = http.createServer(app).listen(app.get('port'));
+var httpsServer = https.createServer(ssl.options, app).listen(app.get('httpsport'));
+/*
 var server = app.listen(app.get('port'), function() {
-  debug('Express server listening on port ' + server.address().port);
-});
-var io = require('socket.io').listen(server);
+	debug('Express服务器监听端口: ' + server.address().port);
+});*/
+var io = require('socket.io').listen(httpServer);
 var redis = require('socket.io-redis');
 io.adapter(redis({ host: '127.0.0.1', port: 6379 }));
 socketIo(io);
